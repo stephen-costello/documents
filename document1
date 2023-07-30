@@ -57,19 +57,7 @@ Non-functional Requirements:
 4.1. Security:
 The API should be designed to handle potential security concerns, including input validation, data sanitization, and proper handling of both JWT token and "FIDREP" header for authentication to prevent unauthorized access.
 4.2. Performance:
-
-4.2. Performance:
-The API will undergo comprehensive performance testing to ensure optimal responsiveness and scalability under various load conditions. Performance testing will be conducted using two tools: MOX and Chaos-buffet.
-
-4.2.1. MOX Performance Testing:
-MOX is a performance testing tool that will be utilized to simulate a high volume of concurrent requests to the API. The tool will measure response times, throughput, and resource utilization to identify potential bottlenecks and performance limitations. Test scenarios will be designed to mimic real-world usage patterns, and the API's behavior will be analyzed to ensure it meets the specified performance requirements.
-
-4.2.2. Chaos-buffet Stress Testing:
-Chaos-buffet is a stress testing tool that will be employed to assess the API's stability and resilience under extreme load and stress conditions. The tool will simulate unexpected spikes in traffic and various adverse scenarios to evaluate the API's ability to handle such situations gracefully. This stress testing will help identify any vulnerabilities or weaknesses in the system and enable us to implement appropriate measures to enhance its robustness.
-
-The performance testing will help ensure that the API can handle a large number of concurrent users without compromising response times or system stability. By identifying and addressing potential performance bottlenecks early in the development process, we aim to deliver a highly performant and reliable API that meets or exceeds the performance expectations of our users.
-
-Note: Performance testing will be conducted iteratively throughout the development process to continuously fine-tune and optimize the API's performance. The final performance metrics and improvements will be documented in the project's final performance analysis report.
+The API should be optimized for performance to handle a reasonable number of concurrent requests without significant delays. The database queries should be efficiently designed to ensure quick responses.
 
 4.3. Scalability:
 The API should be designed in a way that allows for easy scalability to accommodate future growth in the number of users and data volume. The database should be scalable to handle increased data storage requirements.
@@ -96,12 +84,8 @@ Unit tests will be developed to verify the functionality of individual component
 6.2. End-to-End Testing with Karate Framework:
 End-to-end testing will be performed using the Karate testing framework, which supports testing RESTful APIs. This will involve simulating real-world scenarios and verifying the API behavior as a whole, including interactions with the PostgreSQL database and proper handling of JWT token and "FIDREP" header authentication.
 
-Project Timeline:
-The estimated project timeline for implementing the API, setting up the PostgreSQL database, implementing JWT token and "FIDREP" header authentication, writing unit tests, conducting end-to-end testing with Karate framework, and performing overall testing is [Provide an estimated timeline].
-
-API Documentation with Swagger:
-The API documentation will be available using Swagger and can be accessed at the following URL: http://swaggerhubmyservice.com.
-
+Project Tracking in Jira:
+Project progress and tracking will be managed using Jira, and the project's Jira link is http://jira44.com. Jira will be used to create tasks, assign them to team members, track development progress, and manage project milestones and deadlines.
 Note: The above scope document serves as a starting point for the project and may be subject to further refinement based on discussions and specific project requirements.
 
 
