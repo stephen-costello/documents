@@ -1,16 +1,21 @@
-Scope Document: Building a GET Request for JSON Response from PostgreSQL Database with JWT Token and FIDREP Headers
+
+ChatGPT
+Scope Document: Building a GET and POST Request for JSON Response from PostgreSQL Database with JWT Token and FIDREP Headers
 
 Project Overview:
-The objective of this project is to develop a GET request API endpoint that retrieves name and address information from a PostgreSQL database and returns the data in JSON format. To ensure security, the API will require two headers to be passed in the GET request - a JWT (JSON Web Token) authentication token as the "Authorization" header and a custom header "FIDREP" for additional authentication purposes. The API should also handle various response codes to ensure robustness and reliability.
+The objective of this project is to develop an API with both GET and POST request endpoints. The API will allow users to retrieve name and address information from a PostgreSQL database using a GET request. Additionally, users can create a new entry with name and address information in the database using a POST request. To ensure security, the API will require two headers to be passed in the requests - a JWT (JSON Web Token) authentication token as the "Authorization" header and a custom header "FIDREP" for additional authentication purposes. The API should also handle various response codes to ensure robustness and reliability. Furthermore, the API will support filtering the data based on a time range of either 2 days or 7 days in the GET request endpoint.
 
 Functional Requirements:
 The API should provide the following functionalities:
 
-2.1. Endpoint:
-The API should have a single endpoint that accepts HTTP GET requests.
+2.1. GET Endpoint:
+The API should have a GET endpoint that accepts HTTP GET requests.
 
-2.2. Request Headers:
-The API should require two headers in the GET request for authentication:
+2.2. POST Endpoint:
+The API should have a POST endpoint that accepts HTTP POST requests.
+
+2.3. Request Headers:
+The API should require two headers in the requests for authentication:
 
 "Authorization": To pass the JWT token for authentication.
 "FIDREP": To provide additional authentication data.
@@ -20,12 +25,23 @@ makefile
 Copy code
 Authorization: Bearer <JWT Token>
 FIDREP: <Some_Value>
-2.3. Response Format:
-The API should retrieve the name and address information from the PostgreSQL database and return a JSON response containing the following information:
+2.4. Request Parameters for GET:
+The API should accept an optional query parameter for filtering the data based on a time range of either 2 days or 7 days.
 
-Name: The name of the individual or organization.
-Address: The postal address associated with the name.
-Example JSON Response:
+Example Request URL for 2-day filter:
+
+bash
+Copy code
+GET /api/data?days=2
+Example Request URL for 7-day filter:
+
+bash
+Copy code
+GET /api/data?days=7
+2.5. Request Body for POST:
+The API should accept a JSON request body for creating a new entry with name and address information in the database.
+
+Example POST Request Body:
 
 json
 Copy code
@@ -33,26 +49,44 @@ Copy code
   "name": "John Doe",
   "address": "123 Main Street, Cityville, State, Country"
 }
+2.6. Response Format:
+The API should retrieve the name and address information from the PostgreSQL database based on the specified time range in the GET request and return a JSON response containing the following information:
+
+Name: The name of the individual or organization.
+Address: The postal address associated with the name.
+Example JSON Response for GET:
+
+json
+Copy code
+{
+  "name": "John Doe",
+  "address": "123 Main Street, Cityville, State, Country"
+}
+For the POST request, the API should return a JSON response confirming the successful creation of the new entry.
+
+Example JSON Response for POST:
+
+json
+Copy code
+{
+  "message": "New entry created successfully."
+}
 Response Codes:
 The API should handle the following response codes:
-3.1. 200 OK:
-If the request is successful, and the name and address information are available in the PostgreSQL database, and the JWT token is valid along with the correct "FIDREP" header value, the API should return a 200 OK response code along with the JSON response.
+3.1. GET Request Response Codes:
 
-3.2. 204 No Content:
-If the request is successful, but no name and address information are found in the PostgreSQL database (empty response), and the JWT token is valid along with the correct "FIDREP" header value, the API should return a 204 No Content response code. The JSON response in this case will be empty.
+200 OK: If the request is successful, and the name and address information are available in the PostgreSQL database, and the JWT token is valid along with the correct "FIDREP" header value, the API should return a 200 OK response code along with the JSON response.
+204 No Content: If the request is successful, but no name and address information are found in the PostgreSQL database (empty response), and the JWT token is valid along with the correct "FIDREP" header value, the API should return a 204 No Content response code. The JSON response in this case will be empty.
+400 Bad Request: If the request is malformed, contains invalid parameters, the JWT token is missing or invalid, the "FIDREP" header value is incorrect, or the specified time range is invalid, the API should return a 400 Bad Request response code.
+401 Unauthorized: If the provided JWT token is not valid or has expired, or the "FIDREP" header value is incorrect, the API should return a 401 Unauthorized response code.
+404 Not Found: If the requested resource (name and address information) is not found in the PostgreSQL database, and the JWT token is valid along with the correct "FIDREP" header value, the API should return a 404 Not Found response code.
+500 Internal Server Error: If an unexpected error occurs while querying the PostgreSQL database or validating the JWT token, the API should return a 500 Internal Server Error response code.
+3.2. POST Request Response Codes:
 
-3.3. 400 Bad Request:
-If the request is malformed, contains invalid parameters, the JWT token is missing or invalid, or the "FIDREP" header value is incorrect, the API should return a 400 Bad Request response code.
-
-3.4. 401 Unauthorized:
-If the provided JWT token is not valid or has expired, or the "FIDREP" header value is incorrect, the API should return a 401 Unauthorized response code.
-
-3.5. 404 Not Found:
-If the requested resource (name and address information) is not found in the PostgreSQL database, and the JWT token is valid along with the correct "FIDREP" header value, the API should return a 404 Not Found response code.
-
-3.6. 500 Internal Server Error:
-If an unexpected error occurs while querying the PostgreSQL database or validating the JWT token, the API should return a 500 Internal Server Error response code.
-
+201 Created: If the POST request to create a new entry is successful, and the JWT token is valid along with the correct "FIDREP" header value, the API should return a 201 Created response code along with the JSON response confirming the successful creation of the new entry.
+400 Bad Request: If the POST request is malformed or contains invalid parameters, the JWT token is missing or invalid, or the "FIDREP" header value is incorrect, the API should return a 400 Bad Request response code.
+401 Unauthorized: If the provided JWT token is not valid or has expired, or the "FIDREP" header value is incorrect, the API should return a 401 Unauthorized response code.
+500 Internal Server Error: If an unexpected error occurs while processing the POST request, the API should return a 500 Internal Server Error response code.
 Non-functional Requirements:
 4.1. Security:
 The API should be designed to handle potential security concerns, including input validation, data sanitization, and proper handling of both JWT token and "FIDREP" header for authentication to prevent unauthorized access.
@@ -82,12 +116,4 @@ Comprehensive testing will be conducted to ensure the correctness and reliabilit
 Unit tests will be developed to verify the functionality of individual components and functions within the API. Mocking will be used to isolate dependencies such as database interactions.
 
 6.2. End-to-End Testing with Karate Framework:
-End-to-end testing will be performed using the Karate testing framework, which supports testing RESTful APIs. This will involve simulating real-world scenarios and verifying the API behavior as a whole, including interactions with the PostgreSQL database and proper handling of JWT token and "FIDREP" header authentication.
-
-Project Tracking in Jira:
-Project progress and tracking will be managed using Jira, and the project's Jira link is http://jira44.com. Jira will be used to create tasks, assign them to team members, track development progress, and manage project milestones and deadlines.
-Note: The above scope document serves as a starting point for the project and may be subject to further refinement based on discussions and specific project requirements.
-
-
-
-
+End-to-end testing will be performed
