@@ -107,3 +107,94 @@ Scenario: GET Request with Resource Not Found
   When a GET request is sent to the API endpoint
   Then the response code should be 404
 These are the BDD test scenarios for the API, described using Gherkin language. The corresponding step definitions and automation code will be written to implement these scenarios using Cucumber and the preferred programming language (e.g., Java, JavaScript) for the test automation framework. The BDD tests will ensure that the API behaves as expected and adheres to the specified requirements throughout its development and future enhancements.
+
+Scenario: Successful POST Request with Valid JWT Token and FIDREP Header
+
+gherkin
+Copy code
+Feature: API Endpoint Authorization with JWT Token and FIDREP Header
+
+Scenario: Successful POST Request with Valid JWT Token and FIDREP Header
+  Given a valid JWT token is generated for a user
+  And a valid FIDREP header value is set
+  When a POST request is sent to the API endpoint with valid name and address data
+  Then the response code should be 201
+  And the JSON response should contain the message "New entry created successfully."
+Scenario: POST Request with Missing JWT Token
+
+gherkin
+Copy code
+Feature: API Endpoint Authorization with JWT Token and FIDREP Header
+
+Scenario: POST Request with Missing JWT Token
+  Given a request is made without a JWT token
+  And a valid FIDREP header value is set
+  When a POST request is sent to the API endpoint with valid name and address data
+  Then the response code should be 400
+Scenario: POST Request with Invalid JWT Token
+
+gherkin
+Copy code
+Feature: API Endpoint Authorization with JWT Token and FIDREP Header
+
+Scenario: POST Request with Invalid JWT Token
+  Given a request is made with an invalid JWT token
+  And a valid FIDREP header value is set
+  When a POST request is sent to the API endpoint with valid name and address data
+  Then the response code should be 401
+Scenario: POST Request with Expired JWT Token
+
+gherkin
+Copy code
+Feature: API Endpoint Authorization with JWT Token and FIDREP Header
+
+Scenario: POST Request with Expired JWT Token
+  Given a request is made with an expired JWT token
+  And a valid FIDREP header value is set
+  When a POST request is sent to the API endpoint with valid name and address data
+  Then the response code should be 401
+Scenario: POST Request with Invalid FIDREP Header
+
+gherkin
+Copy code
+Feature: API Endpoint Authorization with JWT Token and FIDREP Header
+
+Scenario: POST Request with Invalid FIDREP Header
+  Given a valid JWT token is generated for a user
+  And an invalid FIDREP header value is set
+  When a POST request is sent to the API endpoint with valid name and address data
+  Then the response code should be 400
+Scenario: POST Request with Unauthorized FIDREP Header
+
+gherkin
+Copy code
+Feature: API Endpoint Authorization with JWT Token and FIDREP Header
+
+Scenario: POST Request with Unauthorized FIDREP Header
+  Given a valid JWT token is generated for a user
+  And an unauthorized FIDREP header value is set
+  When a POST request is sent to the API endpoint with valid name and address data
+  Then the response code should be 401
+Scenario: POST Request with Missing Name or Address Data
+
+gherkin
+Copy code
+Feature: API Endpoint Authorization with JWT Token and FIDREP Header
+
+Scenario: POST Request with Missing Name or Address Data
+  Given a valid JWT token is generated for a user
+  And a valid FIDREP header value is set
+  When a POST request is sent to the API endpoint with missing name or address data
+  Then the response code should be 400
+Scenario: POST Request with Database Error
+
+gherkin
+Copy code
+Feature: API Endpoint Authorization with JWT Token and FIDREP Header
+
+Scenario: POST Request with Database Error
+  Given a valid JWT token is generated for a user
+  And a valid FIDREP header value is set
+  And the database encounters an error while processing the POST request
+  When a POST request is sent to the API endpoint with valid name and address data
+  Then the response code should be 500 
