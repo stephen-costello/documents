@@ -1,7 +1,7 @@
-Scope Document: Building a GET Request for JSON Response
+Scope Document: Building a GET Request for JSON Response from PostgreSQL Database with JWT Token and FIDREP Headers
 
 Project Overview:
-The objective of this project is to develop a GET request API endpoint that will return a JSON response containing name and address information. The API should be designed to handle various response codes to ensure robustness and reliability.
+The objective of this project is to develop a GET request API endpoint that retrieves name and address information from a PostgreSQL database and returns the data in JSON format. To ensure security, the API will require two headers to be passed in the GET request - a JWT (JSON Web Token) authentication token as the "Authorization" header and a custom header "FIDREP" for additional authentication purposes. The API should also handle various response codes to ensure robustness and reliability.
 
 Functional Requirements:
 The API should provide the following functionalities:
@@ -9,11 +9,19 @@ The API should provide the following functionalities:
 2.1. Endpoint:
 The API should have a single endpoint that accepts HTTP GET requests.
 
-2.2. Request Parameters:
-No request parameters are required for this API; it will be a simple GET request without any query parameters.
+2.2. Request Headers:
+The API should require two headers in the GET request for authentication:
 
+"Authorization": To pass the JWT token for authentication.
+"FIDREP": To provide additional authentication data.
+Example Request Headers:
+
+makefile
+Copy code
+Authorization: Bearer <JWT Token>
+FIDREP: <Some_Value>
 2.3. Response Format:
-The API should return a JSON response containing the following information:
+The API should retrieve the name and address information from the PostgreSQL database and return a JSON response containing the following information:
 
 Name: The name of the individual or organization.
 Address: The postal address associated with the name.
@@ -28,45 +36,74 @@ Copy code
 Response Codes:
 The API should handle the following response codes:
 3.1. 200 OK:
-If the request is successful, and the name and address information are available, the API should return a 200 OK response code along with the JSON response.
+If the request is successful, and the name and address information are available in the PostgreSQL database, and the JWT token is valid along with the correct "FIDREP" header value, the API should return a 200 OK response code along with the JSON response.
 
 3.2. 204 No Content:
-If the request is successful, but no name and address information are available (empty response), the API should return a 204 No Content response code. The JSON response in this case will be empty.
+If the request is successful, but no name and address information are found in the PostgreSQL database (empty response), and the JWT token is valid along with the correct "FIDREP" header value, the API should return a 204 No Content response code. The JSON response in this case will be empty.
 
 3.3. 400 Bad Request:
-If the request is malformed or contains invalid parameters, the API should return a 400 Bad Request response code.
+If the request is malformed, contains invalid parameters, the JWT token is missing or invalid, or the "FIDREP" header value is incorrect, the API should return a 400 Bad Request response code.
 
-3.4. 404 Not Found:
-If the requested resource (name and address information) is not found, the API should return a 404 Not Found response code.
+3.4. 401 Unauthorized:
+If the provided JWT token is not valid or has expired, or the "FIDREP" header value is incorrect, the API should return a 401 Unauthorized response code.
 
-3.5. 500 Internal Server Error:
-If an unexpected error occurs on the server-side, the API should return a 500 Internal Server Error response code.
+3.5. 404 Not Found:
+If the requested resource (name and address information) is not found in the PostgreSQL database, and the JWT token is valid along with the correct "FIDREP" header value, the API should return a 404 Not Found response code.
+
+3.6. 500 Internal Server Error:
+If an unexpected error occurs while querying the PostgreSQL database or validating the JWT token, the API should return a 500 Internal Server Error response code.
 
 Non-functional Requirements:
 4.1. Security:
-The API should be designed to handle potential security concerns, such as input validation and data sanitization, to prevent any malicious activities.
+The API should be designed to handle potential security concerns, including input validation, data sanitization, and proper handling of both JWT token and "FIDREP" header for authentication to prevent unauthorized access.
 4.2. Performance:
-The API should be optimized for performance to handle a reasonable number of concurrent requests without significant delays.
+
+4.2. Performance:
+The API will undergo comprehensive performance testing to ensure optimal responsiveness and scalability under various load conditions. Performance testing will be conducted using two tools: MOX and Chaos-buffet.
+
+4.2.1. MOX Performance Testing:
+MOX is a performance testing tool that will be utilized to simulate a high volume of concurrent requests to the API. The tool will measure response times, throughput, and resource utilization to identify potential bottlenecks and performance limitations. Test scenarios will be designed to mimic real-world usage patterns, and the API's behavior will be analyzed to ensure it meets the specified performance requirements.
+
+4.2.2. Chaos-buffet Stress Testing:
+Chaos-buffet is a stress testing tool that will be employed to assess the API's stability and resilience under extreme load and stress conditions. The tool will simulate unexpected spikes in traffic and various adverse scenarios to evaluate the API's ability to handle such situations gracefully. This stress testing will help identify any vulnerabilities or weaknesses in the system and enable us to implement appropriate measures to enhance its robustness.
+
+The performance testing will help ensure that the API can handle a large number of concurrent users without compromising response times or system stability. By identifying and addressing potential performance bottlenecks early in the development process, we aim to deliver a highly performant and reliable API that meets or exceeds the performance expectations of our users.
+
+Note: Performance testing will be conducted iteratively throughout the development process to continuously fine-tune and optimize the API's performance. The final performance metrics and improvements will be documented in the project's final performance analysis report.
 
 4.3. Scalability:
-The API should be designed in a way that allows for easy scalability to accommodate future growth in the number of users and data volume.
+The API should be designed in a way that allows for easy scalability to accommodate future growth in the number of users and data volume. The database should be scalable to handle increased data storage requirements.
 
 4.4. Error Handling:
-Comprehensive error handling mechanisms should be implemented to provide meaningful error messages in the JSON response.
+Comprehensive error handling mechanisms should be implemented to provide meaningful error messages in the JSON response, especially when database-related errors occur or authentication fails.
 
 4.5. API Documentation:
-Clear and detailed API documentation should be provided to assist developers in understanding the API's capabilities and usage.
+Clear and detailed API documentation should be provided to assist developers in understanding the API's capabilities, usage, and the procedure to obtain and use the JWT token and "FIDREP" header for authentication.
 
 Technology Stack:
 The following technology stack is proposed for the implementation of the API:
 Programming Language: [Choose the preferred language, e.g., Python, Node.js, etc.]
 Web Framework: [Choose the preferred framework, e.g., Flask, Express, etc.]
 JSON Serialization/Deserialization Library: [Choose the preferred library, e.g., json module in Python]
-Deployment: [Choose the preferred platform, e.g., Docker, AWS, etc.]
+Database: PostgreSQL [version]
+Database Library/ORM: [Choose the preferred library, e.g., psycopg2 for Python]
+JWT Authentication Library: [Choose the preferred library, e.g., jsonwebtoken for Python/Node.js]
 Testing:
-Comprehensive unit testing and integration testing should be conducted to ensure the correctness and reliability of the API.
+Comprehensive testing will be conducted to ensure the correctness and reliability of the API.
+6.1. Unit Testing:
+Unit tests will be developed to verify the functionality of individual components and functions within the API. Mocking will be used to isolate dependencies such as database interactions.
+
+6.2. End-to-End Testing with Karate Framework:
+End-to-end testing will be performed using the Karate testing framework, which supports testing RESTful APIs. This will involve simulating real-world scenarios and verifying the API behavior as a whole, including interactions with the PostgreSQL database and proper handling of JWT token and "FIDREP" header authentication.
 
 Project Timeline:
-The estimated project timeline for implementing the API and performing testing is [Provide an estimated timeline].
+The estimated project timeline for implementing the API, setting up the PostgreSQL database, implementing JWT token and "FIDREP" header authentication, writing unit tests, conducting end-to-end testing with Karate framework, and performing overall testing is [Provide an estimated timeline].
+
+API Documentation with Swagger:
+The API documentation will be available using Swagger and can be accessed at the following URL: http://swaggerhubmyservice.com.
 
 Note: The above scope document serves as a starting point for the project and may be subject to further refinement based on discussions and specific project requirements.
+
+
+
+
