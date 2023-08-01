@@ -1,1 +1,20 @@
+Activities | Domain API | POST - RESPONSE CODE 200:
+Scenario: Valid POST request with all required headers
+Given the API endpoint is available
+When a POST request is sent with valid headers (accept, FID-LOG-TRACKING-ID, Authorisation, FID-WS-PRINIPAL-ROLE, FID-USER-ID-TYPE, FID-USER-ID, Content-type)
+Then the response code should be 200
+And the response data should be valid
 
+Activities | Domain API | POST - RESPONSE CODE 404:
+Scenario: Invalid endpoint for POST request
+Given the API endpoint is not available
+When a POST request is sent to a non-existent endpoint
+Then the response code should be 404
+And the response message should indicate "Not Found"
+
+Activities | Domain API | POST - RESPONSE CODE 401:
+Scenario: Unauthorized access due to invalid or missing authorization header
+Given the API endpoint is available
+When a POST request is sent without or with an invalid Authorisation header
+Then the response code should be 401
+And the response message should indicate "Unauthorized"
