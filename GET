@@ -89,3 +89,35 @@ When a GET request is sent without the "FID-LOG-SESSION-ID" header or with a bla
 Then the response code should be 200
 And the response data should be in JSON format
 And the response JSON should contain the following data points:
+
+Activities | Domain API | GET - Missing or Blank "Authorization" Header:
+Scenario: Verify API response when "Authorization" header is missing or blank
+Given the API endpoint is available
+When a GET request is sent without the "Authorization" header or with a blank "Authorization" header
+Then the response code should be 403
+And the response should contain a message indicating "JWT is missing"
+
+Activities | Domain API | GET - Missing or Blank "FID-PRINCIPAL-ROLE" Header:
+Scenario: Verify downstream API response when "FID-PRINCIPAL-ROLE" header is missing or blank
+Given the API endpoint is available
+And the API is connected to the downstream system
+When a GET request is sent without the "FID-PRINCIPAL-ROLE" header or with a blank "FID-PRINCIPAL-ROLE" header
+Then the downstream response code should be 400
+And the downstream response should contain an error message indicating "FID-PRINCIPAL-ROLE is missing or blank"
+
+Activities | Domain API | GET - Missing or Blank "FID-USER-TYPE" Header:
+Scenario: Verify downstream API response when "FID-USER-TYPE" header is missing or blank
+Given the API endpoint is available
+And the API is connected to the downstream system
+When a GET request is sent without the "FID-USER-TYPE" header or with a blank "FID-USER-TYPE" header
+Then the downstream response code should be 400
+And the downstream response should contain an error message indicating "FID-USER-TYPE is missing or blank"
+
+Activities | Domain API | GET - Validate JSON Response Data with PostgreSQL Database:
+Scenario: Verify data in the API's GET call JSON response matches the data in the PostgreSQL database
+Given the API endpoint is available
+And the API is connected to the PostgreSQL database
+When a GET request is sent with valid headers (accept, FID-LOG-TRACKING, Authorisation, FID-PRINCIPAL-ROLE, FID-USER-TYPE, FID-USER-ID, FID-LOG-SESSION)
+And the response data is received in JSON format
+Then fetch the corresponding data from the PostgreSQL database for the given request
+And the data points (userID, sessionTs, sessionDuration, wid, mid, employerId, employerName, planID) in the JSON response should match the data retrieved from the database for the same request.
