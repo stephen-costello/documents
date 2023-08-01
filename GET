@@ -1,1 +1,41 @@
+Activities | Domain API | GET - RESPONSE CODE 200:
+Scenario: Valid GET request with all required headers
+Given the API endpoint is available
+When a GET request is sent with valid headers (accept, FID-LOG-TRACKING, Authorisation, FID-PRINCIPAL-ROLE, FID-USER-TYPE, FID-USER-ID, FID-LOG-SESSION)
+Then the response code should be 200
+And the response data should be valid
+
+Activities | Domain API | GET - RESPONSE CODE 401:
+Scenario: Unauthorized access due to missing or invalid authorization header
+Given the API endpoint is available
+When a GET request is sent without or with an invalid Authorisation header
+Then the response code should be 401
+And the response message should indicate "Unauthorized"
+
+Activities | Domain API | GET - RESPONSE CODE 404:
+Scenario: Requested resource not found
+Given the API endpoint is available
+When a GET request is sent to a non-existent endpoint/resource
+Then the response code should be 404
+And the response message should indicate "Not Found"
+
+Activities | Domain API | GET - RESPONSE CODE 400:
+Scenario: Bad Request due to missing or invalid parameters
+Given the API endpoint is available
+When a GET request is sent with missing or invalid parameters
+Then the response code should be 400
+And the response message should indicate "Bad Request"
+
+Activities | Domain API | GET - RESPONSE CODE 403:
+Scenario: Forbidden access
+Given the API endpoint is available
+When a GET request is sent with valid headers, but the user is not allowed to access the resource
+Then the response code should be 403
+And the response message should indicate "Forbidden"
+
+These test cases cover various scenarios related to response codes 200, 401, 404, 400, and 403 for the API's GET request with specific headers. Remember to adapt these test cases based on the actual requirements and specifics of the API you are testing.
+
+
+
+
 
