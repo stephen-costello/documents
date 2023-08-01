@@ -137,3 +137,35 @@ And the API is ready to accept POST requests
 When a POST request is sent with a payload where the "planId" field is missing or blank
 Then the response code should be 200
 And the data should be successfully created
+
+Activities | Domain API | Splunk Logging Test:
+Scenario: Verify the presence of logged record in Splunk when "FID-LOG-TRACKING-ID" is populated with a value
+Given the API endpoint is available
+And the API is ready to accept requests
+And Splunk is set up for log monitoring
+When a request is sent with the "FID-LOG-TRACKING-ID" header populated with a unique value
+Then the API should respond with an appropriate status code (e.g., 200)
+And the response data should be valid
+
+And after a reasonable delay (to allow for logging and indexing in Splunk)
+When a search is performed in Splunk using the "FID-LOG-TRACKING-ID" value from the request header
+Then the logged record should be found in the Splunk search results
+And the logged record should contain relevant information from the API request, response, and other log details
+
+
+Activities | Domain API | POST - Data Stored in PostgreSQL Database:
+Scenario: Verify data is stored in PostgreSQL database after a successful POST request
+Given the API endpoint is available
+And the API is connected to the PostgreSQL database
+And the database is empty
+When a POST request is sent with valid data in the request body
+And the request headers are valid (e.g., accept, FID-LOG-TRACKING-ID, Authorization, FID-WS-PRINIPAL-ROLE, FID-USER-ID-TYPE, FID-USER-ID, Content-type)
+Then the response code should be 200
+And the response data should be valid
+
+And after a reasonable delay (to allow for data storage in the database)
+When a query is performed in the PostgreSQL database using relevant information from the API request (e.g., user ID, session ID, etc.)
+Then the data posted in the request should be found in the database
+And the retrieved data from the database should match the data posted in the request
+
+Note: In this test case, we are verifying that the data sent in the POST request is successfully stored in the PostgreSQL database after receiving a 200 response from the API. We perform a query in the database using relevant information from the API request (e.g., user ID, session ID, etc.) to ensure that the data is properly stored and retrievable.
