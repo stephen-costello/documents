@@ -121,3 +121,25 @@ When a GET request is sent with valid headers (accept, FID-LOG-TRACKING, Authori
 And the response data is received in JSON format
 Then fetch the corresponding data from the PostgreSQL database for the given request
 And the data points (userID, sessionTs, sessionDuration, wid, mid, employerId, employerName, planID) in the JSON response should match the data retrieved from the database for the same request.
+
+Activities | Domain API | GET - Filter Records for 2 or 7 Days:
+Scenario: Verify API response with filtered records for 2 or 7 days
+Given the API endpoint is available
+And the API is connected to the PostgreSQL database
+And the database contains records for the last 30 days
+When a GET request is sent with valid headers (accept, FID-LOG-TRACKING, Authorisation, FID-PRINCIPAL-ROLE, FID-USER-TYPE, FID-USER-ID, FID-LOG-SESSION)
+And the request includes a filter for records from 2 days ago
+Then the response data should be in JSON format
+And the JSON response should contain records matching the filter criteria for the last 2 days
+
+And when a GET request is sent with valid headers (accept, FID-LOG-TRACKING, Authorisation, FID-PRINCIPAL-ROLE, FID-USER-TYPE, FID-USER-ID, FID-LOG-SESSION)
+And the request includes a filter for records from 7 days ago
+Then the response data should be in JSON format
+And the JSON response should contain records matching the filter criteria for the last 7 days
+
+And when a GET request is sent with valid headers (accept, FID-LOG-TRACKING, Authorisation, FID-PRINCIPAL-ROLE, FID-USER-TYPE, FID-USER-ID, FID-LOG-SESSION)
+And the request includes a filter for records from 10 days ago
+Then the response data should be in JSON format
+And the JSON response should be an empty JSON object {}
+
+
