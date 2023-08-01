@@ -64,3 +64,76 @@ When a POST request is sent without the "FID-USER-ID-TYPE" header or with a blan
 And the request body contains valid data for data entry creation
 Then the downstream response code should be 400
 And the downstream response should contain an error message indicating "Invalid value" for "FID-USER-ID-TYPE" header
+
+Activities | Domain API | POST - Missing or Incorrect "Content-type" Header:
+Scenario: Verify API response when "Content-type" header is missing or incorrect during a POST request
+Given the API endpoint is available
+And the API is ready to accept POST requests
+When a POST request is sent without the "Content-type" header or with an incorrect "Content-type" header
+And the request body contains valid data for data entry creation
+Then the response code should be 500
+And the response message should indicate "system is unable to process your request"
+
+Activities | Domain API | POST - Missing or Blank "userId" in Payload:
+Scenario: Verify API response when "userId" is missing or blank from the payload during a POST request
+Given the API endpoint is available
+And the API is ready to accept POST requests
+When a POST request is sent with a payload where the "userId" field is missing or blank
+Then the response code should be 400
+And the response message should indicate "system is unable to process your request"
+
+Activities | Domain API | POST - Missing or Blank "sessionEndTs" in Payload:
+Scenario: Verify API response when "sessionEndTs" is missing or blank from the payload during a POST request
+Given the API endpoint is available
+And the API is ready to accept POST requests
+When a POST request is sent with a payload where the "sessionEndTs" field is missing or blank
+Then the response code should be 500
+And the response message should indicate "system is unable to process your request"
+
+Activities | Domain API | POST - Missing or Blank "sessionDuration" in Payload:
+Scenario: Verify API response when "sessionDuration" is missing or blank from the payload during a POST request
+Given the API endpoint is available
+And the API is ready to accept POST requests
+When a POST request is sent with a payload where the "sessionDuration" field is missing or blank
+Then the response code should be 400
+And the response message should indicate "system is unable to process your request"
+
+Activities | Domain API | POST - Missing or Blank "wid" in Payload:
+Scenario: Verify API response when "wid" is missing or blank from the payload during a POST request
+Given the API endpoint is available
+And the API is ready to accept POST requests
+When a POST request is sent with a payload where the "wid" field is missing or blank
+Then the response code should be 400
+And the response message should indicate "system is unable to process your request"
+
+Activities | Domain API | POST - Missing or Blank "mid" in Payload:
+Scenario: Verify API response when "mid" is missing or blank from the payload during a POST request
+Given the API endpoint is available
+And the API is ready to accept POST requests
+When a POST request is sent with a payload where the "mid" field is missing or blank
+Then the response code should be 200
+And the data should be successfully created
+
+Activities | Domain API | POST - Missing or Blank "employerID" in Payload:
+Scenario: Verify API response when "employerID" is missing or blank from the payload during a POST request
+Given the API endpoint is available
+And the API is ready to accept POST requests
+When a POST request is sent with a payload where the "employerID" field is missing or blank
+Then the response code should be 200
+And the data should be successfully created
+
+Activities | Domain API | POST - Missing or Blank "employerName" in Payload:
+Scenario: Verify API response when "employerName" is missing or blank from the payload during a POST request
+Given the API endpoint is available
+And the API is ready to accept POST requests
+When a POST request is sent with a payload where the "employerName" field is missing or blank
+Then the response code should be 200
+And the data should be successfully created
+
+Activities | Domain API | POST - Missing or Blank "planId" in Payload:
+Scenario: Verify API response when "planId" is missing or blank from the payload during a POST request
+Given the API endpoint is available
+And the API is ready to accept POST requests
+When a POST request is sent with a payload where the "planId" field is missing or blank
+Then the response code should be 200
+And the data should be successfully created
