@@ -35,7 +35,23 @@ And the response message should indicate "Forbidden"
 
 These test cases cover various scenarios related to response codes 200, 401, 404, 400, and 403 for the API's GET request with specific headers. Remember to adapt these test cases based on the actual requirements and specifics of the API you are testing.
 
+Activities | Domain API | GET - RESPONSE JSON FORMAT:
+Scenario: Verify data is returned in JSON format with specific data points and values
+Given the API endpoint is available
+And the API is connected to the PostgreSQL database
+When a GET request is sent with valid headers (accept, FID-LOG-TRACKING, Authorisation, FID-PRINCIPAL-ROLE, FID-USER-TYPE, FID-USER-ID, FID-LOG-SESSION)
+Then the response code should be 200
+And the response data should be in JSON format
+And the response JSON should contain the following data points and values:
 
-
+Data Point	Value
+userID	"value"
+sessionTs	"value"
+sessionDuration	"value"
+wid	"value"
+mid	"value"
+employerId	"value"
+employerName	"value"
+planID	"value"
 
 
