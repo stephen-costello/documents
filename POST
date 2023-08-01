@@ -18,3 +18,49 @@ Given the API endpoint is available
 When a POST request is sent without or with an invalid Authorisation header
 Then the response code should be 401
 And the response message should indicate "Unauthorized"
+
+Activities | Domain API | POST - Missing or Blank "accept" Header:
+Scenario: Verify API response when "accept" header is blank or missing during a POST request
+Given the API endpoint is available
+And the API is ready to accept POST requests
+When a POST request is sent without the "accept" header or with a blank "accept" header
+And the request body contains valid data for data entry creation
+Then the response code should be 200
+And a data entry should be successfully created
+
+Activities | Domain API | POST - Missing or Blank "FID-LOG-TRACKING" Header:
+Scenario: Verify API response when "FID-LOG-TRACKING" header is blank or missing during a POST request
+Given the API endpoint is available
+And the API is ready to accept POST requests
+When a POST request is sent without the "FID-LOG-TRACKING" header or with a blank "FID-LOG-TRACKING" header
+And the request body contains valid data for data entry creation
+Then the response code should be 200
+And a data entry should be successfully created
+
+Activities | Domain API | POST - Missing or Blank "FID-PRINCIPAL-ROLE" Header:
+Scenario: Verify API response when "FID-PRINCIPAL-ROLE" header is blank or missing during a POST request
+Given the API endpoint is available
+And the API is ready to accept POST requests
+When a POST request is sent without the "FID-PRINCIPAL-ROLE" header or with a blank "FID-PRINCIPAL-ROLE" header
+And the request body contains valid data for data entry creation
+Then the response code should be 200
+And a data entry should be successfully created
+
+Activities | Domain API | POST - Missing or Blank "Authorization" Header:
+Scenario: Verify API response when "Authorization" header is missing or blank during a POST request
+Given the API endpoint is available
+And the API is ready to accept POST requests
+When a POST request is sent without the "Authorization" header or with a blank "Authorization" header
+And the request body contains valid data for data entry creation
+Then the response code should be 401
+And the response message should indicate "JWT is missing"
+
+Activities | Domain API | POST - Missing or Blank "FID-USER-ID-TYPE" Header:
+Scenario: Verify downstream API response when "FID-USER-ID-TYPE" header is missing or blank during a POST request
+Given the API endpoint is available
+And the API is connected to the downstream system
+And the downstream system is ready to accept POST requests
+When a POST request is sent without the "FID-USER-ID-TYPE" header or with a blank "FID-USER-ID-TYPE" header
+And the request body contains valid data for data entry creation
+Then the downstream response code should be 400
+And the downstream response should contain an error message indicating "Invalid value" for "FID-USER-ID-TYPE" header
