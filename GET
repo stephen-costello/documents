@@ -54,4 +54,38 @@ employerId	"value"
 employerName	"value"
 planID	"value"
 
+Activities | Domain API | GET - Missing or Blank "accept" Header:
+Scenario: Verify API response when "accept" header is missing or blank
+Given the API endpoint is available
+And the API is connected to the PostgreSQL database
+When a GET request is sent without the "accept" header or with a blank "accept" header
+Then the response code should be 200
+And the response data should be in JSON format
+And the response JSON should contain the following data points:
 
+Activities | Domain API | GET - Missing or Blank "FID-LOG-TRACKING-ID" Header:
+Scenario: Verify API response when "FID-LOG-TRACKING-ID" header is missing or blank
+Given the API endpoint is available
+And the API is connected to the PostgreSQL database
+When a GET request is sent without the "FID-LOG-TRACKING-ID" header or with a blank "FID-LOG-TRACKING-ID" header
+Then the response code should be 200
+And the response data should be in JSON format
+And the response JSON should contain the following data points:
+
+Activities | Domain API | GET - Missing or Blank "FID-USER-ID" Header:
+Scenario: Verify API response when "FID-USER-ID" header is missing or blank
+Given the API endpoint is available
+And the API is connected to the PostgreSQL database
+When a GET request is sent without the "FID-USER-ID" header or with a blank "FID-USER-ID" header
+Then the response code should be 200
+And the response data should be in JSON format
+And the response JSON should contain the following data points:
+
+Activities | Domain API | GET - Missing or Blank "FID-LOG-SESSION-ID" Header:
+Scenario: Verify API response when "FID-LOG-SESSION-ID" header is missing or blank
+Given the API endpoint is available
+And the API is connected to the PostgreSQL database
+When a GET request is sent without the "FID-LOG-SESSION-ID" header or with a blank "FID-LOG-SESSION-ID" header
+Then the response code should be 200
+And the response data should be in JSON format
+And the response JSON should contain the following data points:
