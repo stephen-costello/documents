@@ -1,0 +1,52 @@
+Activities | Domain API | POST - FID-USER-HEADER Options:
+Scenario: Verify API response for different options of "FID-USER-HEADER" in a POST request
+Given the API endpoint is available
+And the API is ready to accept POST requests
+When a POST request is sent with valid data in the request body
+And the "FID-USER-HEADER" header is set to "FidUser"
+Then the response code should be 200
+And the response data should be valid
+
+Scenario: Verify API response for "Advisor" option of "FID-USER-HEADER" in a POST request
+Given the API endpoint is available
+And the API is ready to accept POST requests
+When a POST request is sent with valid data in the request body
+And the "FID-USER-HEADER" header is set to "Advisor"
+Then the response code should be 200
+And the response data should be valid
+
+Scenario: Verify API response for "FidRep" option of "FID-USER-HEADER" in a POST request
+Given the API endpoint is available
+And the API is ready to accept POST requests
+When a POST request is sent with valid data in the request body
+And the "FID-USER-HEADER" header is set to "FidRep"
+Then the response code should be 200
+And the response data should be valid
+
+Scenario: Verify API response for "BO" option of "FID-USER-HEADER" in a POST request
+Given the API endpoint is available
+And the API is ready to accept POST requests
+When a POST request is sent with valid data in the request body
+And the "FID-USER-HEADER" header is set to "BO"
+Then the response code should be 200
+And the response data should be valid
+
+Scenario: Verify API response for "FO" option of "FID-USER-HEADER" in a POST request
+Given the API endpoint is available
+And the API is ready to accept POST requests
+When a POST request is sent with valid data in the request body
+And the "FID-USER-HEADER" header is set to "FO"
+Then the response code should be 200
+And the response data should be valid
+
+Scenario: Verify API response for "FE" option of "FID-USER-HEADER" in a POST request
+Given the API endpoint is available
+And the API is ready to accept POST requests
+When a POST request is sent with valid data in the request body
+And the "FID-USER-HEADER" header is set to "FE"
+Then the response code should be 200
+And the response data should be valid
+
+Note: In these test cases, we are verifying that the API responds with a 200 status code for each of the five different options of the "FID-USER-HEADER" header. Please ensure that the request body contains the appropriate data for each test and that the response data is valid for further validation.
+
+Please adapt these test cases based on your API's requirements and specifications. Also, consider adding additional test cases to cover different scenarios related to the use of the "FID-USER-HEADER" header and possible edge cases for thorough testing.
