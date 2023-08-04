@@ -8,3 +8,9 @@ FID-USER-ID-TYPE
 FID-USER-ID
 FID-LOG-SESSION-ID
 
+https://api-slow-test.fmr.com/ws-ade-myactivity/v1/activities?days=7
+
+https://ademyactivity-acp-adedigitaleks-qa-east1.aws-nonprod.fmrclod/ws-ade-myactivity/monitoring/health
+
+
+
