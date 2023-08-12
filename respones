@@ -1,0 +1,9 @@
+{
+  "errors": [
+    {
+      "code": "F-WSDPAD-MYACT-000400",
+      "title": "Error - FID-LOG-TRACKING-ID 123456",
+      "detail": "details here"
+      }
+    ]
+  }
