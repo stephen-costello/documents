@@ -1,0 +1,65 @@
+Project Title: NewsLine - News Feed Tool Scope Document
+
+1. Introduction:
+NewsLine is a web-based news feed tool designed to provide users with access to daily news articles, as well as an archive of past articles. This tool aims to deliver a user-friendly experience by displaying current news, article summaries, and easy navigation to full articles and archives.
+
+2. Objectives:
+The primary objectives of the NewsLine tool are as follows:
+
+Display today's news in a user-friendly format.
+Provide a view of article descriptions, publication dates, brief summaries, and "Read More" links.
+Indicate whether articles have been read or not through green borders.
+Allow users to access full articles within the same screen (single page).
+Enable users to access archived articles using a date picker.
+Offer navigation to return to today's news from the archives.
+3. Features:
+
+3.1 Today's News Section:
+
+Display a header titled "Today's News" with the month, day, and year.
+Include a "View Archives" link for accessing past articles.
+3.2 Article Display:
+
+Each article in today's news will contain the following:
+A green, bolded article description.
+Day, date, and time of publication.
+A brief summary of the article.
+A "Read More" link to access the full article.
+Articles that have not been read will have a green border around the outside.
+3.3 Full Article View:
+
+When a user clicks the "Read More" link, the full article will open within the same screen (single page).
+A "Back" button will be provided for returning to the main news feed.
+3.4 Archive View:
+
+Clicking the "View Archives" link will open a date picker for selecting a specific date to view archived articles.
+Archived articles will be displayed with the same format as today's news.
+Articles that have not been read will have a green border around the outside.
+3.5 Navigation in Archives:
+
+While in the archives, users will have a "Back to Today" link for returning to the current day's news.
+4. Scope Limitations:
+
+NewsLine will focus solely on presenting news articles and their summaries, without providing interactive features for commenting or sharing.
+The tool will not generate or store its own content but will rely on external news sources or databases.
+5. Deliverables:
+The following deliverables are expected as a result of this project:
+
+Functional web-based NewsLine tool.
+User documentation for navigating and using the tool effectively.
+6. Timeline:
+The estimated timeline for the development and deployment of NewsLine will be determined based on project planning and resource allocation.
+
+7. Stakeholders:
+
+Project Sponsor: [Name]
+Project Manager: [Name]
+Users: Individuals accessing the NewsLine tool for news consumption.
+8. Approval:
+This scope document is subject to approval by the project sponsor and relevant stakeholders.
+
+9. Revision History:
+
+Version	Date	Description	Author
+1.0	[Date]	Initial Scope Document	[Your Name]
+This scope document outlines the objectives, features, and limitations of the NewsLine tool, which aims to provide a streamlined news feed experience with access to current and archived articles. Further project planning and development will proceed based on this document's approval.
