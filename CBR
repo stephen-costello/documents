@@ -57,3 +57,57 @@ This scope document is subject to approval by the project sponsor and relevant s
 Version	Date	Description	Author
 1.0	[Date]	Initial Scope Document	[Your Name]
 This scope document outlines the objectives, features, and limitations of the Call Back Request Tool. Further project planning and development will proceed based on this document's approval.
+
+##Testing 
+
+Certainly! Here are some Behavior-Driven Development (BDD) test scenarios for the Call Back Request Tool:
+
+Feature: Logging Call Back Requests
+
+Scenario 1: Phone representative logs a new call back request.
+
+Given the phone representative is on the Call Back Request Tool page.
+When they enter valid information for a new call back request (Request ID, Date, Time, Name, Client, Work ID, Reason).
+And they click the "Submit" button.
+Then the call back request should be successfully logged.
+And the request should appear in the list of call back requests.
+Scenario 2: Phone representative logs a call back request with missing information.
+
+Given the phone representative is on the Call Back Request Tool page.
+When they enter incomplete information for a new call back request (e.g., missing Date).
+And they click the "Submit" button.
+Then an error message should be displayed, indicating the missing information.
+And the call back request should not be logged.
+Feature: Filtering Call Back Requests
+
+Scenario 3: Phone representative filters call back requests for 'Today & Past Due.'
+
+Given there are call back requests with past due dates and today's date.
+When the phone representative selects the 'Today & Past Due' filter.
+Then only call back requests with past due dates and today's date should be displayed in the list.
+And other requests should be hidden.
+Scenario 4: Phone representative filters call back requests for 'Next 7 Days.'
+
+Given there are call back requests scheduled for the next 7 days.
+When the phone representative selects the 'Next 7 Days' filter.
+Then only call back requests scheduled for the next 7 days should be displayed in the list.
+And other requests should be hidden.
+Feature: Integration with CBR Tool
+
+Scenario 5: Phone representative clicks the CBR tool link.
+
+Given the phone representative is using the Call Back Request Tool.
+When they click the link to access the Call Back Request (CBR) tool.
+Then a new browser window/tab should open with the CBR tool.
+And they should have access to the CBR tool's functionality.
+Scenario 6: Phone representative logs a call back request and then accesses CBR tool via the link.
+
+Given the phone representative logs a new call back request.
+When they click the link to access the Call Back Request (CBR) tool.
+Then the new call back request should also be visible in the CBR tool.
+And any changes made to the request in one tool should be reflected in the other.
+These BDD test scenarios cover the key features and interactions of the Call Back Request Tool, ensuring that it meets the specified requirements and functions correctly.
+
+
+
+
