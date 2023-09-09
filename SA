@@ -1,0 +1,97 @@
+Project Title: Suggested Actions Application Scope Document
+
+1. Introduction:
+The Suggested Actions Application, integrated into the desktop application ADE (Application for Desktop Environment), is designed to provide intelligent recommendations and actions to users within the ADE environment. It consists of an Experience API and a front-end UI that aims to streamline user interactions and improve their overall experience.
+
+2. Objectives:
+The primary objectives of the Suggested Actions Application within ADE are as follows:
+
+Deliver context-aware recommendations and actions to users based on their ongoing tasks and activities.
+Provide a clear and user-friendly interface for users to view and interact with recommendations.
+Enhance user productivity by simplifying common tasks and providing helpful resources when needed.
+3. Features:
+
+3.1 Landing Page:
+
+Display a landing page with a "Recommendations" header.
+Depending on the recommendations status (0 or 1), the landing page will vary.
+3.2 Recommendations:
+
+If recommendations are 0:
+Display a header with "Recommendations 0" highlighted in grey.
+Display body text: "We don't have any recommendations for this participant right now. But you can choose from available actions."
+Provide a header for "Helpful Resources" in bold.
+Include links to:
+Associate Benefits Library (ABL)
+AgentBOT
+3.3 Recommendations:
+
+If recommendations are 1:
+Display a tile for password reset with an arrow.
+If the password reset tile is clicked:
+Navigate to a new page with a "Back" link.
+Display a bold header for "Password Reset."
+Include a subheader for "Instructions."
+Provide a link to "Search AgentBOT for Password Reset."
+To the right, display a header for "Tools."
+Display each of these tools with a tick box to the left:
+Xtrac's Tool
+Username & Password Reset
+Outbound Email Tool
+Customer Web View
+Customer Web View - Mobile
+NetBenefits Login Page
+Include a "Launch" button under the tools.
+Only tools with ticked checkboxes will be launched in new windows.
+4. Scope Limitations:
+
+The Suggested Actions Application will focus solely on providing recommendations, actions, and tools within the ADE environment.
+It will not access external data sources or perform actions outside of the ADE application.
+5. Deliverables:
+The following deliverables are expected as a result of this project:
+
+Functional Suggested Actions Application integrated into ADE.
+User documentation explaining how to interact with and customize suggested actions.
+
+
+## Testing 
+
+Feature: Landing Page Display
+
+Scenario 1: Display landing page with recommendations 0.
+
+Given the user opens the Suggested Actions Application in ADE.
+When the landing page is displayed.
+Then the page should have a "Recommendations 0" header highlighted in grey.
+And display the message: "We don't have any recommendations for this participant right now. But you can choose from available actions."
+And a "Helpful Resources" header should be present in bold.
+And links to "Associate Benefits Library (ABL)" and "AgentBOT" should be visible.
+Scenario 2: Display landing page with recommendations 1.
+
+Given the user opens the Suggested Actions Application in ADE.
+When the landing page is displayed with recommendations 1.
+Then a tile for password reset with an arrow should be visible.
+Feature: Password Reset Tile
+
+Scenario 3: Clicking the password reset tile opens a new page.
+
+Given the user is on the landing page with recommendations 1.
+When they click the password reset tile.
+Then they should be navigated to a new page.
+And a "Back" link should be visible.
+And there should be a bold header for "Password Reset."
+And a subheader for "Instructions" should be present.
+And a link to "Search AgentBOT for Password Reset" should be provided.
+Scenario 4: Password reset tools and launch button.
+
+Given the user is on the password reset page.
+When they scroll down.
+Then they should see a header for "Tools."
+And checkboxes with labels for each tool (Xtrac's Tool, Username & Password Reset, Outbound Email Tool, Customer Web View, Customer Web View - Mobile, NetBenefits Login Page) should be displayed.
+And there should be a "Launch" button under the tools.
+Scenario 5: Launching selected tools.
+
+Given the user is on the password reset page.
+When they check the checkboxes for selected tools (e.g., Xtrac's Tool and Username & Password Reset).
+And they click the "Launch" button.
+Then the selected tools should be launched in new windows.
