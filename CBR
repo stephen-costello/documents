@@ -1,0 +1,59 @@
+Project Title: Call Back Request Tool Scope Document
+
+1. Introduction:
+The Call Back Request Tool is a desktop application designed to streamline the process of logging and managing call back requests for phone representatives in a call center. This tool will enable phone representatives to efficiently record and track call back requests, improving customer service and organizational efficiency.
+
+2. Objectives:
+The primary objectives of the Call Back Request Tool are as follows:
+
+Enable phone representatives to log incoming call back requests.
+Provide filters for viewing call back requests categorized as 'Today & Past Due' and 'Next 7 Days.'
+Maintain a centralized database of call back requests with essential information.
+Facilitate easy access to the Call Back Request (CBR) tool through a link within the application.
+3. Features:
+
+3.1 Logging Call Back Requests:
+
+Allow phone representatives to enter the following information for each call back request:
+Request ID
+Date
+Time
+Name of the requester
+Client information
+Work ID
+Reason for the call back
+3.2 Filters:
+
+Provide two primary filters to help phone representatives organize call back requests:
+'Today & Past Due': Display call back requests for the current date and those that are past due.
+'Next 7 Days': Display call back requests scheduled for the next seven days.
+3.3 CBR Tool Integration:
+
+Include a link within the tool that, when clicked, opens the Call Back Request (CBR) tool in another browser window. This integration allows phone representatives to access and manage call back requests seamlessly.
+4. Scope Limitations:
+
+This tool will focus solely on logging and managing call back requests and will not include features unrelated to this purpose.
+The tool will not handle outbound call scheduling or other call center functionalities.
+5. Deliverables:
+The following deliverables are expected as a result of this project:
+
+Functional desktop application for logging and managing call back requests.
+User documentation for phone representatives.
+Integration of the CBR tool link.
+6. Timeline:
+The estimated timeline for the development and implementation of the Call Back Request Tool is to be determined, pending further project planning and resource allocation.
+
+7. Stakeholders:
+
+Project Sponsor: [Name]
+Project Manager: [Name]
+Phone Representatives: End users of the tool
+IT Team: Responsible for development and maintenance
+8. Approval:
+This scope document is subject to approval by the project sponsor and relevant stakeholders.
+
+9. Revision History:
+
+Version	Date	Description	Author
+1.0	[Date]	Initial Scope Document	[Your Name]
+This scope document outlines the objectives, features, and limitations of the Call Back Request Tool. Further project planning and development will proceed based on this document's approval.
