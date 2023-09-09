@@ -63,3 +63,59 @@ This scope document is subject to approval by the project sponsor and relevant s
 Version	Date	Description	Author
 1.0	[Date]	Initial Scope Document	[Your Name]
 This scope document outlines the objectives, features, and limitations of the NewsLine tool, which aims to provide a streamlined news feed experience with access to current and archived articles. Further project planning and development will proceed based on this document's approval.
+
+#Testing 
+
+Feature: Today's News Display
+
+Scenario 1: Display today's news with current date and "View Archives" link.
+
+Given the user opens the NewsLine application.
+When the user accesses the main page.
+Then they should see a header displaying today's date (month, day, year).
+And a "View Archives" link should be visible on the page.
+Scenario 2: Display articles in today's news.
+
+Given the user is on the main page of NewsLine.
+When the user looks at today's news section.
+Then they should see a list of articles.
+And each article should display:
+A green, bolded article description.
+The day, date, and time of publication.
+A brief summary of the article.
+A "Read More" link.
+Scenario 3: Indicate unread articles with green borders.
+
+Given the user is on the main page of NewsLine.
+When they view articles in today's news.
+Then unread articles should have a green border around them.
+And read articles should not have a green border.
+Scenario 4: Clicking "Read More" opens the full article.
+
+Given the user is on the main page of NewsLine.
+When they click the "Read More" link of an article.
+Then the full article should open within the same screen (single page).
+And a "Back" button should be available for returning to the main news feed.
+Feature: Archive Access
+
+Scenario 5: Clicking "View Archives" opens the date picker.
+
+Given the user is on the main page of NewsLine.
+When they click the "View Archives" link.
+Then a date picker should appear.
+Scenario 6: Selecting a date in the date picker shows archived articles.
+
+Given the user is in the archive view with the date picker open.
+When they select a specific date.
+Then archived articles from that date should be displayed with the same format as today's news.
+And articles that have not been read should have a green border.
+Scenario 7: Navigate back to today's news from archives.
+
+Given the user is in the archive view.
+When they click the "Back to Today" link.
+Then they should be returned to the main page showing today's news.
+These BDD test scenarios cover the key features and interactions of the NewsLine application, ensuring that it functions according to the specified requirements outlined in the scope document.
+
+
+
+
