@@ -1,6 +1,6 @@
 const { test, expect } = require('@playwright/test');
 
-test('Check API endpoint for 200 response', async ({ page }) => {
+test('Check if response contains "password reset"', async ({ page }) => {
     // Set custom header
     const headers = {
         'Content-Type': 'application/xml'
@@ -20,7 +20,7 @@ test('Check API endpoint for 200 response', async ({ page }) => {
     expect(response).not.toBeNull();
     expect(response.status()).toBe(200);
     
-    // Log response body
+    // Check if response body contains "password reset"
     const responseBody = await response.text();
-    console.log('Response status is 200. Response body:', responseBody);
+    expect(responseBody).toContain('password reset');
 });
