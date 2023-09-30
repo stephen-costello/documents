@@ -1,10 +1,6 @@
-const { chromium } = require('playwright');
+const { test, expect } = require('@playwright/test');
 
-(async () => {
-    const browser = await chromium.launch();
-    const context = await browser.newContext();
-    const page = await context.newPage();
-    
+test('Check API endpoint for 200 response', async ({ page }) => {
     // Set custom header
     const headers = {
         'Content-Type': 'application/xml'
@@ -21,12 +17,10 @@ const { chromium } = require('playwright');
     });
 
     // Check if response status is 200
-    if (response && response.status() === 200) {
-        const responseBody = await response.text();
-        console.log('Response status is 200. Response body:', responseBody);
-    } else {
-        console.error('Request failed or did not return a 200 status code.');
-    }
-
-    await browser.close();
-})();
+    expect(response).not.toBeNull();
+    expect(response.status()).toBe(200);
+    
+    // Log response body
+    const responseBody = await response.text();
+    console.log('Response status is 200. Response body:', responseBody);
+});
