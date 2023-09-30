@@ -1,1 +1,32 @@
-"In this document, you will find a comprehensive guide on building the 'activities' API with GET and POST requests, incorporating JWT token for security. Leveraging PostgreSQL database, follow step-by-step instructions and code samples to create a robust API, facilitating seamless data retrieval and submission, while ensuring utmost protection of sensitive information."
+const { chromium } = require('playwright');
+
+(async () => {
+    const browser = await chromium.launch();
+    const context = await browser.newContext();
+    const page = await context.newPage();
+    
+    // Set custom header
+    const headers = {
+        'Content-Type': 'application/xml'
+    };
+
+    // URL to test
+    const url = 'https://ws-content-cds-fac-fmr.com/cds/v1/2641/381752?requestkey=hsadkjaq312jmc931jdsldjdka23';
+
+    // Perform the request
+    const response = await page.goto(url, {
+        method: 'GET',
+        headers: headers,
+        waitUntil: 'domcontentloaded'
+    });
+
+    // Check if response status is 200
+    if (response && response.status() === 200) {
+        const responseBody = await response.text();
+        console.log('Response status is 200. Response body:', responseBody);
+    } else {
+        console.error('Request failed or did not return a 200 status code.');
+    }
+
+    await browser.close();
+})();
