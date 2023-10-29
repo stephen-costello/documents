@@ -1,16 +1,26 @@
-This year I believe was a successful one for me, I have had the opportunity to work on new skills and technologies broadening my skills on new and emerging technologies in quality. I have also had the opportunity to join the management team as a player coach and working on talent, performance and (a lot) of hiring, mixed in with all this I am also looking to stretch my t-shaped skills learning more about eks , ecs and cloud deployment tracking to help contribute to squad work-load.
+const { chromium } = require('playwright');
 
-Embracing Leadership:
-This year has been a journey of growth and leadership for me. Stepping into a senior role across WI Ireland QE and the ADE program, I found myself wearing the hat of a player-coach. In this role, I not only learned the ropes of people management but also embraced the challenges that came with it. From hiring the right talent to managing team performance, each experience was a lesson, and I couldn't be more grateful for the opportunity to learn and lead.
-
-Quality & Squad Adventures:
-Working with my scrum team felt like being on an exciting tech rollercoaster. We ventured into uncharted territories, exploring emerging technologies like Playwright Node.js and the Karate API testing framework. Our focus on the latest quality standards and best practices kept us on our toes, ensuring that our products not only met but exceeded expectations. These adventures in quality engineering not only improved our products but also made our team stronger and more innovative.
-
-Growing T-Shaped Skills:
-I took the T-shaped skills mantra to heart this year. I dived into the world of Datadog, mastering the art of dashboard creation. This newfound skill not only supported our SRE team in chaos testing and performance analysis but also opened doors to a world of collaborative possibilities. From managing the nitty-gritty of release processes to ensuring seamless test runs and sign-offs, I found myself thriving in the diverse challenges of release management. This journey was about learning, adapting, and growing together.
-
-Fidelity Family Moments:
-Beyond the projects and tasks, I found immense joy in being part of the Fidelity family. Standing before senior leaders at WINfest, sharing our successes and challenges, was a moment of both pride and humility. Assisting in the behind-the-scenes activities during senior leaders' visits was like orchestrating a well-choreographed dance – it was all about making everyone’s lives easier and the experience memorable.
-
-In Closing:
-As I look back, I realize that this year was not just about professional growth, but also about the friendships made, the challenges overcome, and the lessons learned. Each day was a new adventure, and I embraced it with an open heart and a curious mind. I am incredibly thankful for the opportunities, the support of my team, and the camaraderie within Fidelity. Here's to more adventures, learnings, and shared successes in the coming year! Cheers to the incredible journey and the ones yet to come! 🌟
+(async () => {
+  const browser = await chromium.launch();
+  const context = await browser.newContext();
+  const page = await context.newPage();
+  
+  try {
+    // Navigate to the desired webpage
+    await page.goto('https://example.com'); // Replace 'https://example.com' with the URL of your web page
+    
+    // Wait for the element to be visible
+    const element = await page.waitForSelector('div#available-actions_item_Password-reset.available-action', { visible: true });
+    
+    // Check if the element is visible
+    if (element) {
+      console.log('Element is visible on the page.');
+    } else {
+      console.log('Element is not visible on the page.');
+    }
+  } catch (error) {
+    console.error('Error:', error);
+  } finally {
+    await browser.close();
+  }
+})();
