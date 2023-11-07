@@ -1,17 +1,12 @@
-const { http } = require('playwright');
+const { test, expect } = require('@playwright/test');
 
-(async () => {
-  try {
-    // Send a GET request to the given endpoint
-    const response = await http.get('http://ws-conten-cds-fac.fmr.com');
+test('Check if FAC endpoint responds with 200 status code', async ({ page }) => {
+  // Send a GET request to the given endpoint
+  const response = await page.goto('http://ws-conten-cds-fac.fmr.com');
 
-    // Check if the response status is 200
-    if (response.status() === 200) {
-      console.log('FAC is alive');
-    } else {
-      console.error('FAC is not responding with a 200 status code');
-    }
-  } catch (error) {
-    console.error('Error occurred while accessing the endpoint:', error.message);
-  }
-})();
+  // Expect a 200 status code
+  expect(response).to.have.property('status', 200);
+
+  // Log a message if the response status is 200
+  console.log('FAC is alive');
+});
