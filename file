@@ -1,19 +1,17 @@
+const { http } = require('playwright');
 
-https://api-slow-stage.fmr.com/ws-ade-myactivity/v1/activities?days=7
+(async () => {
+  try {
+    // Send a GET request to the given endpoint
+    const response = await http.get('http://ws-conten-cds-fac.fmr.com');
 
-accept 
-FID-LOG-TRACKING-ID
-Autherization
-FID-WS-PRINCIPAL-ROLE
-FID-USER-ID-TYPE
-FID-USER-ID
-FID-LOG-SESSION-ID
-
-https://api-slow-test.fmr.com/ws-ade-myactivity/v1/activities?days=7
-
-https://ademyactivity-acp-adedigitaleks-qa-east1.aws-nonprod.fmrclod/ws-ade-myactivity/monitoring/health
-
-{"grant-type":"client_credentials","client_id:"stephen","client_secret":"costello"}
-
-
-
+    // Check if the response status is 200
+    if (response.status() === 200) {
+      console.log('FAC is alive');
+    } else {
+      console.error('FAC is not responding with a 200 status code');
+    }
+  } catch (error) {
+    console.error('Error occurred while accessing the endpoint:', error.message);
+  }
+})();
