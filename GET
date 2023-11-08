@@ -13,3 +13,29 @@ Then the Associate Benefits tool should open in the Edge browser
 And the page opened in the Edge browser should be the same as the one that opens when selected from the ADE tools tray
 
 Note: This test case outlines the behavior described in the provided scope, ensuring that the user can access the Associate Benefits Library (ABL) from the resources section, and that the opened page and browser match the ADE tools tray selection.
+
+
+est Name: ADE | Suggested actions | RESOURCES | Launch agentBOT from resources
+
+Scenario: Launching agentBOT from Resources
+
+Given the user is on the password reset page
+
+When there are no recommendations found
+
+And the user navigates to the 'Helpful resources' section
+
+Then the user should see a link for 'agentBOT' under the header of Helpful resources
+
+When the user clicks on the 'agentBOT' link
+
+Then the agentBOT tool should open in the Edge browser
+
+And the page opened in the Edge browser should be the same as the one that opens when selected from the ADE tools tray
+
+Note: This test case ensures that the user can access the agentBOT tool from the resources section, and that the opened page and browser match the ADE tools tray selection.
+
+
+
+
+
