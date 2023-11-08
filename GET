@@ -36,6 +36,20 @@ And the page opened in the Edge browser should be the same as the one that opens
 Note: This test case ensures that the user can access the agentBOT tool from the resources section, and that the opened page and browser match the ADE tools tray selection.
 
 
+Feature: Password Reset and XTRAC Tool Launch in Suggested Actions Application
+
+Scenario: User resets password and launches XTRAC tool from Suggested Actions Application
+
+  Given a user navigates to Suggested Actions application
+  When the user clicks on a password reset tile
+  Then the user will navigate to Suggested Actions password reset page
+
+  And the user ticks the XTRAC research request view tick box
+  And selects 'launch selected tools' button
+
+  Then the XTRAC tool should launch in an ADE module window
+  And the XTRAC tool should launch in the same way from Suggested Actions application as it does from the ADE tools tray
+
 
 
 
