@@ -66,3 +66,23 @@ Scenario: User resets password and launches Outbound Email Tool
     And the Outbound email tool tool will launch in the same way from suggested actions application as it does from the ADE tools tray
 
 
+Feature: Password Reset in Suggested Actions Application
+
+  Scenario: User resets password using Suggested Actions Application
+    Given a user navigates to Suggested Actions application
+    When the user clicks on a password reset tile
+    Then the user will navigate to the Suggested Actions Password Reset page
+
+    When the user ticks the Username/password maintenance tick box
+    And selects 'launch selected tools' button
+    Then the Username/password maintenance tool will launch in an Edge browser window
+
+  Scenario: Username/Password Maintenance Tool Launch from Suggested Actions Application and ADE Tools Tray
+    Given a user is on the Suggested Actions application password reset page
+    When the user ticks the Username/password maintenance tick box
+    And selects 'launch selected tools' button
+    Then the Username/password maintenance tool will launch in an Edge browser window
+
+    Given a user is on the ADE tools tray
+    When the user launches the Username/password maintenance tool
+    Then the Username/password maintenance tool will launch in the same way as from the Suggested Actions application
