@@ -1,145 +1,15 @@
-Activities | Domain API | GET - RESPONSE CODE 200:
-Scenario: Valid GET request with all required headers
-Given the API endpoint is available
-When a GET request is sent with valid headers (accept, FID-LOG-TRACKING, Authorisation, FID-PRINCIPAL-ROLE, FID-USER-TYPE, FID-USER-ID, FID-LOG-SESSION)
-Then the response code should be 200
-And the response data should be valid
+Test Name: ADE | Suggested actions | RESOURCES | Launch ABL from resources
 
-Activities | Domain API | GET - RESPONSE CODE 401:
-Scenario: Unauthorized access due to missing or invalid authorization header
-Given the API endpoint is available
-When a GET request is sent without or with an invalid Authorisation header
-Then the response code should be 401
-And the response message should indicate "Unauthorized"
+Scenario: Launching Associate Benefits Library (ABL) from Resources
 
-Activities | Domain API | GET - RESPONSE CODE 404:
-Scenario: Requested resource not found
-Given the API endpoint is available
-When a GET request is sent to a non-existent endpoint/resource
-Then the response code should be 404
-And the response message should indicate "Not Found"
+Given the user is on the password reset page
+When there are no recommendations found
+And the user navigates to the 'Helpful resources' section
+Then the user should see a link for 'Associate benefits library (ABL)' under the header of Helpful resources
 
-Activities | Domain API | GET - RESPONSE CODE 400:
-Scenario: Bad Request due to missing or invalid parameters
-Given the API endpoint is available
-When a GET request is sent with missing or invalid parameters
-Then the response code should be 400
-And the response message should indicate "Bad Request"
+When the user clicks on the 'Associate benefits library (ABL)' link
+Then the Associate Benefits tool should open in the Edge browser
 
-Activities | Domain API | GET - RESPONSE CODE 403:
-Scenario: Forbidden access
-Given the API endpoint is available
-When a GET request is sent with valid headers, but the user is not allowed to access the resource
-Then the response code should be 403
-And the response message should indicate "Forbidden"
+And the page opened in the Edge browser should be the same as the one that opens when selected from the ADE tools tray
 
-These test cases cover various scenarios related to response codes 200, 401, 404, 400, and 403 for the API's GET request with specific headers. Remember to adapt these test cases based on the actual requirements and specifics of the API you are testing.
-
-Activities | Domain API | GET - RESPONSE JSON FORMAT:
-Scenario: Verify data is returned in JSON format with specific data points and values
-Given the API endpoint is available
-And the API is connected to the PostgreSQL database
-When a GET request is sent with valid headers (accept, FID-LOG-TRACKING, Authorisation, FID-PRINCIPAL-ROLE, FID-USER-TYPE, FID-USER-ID, FID-LOG-SESSION)
-Then the response code should be 200
-And the response data should be in JSON format
-And the response JSON should contain the following data points and values:
-
-Data Point	Value
-userID	"value"
-sessionTs	"value"
-sessionDuration	"value"
-wid	"value"
-mid	"value"
-employerId	"value"
-employerName	"value"
-planID	"value"
-
-Activities | Domain API | GET - Missing or Blank "accept" Header:
-Scenario: Verify API response when "accept" header is missing or blank
-Given the API endpoint is available
-And the API is connected to the PostgreSQL database
-When a GET request is sent without the "accept" header or with a blank "accept" header
-Then the response code should be 200
-And the response data should be in JSON format
-And the response JSON should contain the following data points:
-
-Activities | Domain API | GET - Missing or Blank "FID-LOG-TRACKING-ID" Header:
-Scenario: Verify API response when "FID-LOG-TRACKING-ID" header is missing or blank
-Given the API endpoint is available
-And the API is connected to the PostgreSQL database
-When a GET request is sent without the "FID-LOG-TRACKING-ID" header or with a blank "FID-LOG-TRACKING-ID" header
-Then the response code should be 200
-And the response data should be in JSON format
-And the response JSON should contain the following data points:
-
-Activities | Domain API | GET - Missing or Blank "FID-USER-ID" Header:
-Scenario: Verify API response when "FID-USER-ID" header is missing or blank
-Given the API endpoint is available
-And the API is connected to the PostgreSQL database
-When a GET request is sent without the "FID-USER-ID" header or with a blank "FID-USER-ID" header
-Then the response code should be 200
-And the response data should be in JSON format
-And the response JSON should contain the following data points:
-
-Activities | Domain API | GET - Missing or Blank "FID-LOG-SESSION-ID" Header:
-Scenario: Verify API response when "FID-LOG-SESSION-ID" header is missing or blank
-Given the API endpoint is available
-And the API is connected to the PostgreSQL database
-When a GET request is sent without the "FID-LOG-SESSION-ID" header or with a blank "FID-LOG-SESSION-ID" header
-Then the response code should be 200
-And the response data should be in JSON format
-And the response JSON should contain the following data points:
-
-Activities | Domain API | GET - Missing or Blank "Authorization" Header:
-Scenario: Verify API response when "Authorization" header is missing or blank
-Given the API endpoint is available
-When a GET request is sent without the "Authorization" header or with a blank "Authorization" header
-Then the response code should be 403
-And the response should contain a message indicating "JWT is missing"
-
-Activities | Domain API | GET - Missing or Blank "FID-PRINCIPAL-ROLE" Header:
-Scenario: Verify downstream API response when "FID-PRINCIPAL-ROLE" header is missing or blank
-Given the API endpoint is available
-And the API is connected to the downstream system
-When a GET request is sent without the "FID-PRINCIPAL-ROLE" header or with a blank "FID-PRINCIPAL-ROLE" header
-Then the downstream response code should be 400
-And the downstream response should contain an error message indicating "FID-PRINCIPAL-ROLE is missing or blank"
-
-Activities | Domain API | GET - Missing or Blank "FID-USER-TYPE" Header:
-Scenario: Verify downstream API response when "FID-USER-TYPE" header is missing or blank
-Given the API endpoint is available
-And the API is connected to the downstream system
-When a GET request is sent without the "FID-USER-TYPE" header or with a blank "FID-USER-TYPE" header
-Then the downstream response code should be 400
-And the downstream response should contain an error message indicating "FID-USER-TYPE is missing or blank"
-
-Activities | Domain API | GET - Validate JSON Response Data with PostgreSQL Database:
-Scenario: Verify data in the API's GET call JSON response matches the data in the PostgreSQL database
-Given the API endpoint is available
-And the API is connected to the PostgreSQL database
-When a GET request is sent with valid headers (accept, FID-LOG-TRACKING, Authorisation, FID-PRINCIPAL-ROLE, FID-USER-TYPE, FID-USER-ID, FID-LOG-SESSION)
-And the response data is received in JSON format
-Then fetch the corresponding data from the PostgreSQL database for the given request
-And the data points (userID, sessionTs, sessionDuration, wid, mid, employerId, employerName, planID) in the JSON response should match the data retrieved from the database for the same request.
-
-Activities | Domain API | GET - Filter Records for 2 or 7 Days:
-Scenario: Verify API response with filtered records for 2 or 7 days
-Given the API endpoint is available
-And the API is connected to the PostgreSQL database
-And the database contains records for the last 30 days
-When a GET request is sent with valid headers (accept, FID-LOG-TRACKING, Authorisation, FID-PRINCIPAL-ROLE, FID-USER-TYPE, FID-USER-ID, FID-LOG-SESSION)
-And the request includes a filter for records from 2 days ago
-Then the response data should be in JSON format
-And the JSON response should contain records matching the filter criteria for the last 2 days
-
-And when a GET request is sent with valid headers (accept, FID-LOG-TRACKING, Authorisation, FID-PRINCIPAL-ROLE, FID-USER-TYPE, FID-USER-ID, FID-LOG-SESSION)
-And the request includes a filter for records from 7 days ago
-Then the response data should be in JSON format
-And the JSON response should contain records matching the filter criteria for the last 7 days
-
-And when a GET request is sent with valid headers (accept, FID-LOG-TRACKING, Authorisation, FID-PRINCIPAL-ROLE, FID-USER-TYPE, FID-USER-ID, FID-LOG-SESSION)
-And the request includes a filter for records from 10 days ago
-Then the response data should be in JSON format
-And the JSON response should be an empty JSON object {}
-
-
+Note: This test case outlines the behavior described in the provided scope, ensuring that the user can access the Associate Benefits Library (ABL) from the resources section, and that the opened page and browser match the ADE tools tray selection.
