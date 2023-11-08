@@ -86,3 +86,36 @@ Feature: Password Reset in Suggested Actions Application
     Given a user is on the ADE tools tray
     When the user launches the Username/password maintenance tool
     Then the Username/password maintenance tool will launch in the same way as from the Suggested Actions application
+
+
+Feature: Suggested Actions Password Reset
+
+Scenario: User launches Customer Web View Tool from Suggested Actions Application
+
+Given a user is on the Suggested Actions application
+When the user clicks on a password reset tile
+Then the user should navigate to the Suggested Actions Password Reset page
+
+When the user ticks the customer web view tick box and selects 'launch selected tools' button
+Then the Customer Web View Tool should launch in an Edge browser window
+
+And the Customer Web View Tool should launch in the same way from the Suggested Actions application as it does from the ADE tools tray
+
+This BDD test case outlines the behavior expected from the user interactions with the Suggested Actions Password Reset functionality. It captures the given conditions, the actions taken by the user, and the expected outcomes based on the provided scope.
+
+
+
+Feature: Suggested Actions Password Reset
+
+Scenario: User launches Customer Web View Tool from Suggested Actions Application
+
+Given a user is on the Suggested Actions application
+When the user clicks on a password reset tile
+Then the user should navigate to the Suggested Actions Password Reset page
+
+When the user ticks the customer web view mobile tick box and selects 'launch selected tools' button
+Then the Customer Web View mobile Tool should launch in an Edge browser window
+
+And the Customer Web View mobile Tool should launch in the same way from the Suggested Actions application as it does from the ADE tools tray
+
+This BDD test case outlines the behavior expected from the user interactions with the Suggested Actions Password Reset functionality. It captures the given conditions, the actions taken by the user, and the expected outcomes based on the provided scope.
