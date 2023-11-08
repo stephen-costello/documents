@@ -51,5 +51,18 @@ Scenario: User resets password and launches XTRAC tool from Suggested Actions Ap
   And the XTRAC tool should launch in the same way from Suggested Actions application as it does from the ADE tools tray
 
 
+Feature: Password Reset and Outbound Email Tool Launch Functionality
+
+Scenario: User resets password and launches Outbound Email Tool
+
+    Given a user navigates to Suggested actions application
+    And the user clicks on a password reset tile
+    When the user navigates to suggested actions password reset page
+    Then the user is on the suggested actions password reset page
+
+    When the user ticks the Outbound email research request view tick box
+    And the user selects 'launch selected tools' button
+    Then the Outbound email tool tool will launch in an ADE module window
+    And the Outbound email tool tool will launch in the same way from suggested actions application as it does from the ADE tools tray
 
 
