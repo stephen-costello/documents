@@ -1,121 +1,21 @@
-Test Name: ADE | Suggested actions | RESOURCES | Launch ABL from resources
-
-Scenario: Launching Associate Benefits Library (ABL) from Resources
-
-Given the user is on the password reset page
-When there are no recommendations found
-And the user navigates to the 'Helpful resources' section
-Then the user should see a link for 'Associate benefits library (ABL)' under the header of Helpful resources
-
-When the user clicks on the 'Associate benefits library (ABL)' link
-Then the Associate Benefits tool should open in the Edge browser
-
-And the page opened in the Edge browser should be the same as the one that opens when selected from the ADE tools tray
-
-Note: This test case outlines the behavior described in the provided scope, ensuring that the user can access the Associate Benefits Library (ABL) from the resources section, and that the opened page and browser match the ADE tools tray selection.
-
-
-est Name: ADE | Suggested actions | RESOURCES | Launch agentBOT from resources
-
-Scenario: Launching agentBOT from Resources
-
-Given the user is on the password reset page
-
-When there are no recommendations found
-
-And the user navigates to the 'Helpful resources' section
-
-Then the user should see a link for 'agentBOT' under the header of Helpful resources
-
-When the user clicks on the 'agentBOT' link
-
-Then the agentBOT tool should open in the Edge browser
-
-And the page opened in the Edge browser should be the same as the one that opens when selected from the ADE tools tray
-
-Note: This test case ensures that the user can access the agentBOT tool from the resources section, and that the opened page and browser match the ADE tools tray selection.
-
-
-Feature: Password Reset and XTRAC Tool Launch in Suggested Actions Application
-
-Scenario: User resets password and launches XTRAC tool from Suggested Actions Application
-
-  Given a user navigates to Suggested Actions application
-  When the user clicks on a password reset tile
-  Then the user will navigate to Suggested Actions password reset page
-
-  And the user ticks the XTRAC research request view tick box
-  And selects 'launch selected tools' button
-
-  Then the XTRAC tool should launch in an ADE module window
-  And the XTRAC tool should launch in the same way from Suggested Actions application as it does from the ADE tools tray
-
-
-Feature: Password Reset and Outbound Email Tool Launch Functionality
-
-Scenario: User resets password and launches Outbound Email Tool
-
-    Given a user navigates to Suggested actions application
-    And the user clicks on a password reset tile
-    When the user navigates to suggested actions password reset page
-    Then the user is on the suggested actions password reset page
-
-    When the user ticks the Outbound email research request view tick box
-    And the user selects 'launch selected tools' button
-    Then the Outbound email tool tool will launch in an ADE module window
-    And the Outbound email tool tool will launch in the same way from suggested actions application as it does from the ADE tools tray
-
-
-Feature: Password Reset in Suggested Actions Application
-
-  Scenario: User resets password using Suggested Actions Application
-    Given a user navigates to Suggested Actions application
-    When the user clicks on a password reset tile
-    Then the user will navigate to the Suggested Actions Password Reset page
-
-    When the user ticks the Username/password maintenance tick box
-    And selects 'launch selected tools' button
-    Then the Username/password maintenance tool will launch in an Edge browser window
-
-  Scenario: Username/Password Maintenance Tool Launch from Suggested Actions Application and ADE Tools Tray
-    Given a user is on the Suggested Actions application password reset page
-    When the user ticks the Username/password maintenance tick box
-    And selects 'launch selected tools' button
-    Then the Username/password maintenance tool will launch in an Edge browser window
-
-    Given a user is on the ADE tools tray
-    When the user launches the Username/password maintenance tool
-    Then the Username/password maintenance tool will launch in the same way as from the Suggested Actions application
-
-
-Feature: Suggested Actions Password Reset
-
-Scenario: User launches Customer Web View Tool from Suggested Actions Application
-
-Given a user is on the Suggested Actions application
-When the user clicks on a password reset tile
-Then the user should navigate to the Suggested Actions Password Reset page
-
-When the user ticks the customer web view tick box and selects 'launch selected tools' button
-Then the Customer Web View Tool should launch in an Edge browser window
-
-And the Customer Web View Tool should launch in the same way from the Suggested Actions application as it does from the ADE tools tray
-
-This BDD test case outlines the behavior expected from the user interactions with the Suggested Actions Password Reset functionality. It captures the given conditions, the actions taken by the user, and the expected outcomes based on the provided scope.
-
-
-
-Feature: Suggested Actions Password Reset
-
-Scenario: User launches Customer Web View Tool from Suggested Actions Application
-
-Given a user is on the Suggested Actions application
-When the user clicks on a password reset tile
-Then the user should navigate to the Suggested Actions Password Reset page
-
-When the user ticks the customer web view mobile tick box and selects 'launch selected tools' button
-Then the Customer Web View mobile Tool should launch in an Edge browser window
-
-And the Customer Web View mobile Tool should launch in the same way from the Suggested Actions application as it does from the ADE tools tray
-
-This BDD test case outlines the behavior expected from the user interactions with the Suggested Actions Password Reset functionality. It captures the given conditions, the actions taken by the user, and the expected outcomes based on the provided scope.
+Scenario 1: Customer Initiates Password Reset Process via Phone Call
+Given the user has accessed the Modernised Associate Desktop Experience (ADE)
+And the user plays the role of "customer"
+When the user calls the environment phone line via the Genesys call system
+And the customer gives a whisper to the system of "password reset"
+Then the Cosmo semantic tag in the data in the global store should be populated with "password reset"
+And the customer requests to be passed through to the extension of "agent"
+And the agent receives the call
+Scenario 2: Agent Processes Password Reset Request via Suggested Actions Application
+Given the agent has received the call from the customer
+And the agent opens the Suggested Actions application
+And the Cosmo semantic tag in the data in the global store is populated with "password reset"
+When the Suggested Actions application reads the Cosmo semantic tag
+Then a section with the header 'recommendations 1' should appear on the Suggested Actions application
+And a new tile under the header of 'password reset' should appear
+And the source on the tile should be 'whisper'
+Scenario 3: Agent Navigates to Password Reset Page via Suggested Actions Application
+Given the agent sees the 'password reset' tile with the source 'whisper' on the Suggested Actions application
+When the agent clicks the 'password reset' tile
+Then the agent should navigate to the password reset page
+And the agent should see a list of tools and actions related to password reset
