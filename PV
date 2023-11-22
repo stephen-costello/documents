@@ -1,0 +1,79 @@
+Test case : 1
+Feature: Login to Plan Viewer
+Scenario: User successfully logs into the Plan Viewer app
+Given the Plan Viewer app is installed on the mobile device
+When the user opens the Plan Viewer app
+Then the user should see the login screen
+When the user enters valid login credentials (username and password)
+And taps on the "Login" button
+Then the user should be redirected to the main dashboard of the Plan Viewer app
+
+Test case : 2
+Feature: One-Time Passcode (OTP) Login
+Scenario: User logs in with a one-time passcode
+Given the Plan Viewer app is installed on the mobile device
+And the user is on the login screen
+When the user enters valid login credentials
+And taps on the "Login" button
+Then the user should see a prompt for entering the one-time passcode (OTP)
+When the user receives the OTP via the registered email or SMS
+And enters the correct OTP in the provided field
+And taps on the "Submit" button
+Then the user should be redirected to the main dashboard of the Plan Viewer app
+And the user should see a welcome message indicating a successful login with OTP
+
+Test case : 3
+Feature: Biometric Login Setup
+Scenario: User sets up and logs in with biometrics
+Given the Plan Viewer app is installed on the mobile device
+And the user is logging into the app for the first time
+When the user enters valid login credentials
+And taps on the "Login" button
+Then the user should be successfully logged in for the first time
+And the user shoud be able to navigate to the biometrics setup option in the app settings
+When the user selects the "Biometrics Setup" option
+And follows the on-screen instructions to set up biometrics (e.g., fingerprint or face recognition)
+And completes the biometric setup process
+Then the user should receive a confirmation message that biometrics have been successfully set up
+And the user should be able to see the option to enable or disable biometric login in the app settings
+When the user logs out of the Plan Viewer app
+And attempts to log in again
+Then the user should be prompted for biometric login
+When the user uses the registered biometrics (fingerprint or face) to log in
+Then the user should be successfully logged in using biometrics
+And the user should be redirected to the main dashboard of the Plan Viewer app
+
+Test case : 4
+Feature: Skip Biometrics and Login with Passcode
+Scenario: User chooses to skip biometrics and logs in with a passcode
+Given the Plan Viewer app is installed on the mobile device
+And the user is on the login screen
+When the user enters valid login credentials
+And taps on the "Login" button
+Then the user should see the option to set up biometrics or skip for now
+When the user selects the "Skip" option
+Then the user should be redirected to the main dashboard of the Plan Viewer app
+And the user should see a message indicating that biometrics setup has been skipped
+And the user should be able to navigate through the app without enabling biometrics
+
+Test case : 5 
+Feature: Delete Biometrics Profile and Manual Login
+Scenario: User deletes biometrics profile and logs in manually
+Given the Plan Viewer app is installed on the mobile device
+And the user has previously set up biometrics for login
+When the user logs into the app using biometrics
+Then the user should be successfully logged in using biometrics
+And the user should be on the main dashboard of the Plan Viewer app
+When the user navigates to the biometrics settings
+And deletes the biometrics profile associated with the account
+Then the user should see a confirmation message that the biometrics profile has been deleted
+And the user should be able to log out of the Plan Viewer app
+And the user logs back into the app
+Then the user should be redirected to the login screen
+And the user should not be prompted to set up or skip biometrics
+And the user should be able to manually enter valid login credentials
+And tap on the "Login" button
+Then the user should be redirected to the main dashboard of the Plan Viewer app
+
+Test case : 6
+Feature: Biometrics Lockout
