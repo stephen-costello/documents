@@ -1,42 +1,63 @@
-1. Introduction
-The objective of this test plan is to ensure the robustness and security of the PlanViewer mobile application by testing the implementation of password harvesting and the details link feature. This testing will encompass both functional and regression testing across various environments, including Systems Integration (SIT), User Acceptance (UAT), Staging, and Production.
+Test Plan Summary for XRAY Testing - "Suggested Actions" Feature
 
-2. Scope
-2.1 Functional Testing
-Password Harvesting:
+1. Introduction:
 
-Validate the functionality of the password harvesting feature to ensure it securely captures and stores user credentials.
-Verify that passwords are encrypted and stored in a secure manner.
-Test the retrieval process to confirm the accurate fetching of stored passwords.
-Details Link Integration:
+The purpose of this test plan is to ensure the proper functionality and reliability of the "Suggested Actions" feature in the "Suggested Actions" application within the "Suggested Actions'" desktop experience.
+2. Scope:
 
-Evaluate the integration of the details link feature within the PlanViewer application.
-Confirm that the details link seamlessly connects to the relevant information and displays it accurately.
-2.2 Regression Testing
-Previous Functionality:
-Verify that existing functionalities of the PlanViewer application are unaffected by the implementation of password harvesting and details link features.
-3. Test Environments
-3.1 Systems Integration (SIT)
-Execute comprehensive test scenarios in the SIT environment to ensure the smooth integration of the new features with existing components.
-Validate end-to-end functionality and assess system behavior under various simulated conditions.
-Conduct positive and negative test cases to evaluate the robustness of the password harvesting and details link features.
-3.2 User Acceptance (UAT)
-Collaborate with end-users to conduct user acceptance testing, ensuring the features align with user expectations and requirements.
-Collect feedback on the usability and security aspects of password harvesting, incorporating any necessary adjustments.
-3.3 Staging
-Conduct a final round of testing in the staging environment to validate the stability and performance of the application.
-Verify that the password harvesting and details link features operate seamlessly in an environment closely resembling the production setup.
-3.4 Production
-Perform a controlled rollout of the new features in the production environment.
-Monitor system performance, security, and user feedback to address any issues promptly.
-4. Test Deliverables
-Test Cases: Detailed test cases covering all aspects of password harvesting and details link integration.
-Test Execution Reports: Comprehensive reports on test execution, including pass/fail status and any issues encountered.
-User Feedback Summary: Compilation of user feedback from UAT, addressing any concerns or suggestions.
-5. Conclusion
-This XRAY test plan aims to ensure the successful implementation of password harvesting and details link features in the PlanViewer mobile application. By conducting thorough functional and regression testing across various environments, we aim to guarantee a secure, reliable, and user-friendly experience for all stakeholders.
+Application: Suggested Actions'
+Application Delivery Method: ADE (Associate Desktop Experience)
+3. Features to be Tested:
 
+3.1 Navigate to Suggested Actions:
 
+Scenario 1: User Search
+Verify that users landing on the participant banner page after performing a search see the "Suggested Actions" application at the bottom right of the screen.
+Scenario 2: Genesys Call Context
+Confirm that users landing on the participant banner page after a call comes into context in Genesys see the "Suggested Actions" application at the bottom right of the screen.
+3.2 Landing Page Features:
 
+Verify the existence and functionality of the following features on the landing page:
+Recommendations Section
+Confirm the presence of a recommendations section with a variable value of 1 or 2.
+Ensure links to helpful resources are available.
+All Available Actions Section
+Confirm the presence of an 'all available actions' section.
+Validate the presence of a "Password Reset" tile.
+3.3 Password Reset Page:
 
+Confirm the existence and functionality of the following sections on the password reset page:
+Password Reset Section
+Validate the presence of instructional links.
+Tools Section
+Confirm the presence of a list of launchable tools.
+3.4 Genesys Whisper or Pin Blocked Status Feature:
 
+Scenario 1: Genesys Whisper
+If a call comes through Genesys with a whisper to reset the password, validate that a "Password Reset" tile appears under Recommendations and the value changes to 1.
+Scenario 2: Pin Blocked Status
+If data indicates a pin status as blocked, confirm that a "Password Reset" tile appears under Recommendations, and the value changes to 1.
+4. Test Execution:
+
+Execute test cases outlined in section 3 using XRAY testing tools.
+Document any discrepancies, deviations, or failures observed during testing.
+5. Test Environment:
+
+Ensure that the testing environment mirrors the production environment closely, including Genesys integration and desktop experience.
+6. Test Deliverables:
+
+Provide a detailed test report, including test results, any issues encountered, and recommendations for resolution.
+7. Dependencies and Assumptions:
+
+Ensure Genesys integration is properly configured.
+Assume proper network connectivity for desktop experience.
+8. Schedule:
+
+Test execution is planned to be completed by [Insert Deadline].
+9. Risks and Mitigations:
+
+Identify potential risks such as Genesys integration issues and document mitigations.
+10. Review and Approval:
+
+Review and approval of the test plan by relevant stakeholders before initiation.
+This test plan is intended to ensure the robustness and reliability of the "Suggested Actions" feature within the "Suggested Actions'" desktop experience, as outlined in the provided scope.
