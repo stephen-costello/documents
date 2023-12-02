@@ -1,0 +1,93 @@
+Scenario 1: Navigating to the Search Page
+Given the user is logged into the ADE desktop application
+When the user navigates to the search page
+Then they should see a tab specifically for activities
+
+Scenario 2: Viewing Recent Activities on the Search Page
+Given the user is on the activities tab of the search page
+When they view the page
+Then they should see a list of recent activities
+And each activity should display a timestamp, participant name, plan ID, and plan name
+
+Scenario 3: Clicking on an Activity to View Participant Banner
+Given the user is on the activities tab of the search page
+When they click on a specific activity
+Then they should be taken to the participant banner of that activity
+
+Scenario 4: Ending Session on Participant Banner
+Given the user is on the participant banner of a specific activity
+When they select the "End Session" button
+Then the session should be closed
+And a new activity should appear in the activities model
+
+
+
+Objective:
+The objective of this test plan is to ensure the robustness, reliability, and functionality of the "myActivities" feature within the ADE (Application for Phone Reps) desktop application. The testing will cover various scenarios related to navigating the search page, viewing recent activities, interacting with participant banners, and validating the behavior of ending sessions.
+
+Features to be Tested:
+Navigation to Search Page:
+
+Verify that users can successfully navigate to the search page from the ADE desktop application.
+Confirm the existence of a dedicated tab for "myActivities" on the search page.
+Viewing Recent Activities:
+
+Confirm that recent activities are displayed on the activities tab.
+Validate the presence of essential information such as timestamp, participant name, plan ID, and plan name for each activity.
+Clicking on an Activity:
+
+Ensure that users can click on a specific activity to view the participant banner.
+Verify that the transition from the activities tab to the participant banner is seamless.
+Ending Session on Participant Banner:
+
+Validate that the "End Session" button on the participant banner closes the current session.
+Confirm the appearance of a new activity in the activities model after ending a session.
+Test Scenarios:
+Navigation and Tab Verification:
+
+Given a logged-in user in the ADE desktop application,
+When the user navigates to the search page,
+Then they should observe the presence of a dedicated tab for "myActivities."
+Recent Activities Display:
+
+Given the user is on the "myActivities" tab of the search page,
+When the user views the page,
+Then recent activities should be displayed with accurate timestamp, participant name, plan ID, and plan name.
+Activity Click and Participant Banner:
+
+Given the user is on the "myActivities" tab,
+When the user clicks on a specific activity,
+Then they should be seamlessly directed to the participant banner of that activity.
+Ending Session and New Activity:
+
+Given the user is on the participant banner of a specific activity,
+When the user selects the "End Session" button,
+Then the session should be closed,
+And a new activity should promptly appear in the activities model.
+Test Execution Environment:
+Testing Platform: ADE Desktop Application
+Operating System: [Specify OS versions]
+Browser Compatibility: [Specify browser versions if applicable]
+Testing Tools:
+Test Management Tool: XRAY
+Automation Tools (if applicable): [Specify tools]
+Test Schedule:
+Start Date: [Specify start date]
+End Date: [Specify end date]
+Test Deliverables:
+Test Cases: Comprehensive test cases covering all scenarios.
+Test Execution Reports: Regular reports on test execution progress.
+Defect Reports: Any defects found during testing with detailed information.
+Risks and Mitigations:
+Risk: Potential issues with session handling in the participant banner.
+
+Mitigation: Conduct thorough testing of session handling functionality.
+Risk: Inconsistencies in the display of recent activities.
+
+Mitigation: Validate data integrity and conduct rigorous testing of the activities tab.
+Sign-off Criteria:
+All test cases executed successfully.
+No high-priority defects remain unresolved.
+Review and Approval:
+Test Plan to be reviewed and approved by [Specify relevant stakeholders].
+This test plan provides a comprehensive overview of the testing process for the "myActivities" feature in the ADE desktop application, incorporating detailed test scenarios, execution environment details, testing tools, and risk mitigation strategies.
