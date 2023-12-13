@@ -1,1 +1,49 @@
 
+const { chromium } = require('playwright');
+
+(async () => {
+  // Test 1: Navigate to 'https://mytestsite.com' and validate inner text
+  const browser1 = await chromium.launch();
+  const context1 = await browser1.newContext();
+  const page1 = await context1.newPage();
+
+  // Navigate to the URL
+  await page1.goto('https://mytestsite.com');
+
+  // Wait for the element with the specified path to appear
+  await page1.waitForSelector('div.sa-s-coming-soon__test');
+
+  // Get the inner text of the element
+  const innerText1 = await page1.$eval('div.sa-s-coming-soon__test', (element) => element.innerText);
+
+  // Validate that the inner text is 'Coming Soon'
+  if (innerText1 === 'Coming Soon') {
+    console.log('Test 1 Passed: Inner text is "Coming Soon"');
+  } else {
+    console.error(`Test 1 Failed: Expected inner text to be "Coming Soon", but found "${innerText1}"`);
+  }
+
+  // Close the browser after Test 1
+  await browser1.close();
+
+  // Test 2: Navigate to 'https://url2.com' and check page title
+  const browser2 = await chromium.launch();
+  const context2 = await browser2.newContext();
+  const page2 = await context2.newPage();
+
+  // Navigate to the URL
+  await page2.goto('https://url2.com');
+
+  // Get the page title
+  const pageTitle = await page2.title();
+
+  // Validate that the page title is 'Costy'
+  if (pageTitle === 'Costy') {
+    console.log('Test 2 Passed: Page title is "Costy"');
+  } else {
+    console.error(`Test 2 Failed: Expected page title to be "Costy", but found "${pageTitle}"`);
+  }
+
+  // Close the browser after Test 2
+  await browser2.close();
+})();
