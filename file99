@@ -1,12 +1,7 @@
-const { test } = require('@playwright/test');
+import { test, expect } from '@playwright/test';
 
-test('Check Endpoint for 200 Status', async ({ fetch }) => {
-  // Specify the endpoint URL
-  const endpointUrl = 'https://example.com';
-
-  // Perform an HTTP GET request to the endpoint
-  const response = await fetch(endpointUrl);
-
-  // Check that the response status is 200
-  expect(response.status()).toBe(200);
+test('navigates to login', async ({ page }) => {
+  // ...
+  const response = await page.request.get('https://playwright.dev');
+  await expect(response).toBeOK();
 });
