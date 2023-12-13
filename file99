@@ -18,3 +18,18 @@ test('API Test - GET Request to "https://activities"', async () => {
   // Check that the response status is 200
   expect(response.status).toBe(200);
 });
+
+
+const { chromium } = require('playwright');
+
+(async () => {
+  // Make sure to run headed.
+  const browser = await chromium.launch({ headless: false });
+
+  // Setup context however you like.
+  const context = await browser.newContext({ /* pass any options */ ignoreHTTPSErrors: true });
+
+  // Pause the page, and start recording manually.
+  const page = await context.newPage();
+  await page.pause();
+})();
