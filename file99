@@ -1,44 +1,12 @@
-const { chromium } = require('playwright');
+const { test } = require('@playwright/test');
 
-describe('Test Suite', () => {
-  // Test 1: Navigate to 'https://mytestsite.com' and validate inner text
-  test('Test 1: Inner text validation for "https://mytestsite.com"', async () => {
-    const browser = await chromium.launch();
-    const context = await browser.newContext();
-    const page = await context.newPage();
+test('Check Endpoint for 200 Status', async ({ fetch }) => {
+  // Specify the endpoint URL
+  const endpointUrl = 'https://example.com';
 
-    // Navigate to the URL
-    await page.goto('https://mytestsite.com');
+  // Perform an HTTP GET request to the endpoint
+  const response = await fetch(endpointUrl);
 
-    // Wait for the element with the specified path to appear
-    await page.waitForSelector('div.sa-s-coming-soon__test');
-
-    // Get the inner text of the element
-    const innerText = await page.$eval('div.sa-s-coming-soon__test', (element) => element.innerText);
-
-    // Validate that the inner text is 'Coming Soon'
-    expect(innerText).toBe('Coming Soon');
-
-    // Close the browser
-    await browser.close();
-  });
-
-  // Test 2: Navigate to 'https://url2.com' and check page title
-  test('Test 2: Page title validation for "https://url2.com"', async () => {
-    const browser = await chromium.launch();
-    const context = await browser.newContext();
-    const page = await context.newPage();
-
-    // Navigate to the URL
-    await page.goto('https://url2.com');
-
-    // Get the page title
-    const pageTitle = await page.title();
-
-    // Validate that the page title is 'Costy'
-    expect(pageTitle).toBe('Costy');
-
-    // Close the browser
-    await browser.close();
-  });
+  // Check that the response status is 200
+  expect(response.status()).toBe(200);
 });
