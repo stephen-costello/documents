@@ -1,12 +1,12 @@
 const { test, expect } = require('@playwright/test');
 const fetch = require('node-fetch');
 
-test('Check Endpoint for 200 Status', async () => {
-  // Specify the endpoint URL
-  const endpointUrl = 'https://endpoint';
+test('API Test - GET Request to "https://activities"', async () => {
+  // Specify the URL
+  const apiUrl = 'https://activities';
 
-  // Perform an HTTP GET request to the endpoint
-  const response = await fetch(endpointUrl, {
+  // Perform an HTTP GET request to the API
+  const response = await fetch(apiUrl, {
     method: 'GET',
     headers: {
       'Accept': 'application/json',
