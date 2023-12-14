@@ -1,19 +1,19 @@
 const { test, expect } = require('@playwright/test');
 
-test('Test 1 - Visit URL 1', async ({ page }) => {
-  await page.goto('https://your-url-1.com');
-  // Add your test logic for the first URL
-  expect(await page.title()).toBe('Expected Title for URL 1');
-});
+test('Click on My Activities element', async ({ page }) => {
+  // Navigate to the specified URL
+  await page.goto('http://hahahah.com');
 
-test('Test 2 - Visit URL 2', async ({ page }) => {
-  await page.goto('https://your-url-2.com');
-  // Add your test logic for the second URL
-  expect(await page.title()).toBe('Expected Title for URL 2');
-});
+  // Wait for the element to be present in the DOM
+  const myActivitiesElement = await page.waitForSelector('s-assigned-wrapper');
 
-test('Test 3 - Visit URL 3', async ({ page }) => {
-  await page.goto('https://your-url-3.com');
-  // Add your test logic for the third URL
-  expect(await page.title()).toBe('Expected Title for URL 3');
+  // Click on the My Activities element
+  await myActivitiesElement.click();
+
+  // Wait for some time to see the result (you can adjust this as needed)
+  await page.waitForTimeout(2000);
+
+  // Add an assertion to check if the click was successful or any other conditions
+  const pageTitle = await page.title();
+  expect(pageTitle).toBe('Expected Page Title'); // Replace 'Expected Page Title' with the actual expected title
 });
