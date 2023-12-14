@@ -1,35 +1,19 @@
 const { test, expect } = require('@playwright/test');
-const fetch = require('node-fetch');
 
-test('API Test - GET Request to "https://activities"', async () => {
-  // Specify the URL
-  const apiUrl = 'https://activities';
-
-  // Perform an HTTP GET request to the API
-  const response = await fetch(apiUrl, {
-    method: 'GET',
-    headers: {
-      'Accept': 'application/json',
-    },
-    // Disable SSL validation (use with caution)
-    agent: new (require('https').Agent)({ rejectUnauthorized: false }),
-  });
-
-  // Check that the response status is 200
-  expect(response.status).toBe(200);
+test('Test 1 - Visit URL 1', async ({ page }) => {
+  await page.goto('https://your-url-1.com');
+  // Add your test logic for the first URL
+  expect(await page.title()).toBe('Expected Title for URL 1');
 });
 
+test('Test 2 - Visit URL 2', async ({ page }) => {
+  await page.goto('https://your-url-2.com');
+  // Add your test logic for the second URL
+  expect(await page.title()).toBe('Expected Title for URL 2');
+});
 
-const { chromium } = require('playwright');
-
-(async () => {
-  // Make sure to run headed.
-  const browser = await chromium.launch({ headless: false });
-
-  // Setup context however you like.
-  const context = await browser.newContext({ /* pass any options */ ignoreHTTPSErrors: true });
-
-  // Pause the page, and start recording manually.
-  const page = await context.newPage();
-  await page.pause();
-})();
+test('Test 3 - Visit URL 3', async ({ page }) => {
+  await page.goto('https://your-url-3.com');
+  // Add your test logic for the third URL
+  expect(await page.title()).toBe('Expected Title for URL 3');
+});
