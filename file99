@@ -1,19 +1,29 @@
 const { test, expect } = require('@playwright/test');
 
-test('Click on My Activities element', async ({ page }) => {
-  // Navigate to the specified URL
-  await page.goto('http://hahahah.com');
+test('Navigate to two URLs in the same test and assert text content', async ({ browser, context }) => {
+  // Open a new page in the default browser context and navigate to the first URL
+  const page1 = await context.newPage();
+  await page1.goto('https://example.com');
 
-  // Wait for the element to be present in the DOM
-  const myActivitiesElement = await page.waitForSelector('s-assigned-wrapper');
+  // Wait for some time or perform actions on the first page as needed
+  await page1.waitForTimeout(2000);
 
-  // Click on the My Activities element
-  await myActivitiesElement.click();
+  // Add an assertion for the first page
+  const radioButtonLabel1 = await page1.locator('#radioButton-loans-only-label');
+  const textContent1 = await radioButtonLabel1.innerText();
+  expect(textContent1).toContain('Loans only');
 
-  // Wait for some time to see the result (you can adjust this as needed)
-  await page.waitForTimeout(2000);
+  // Open a new page in the same browser context and navigate to the second URL
+  const page2 = await context.newPage();
+  await page2.goto('https://example2.com');
 
-  // Add an assertion to check if the click was successful or any other conditions
-  const pageTitle = await page.title();
-  expect(pageTitle).toBe('Expected Page Title'); // Replace 'Expected Page Title' with the actual expected title
+  // Wait for some time or perform actions on the second page as needed
+  await page2.waitForTimeout(2000);
+
+  // Add assertions or further actions if necessary
+  const pageTitle1 = await page1.title();
+  const pageTitle2 = await page2.title();
+
+  expect(pageTitle1).toBe('Example Domain'); // Replace with the actual expected title for the first page
+  expect(pageTitle2).toBe('Example Domain 2'); // Replace with the actual expected title for the second page
 });
