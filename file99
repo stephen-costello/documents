@@ -1,29 +1,37 @@
-const { test, expect } = require('@playwright/test');
-
-test('Navigate to two URLs in the same test and assert text content', async ({ browser, context }) => {
-  // Open a new page in the default browser context and navigate to the first URL
-  const page1 = await context.newPage();
-  await page1.goto('https://example.com');
-
-  // Wait for some time or perform actions on the first page as needed
-  await page1.waitForTimeout(2000);
-
-  // Add an assertion for the first page
-  const radioButtonLabel1 = await page1.locator('#radioButton-loans-only-label');
-  const textContent1 = await radioButtonLabel1.innerText();
-  expect(textContent1).toContain('Loans only');
-
-  // Open a new page in the same browser context and navigate to the second URL
-  const page2 = await context.newPage();
-  await page2.goto('https://example2.com');
-
-  // Wait for some time or perform actions on the second page as needed
-  await page2.waitForTimeout(2000);
-
-  // Add assertions or further actions if necessary
-  const pageTitle1 = await page1.title();
-  const pageTitle2 = await page2.title();
-
-  expect(pageTitle1).toBe('Example Domain'); // Replace with the actual expected title for the first page
-  expect(pageTitle2).toBe('Example Domain 2'); // Replace with the actual expected title for the second page
-});
+Test Plan for Suggested Actions Application
+1. Test Environments
+Environment	Test Type	Description
+DIT	Full Regression & Health Checks	Execute comprehensive regression tests and health checks.
+FAC	Full Regression & Health Checks	Perform thorough regression tests and health checks.
+PILOT	High-Level Regression & Health Checks	Conduct high-level regression tests and health checks.
+PROD	High-Level Regression & Health Checks	Execute high-level regression tests and health checks.
+2. Testing Resources
+Test cases created in XRAY.
+Tests, test sets, and test executions feed into a tailored test plan based on the environment.
+3. Application Layers
+API Layer
+Automation Framework: Playwright.
+Repository Link: [API Layer Repository Link]
+Additional Testing Framework: Karate API Testing.
+Repository Link: [Karate API Repository Link]
+S3 / Front-end Layer
+Automation Framework: Playwright.
+Repository Link: [Front-end Repository Link]
+ADE Layer
+End-to-End Testing Framework: Playwright.
+Repository Link: [ADE Layer Repository Link]
+Additional Testing: Manual end-to-end testing, including Genesys call to phone rep, tracked in test executions feeding into the test plan per release.
+4. Source Code Management
+Source code for all testing frameworks will be managed in GitHub.
+5. Continuous Integration/Continuous Deployment (CI/CD)
+Automated tests will be run per environment in JenkinsCore or QE core.
+6. Performance Testing
+No performance testing is required for the Suggested Actions application.
+7. Site Reliability or Chaos Testing
+No site reliability or chaos testing is required for the Suggested Actions application.
+8. Scope
+[Link to Scope Document]
+9. Design
+[Link to Design Document]
+10. Release Candidate Version
+[Link to RELxxx]
