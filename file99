@@ -1,5 +1,43 @@
-Eugense has seamlessly integrated into the Fidelity culture and his squad. His proactive approach towards knowledge gathering and equipment access setup has been noteworthy. In a short span, he has demonstrated a keen eagerness to learn and contribute to the team.
+Plan to Reproduce the Intermittent Issue in a Non-Production Environment:
 
-Eugense's positive attitude and adaptability have made a positive impact on his colleagues, and it's evident that he is settling in well within the Fidelity environment. We appreciate his dedication and enthusiasm.
+To effectively reproduce the intermittent issue, you can follow these steps:
 
-If you have any specific areas or aspects you'd like more detailed feedback on, please feel free to let me know. Otherwise, we look forward to witnessing Eugense's continued growth and success within our team.
+Set up a Non-Production Environment: Create an isolated environment that closely mimics the production setup, including Windows 10 machines with Glue42 and Genesys installed. Ensure that the session controller is configured correctly.
+
+Simulate Genesys Calls: Create a controlled environment where you can simulate Genesys calls. This could involve using a test Genesys system or a mock-up of the system.
+
+Monitor Resource Usage: Use resource monitoring tools to track the performance of the system, including CPU, memory, and handles.
+
+Record System Behavior: Continuously monitor the behavior of the Glue42 application and session controller during simulated Genesys calls. Pay close attention to when the session controller buttons are displayed and when they are not.
+
+Stress Testing: Gradually increase the number of simulated Genesys calls or interactions with Glue42 to put stress on the system. This will help identify the point at which the intermittent issue occurs.
+
+Reproduce the Issue: Attempt to recreate the issue by reaching the conditions where the session controller buttons are not displayed when a Genesys call is in context. Note the specific actions or conditions that trigger this problem.
+
+Collect Logs and Data: Make sure to capture logs, error messages, and any relevant system information during the testing. These can be invaluable in diagnosing the issue.
+
+Isolate Variables: Introduce controlled variables and configurations changes to isolate potential causes. For example, try different versions of Glue42, or vary the number of concurrent Genesys calls.
+
+Repeat Testing: Repeat the testing process multiple times to ensure the issue is consistent or intermittent.
+
+Questions to Ask Users for More Detail:
+
+To gather more information about the intermittent issue from users, you can ask the following questions:
+
+Frequency of Occurrence: How often do you experience the issue with the session controller buttons not displaying during Genesys calls?
+
+Exact Scenario: Can you provide a detailed description of the steps you take when the issue occurs? What actions are you performing in Glue42 when a Genesys call is in context?
+
+Any Patterns: Have you noticed any patterns or specific conditions under which the problem tends to happen more frequently?
+
+System Status: Are there any specific error messages or warnings that appear when the session controller buttons fail to display?
+
+Other Running Software: Are there any other software applications running concurrently with Glue42 that might affect its performance?
+
+System Resources: Have you observed any unusual resource usage by Glue42 (e.g., high CPU or memory usage) when the issue occurs?
+
+Session Controller State: Can you confirm if the session controller is in State 2 (Genesys call in context) when the buttons are supposed to be displayed, and State 1 when they are not?
+
+Recent Changes: Have there been any recent updates or changes to the Glue42 or Genesys systems that might be related to the issue?
+
+Additional Observations: Are there any other observations or details you can provide that may help in diagnosing the problem?
