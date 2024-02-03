@@ -1,113 +1,51 @@
-Project Title: Call Back Request Tool Scope Document
-
-1. Introduction:
-The Call Back Request Tool is a desktop application designed to streamline the process of logging and managing call back requests for phone representatives in a call center. This tool will enable phone representatives to efficiently record and track call back requests, improving customer service and organizational efficiency.
-
-2. Objectives:
-The primary objectives of the Call Back Request Tool are as follows:
-
-Enable phone representatives to log incoming call back requests.
-Provide filters for viewing call back requests categorized as 'Today & Past Due' and 'Next 7 Days.'
-Maintain a centralized database of call back requests with essential information.
-Facilitate easy access to the Call Back Request (CBR) tool through a link within the application.
-3. Features:
-
-3.1 Logging Call Back Requests:
-
-Allow phone representatives to enter the following information for each call back request:
-Request ID
-Date
-Time
-Name of the requester
-Client information
-Work ID
-Reason for the call back
-3.2 Filters:
-
-Provide two primary filters to help phone representatives organize call back requests:
-'Today & Past Due': Display call back requests for the current date and those that are past due.
-'Next 7 Days': Display call back requests scheduled for the next seven days.
-3.3 CBR Tool Integration:
-
-Include a link within the tool that, when clicked, opens the Call Back Request (CBR) tool in another browser window. This integration allows phone representatives to access and manage call back requests seamlessly.
-4. Scope Limitations:
-
-This tool will focus solely on logging and managing call back requests and will not include features unrelated to this purpose.
-The tool will not handle outbound call scheduling or other call center functionalities.
-5. Deliverables:
-The following deliverables are expected as a result of this project:
-
-Functional desktop application for logging and managing call back requests.
-User documentation for phone representatives.
-Integration of the CBR tool link.
-6. Timeline:
-The estimated timeline for the development and implementation of the Call Back Request Tool is to be determined, pending further project planning and resource allocation.
-
-7. Stakeholders:
-
-Project Sponsor: [Name]
-Project Manager: [Name]
-Phone Representatives: End users of the tool
-IT Team: Responsible for development and maintenance
-8. Approval:
-This scope document is subject to approval by the project sponsor and relevant stakeholders.
-
-9. Revision History:
-
-Version	Date	Description	Author
-1.0	[Date]	Initial Scope Document	[Your Name]
-This scope document outlines the objectives, features, and limitations of the Call Back Request Tool. Further project planning and development will proceed based on this document's approval.
-
-##Testing 
-
-Certainly! Here are some Behavior-Driven Development (BDD) test scenarios for the Call Back Request Tool:
-
-Feature: Logging Call Back Requests
-
-Scenario 1: Phone representative logs a new call back request.
-
-Given the phone representative is on the Call Back Request Tool page.
-When they enter valid information for a new call back request (Request ID, Date, Time, Name, Client, Work ID, Reason).
-And they click the "Submit" button.
-Then the call back request should be successfully logged.
-And the request should appear in the list of call back requests.
-Scenario 2: Phone representative logs a call back request with missing information.
-
-Given the phone representative is on the Call Back Request Tool page.
-When they enter incomplete information for a new call back request (e.g., missing Date).
-And they click the "Submit" button.
-Then an error message should be displayed, indicating the missing information.
-And the call back request should not be logged.
-Feature: Filtering Call Back Requests
-
-Scenario 3: Phone representative filters call back requests for 'Today & Past Due.'
-
-Given there are call back requests with past due dates and today's date.
-When the phone representative selects the 'Today & Past Due' filter.
-Then only call back requests with past due dates and today's date should be displayed in the list.
-And other requests should be hidden.
-Scenario 4: Phone representative filters call back requests for 'Next 7 Days.'
-
-Given there are call back requests scheduled for the next 7 days.
-When the phone representative selects the 'Next 7 Days' filter.
-Then only call back requests scheduled for the next 7 days should be displayed in the list.
-And other requests should be hidden.
-Feature: Integration with CBR Tool
-
-Scenario 5: Phone representative clicks the CBR tool link.
-
-Given the phone representative is using the Call Back Request Tool.
-When they click the link to access the Call Back Request (CBR) tool.
-Then a new browser window/tab should open with the CBR tool.
-And they should have access to the CBR tool's functionality.
-Scenario 6: Phone representative logs a call back request and then accesses CBR tool via the link.
-
-Given the phone representative logs a new call back request.
-When they click the link to access the Call Back Request (CBR) tool.
-Then the new call back request should also be visible in the CBR tool.
-And any changes made to the request in one tool should be reflected in the other.
-These BDD test scenarios cover the key features and interactions of the Call Back Request Tool, ensuring that it meets the specified requirements and functions correctly.
-
-
-
-
+Slide 1: Introduction to Performance Review Process
+Objective: Explain the importance of the performance review process.
+Key Points:
+Aligning individual goals with company objectives.
+Framework for providing structured feedback.
+Importance of continuous development and recognition.
+Slide 2: 1-2-1 Meetings with Your Manager
+Objective: Outline the purpose and structure of 1-2-1 meetings.
+Key Points:
+Regular, dedicated time for feedback and support.
+Discuss progress towards goals and any roadblocks.
+Opportunity for personal development planning.
+Slide 3: Goal Setting for the Year Ahead
+Objective: Guide on setting SMART goals (Specific, Measurable, Achievable, Relevant, Time-bound).
+Key Points:
+Importance of aligning goals with business objectives.
+How to set personal development goals.
+Tracking and revising goals throughout the year.
+Slide 4: Quarterly Check-ins
+Objective: Explain the quarterly check-in process and its benefits.
+Key Points:
+Reviewing progress on goals.
+Adjusting goals as needed based on performance and business direction.
+Maintaining motivation and engagement through regular feedback.
+Slide 5: End of Year Performance Ratings & Review
+Objective: Detail the process and criteria for end-of-year performance evaluations.
+Sub-sections:
+Inconsistent Performance:
+Identifying areas for improvement.
+Creating a development plan.
+Successful Performance:
+Recognizing achievements.
+Discussing opportunities for growth and development.
+Exceptional Performance:
+Celebrating outstanding contributions.
+Discussing potential for advancement and additional responsibilities.
+Slide 6: Conclusion & Next Steps
+Objective: Summarize the performance review process and outline next steps.
+Key Points:
+Importance of ongoing communication and feedback.
+Encouragement for employees to actively engage in their development process.
+Timeline for the next review cycle.
+Slide 7: Q&A
+Objective: Open floor for questions and clarifications.
+Key Points:
+Invite questions about the process.
+Offer additional resources for support.
+Design Tips:
+Visuals: Use charts, graphs, and icons to illustrate key points.
+Consistency: Maintain a consistent color scheme and font style throughout the presentation.
+Engagement: Include interactive elements or scenarios to engage the audience.
