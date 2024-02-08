@@ -1,1 +1,3 @@
 xcopy "C:\Users\a562614\Desktop\dll with Semaphore\*" "C:\Program Files (x86)\FI\IAW\FP\" /s /i /y
+
+robocopy "C:\Users\a562614\Desktop\dll with Semaphore" "C:\Program Files (x86)\FI\IAW\FP" /e /copyall /r:0 /w:0 /np /log:"C:\robocopy_log.txt"
