@@ -1,232 +1,27 @@
-[
-    {
-        "id": 1,
-        "name": "John Doe",
-        "age": 30,
-        "email": "john.doe@example.com",
-        "address": {
-            "street": "123 Main St",
-            "city": "Anytown",
-            "state": "CA",
-            "zip": "12345"
-        }
-    },
-    {
-        "id": 2,
-        "name": "Jane Smith",
-        "age": 25,
-        "email": "jane.smith@example.com",
-        "address": {
-            "street": "456 Elm St",
-            "city": "Othertown",
-            "state": "NY",
-            "zip": "54321"
-        }
-    },
-    {
-        "id": 3,
-        "name": "Alice Johnson",
-        "age": 35,
-        "email": "alice.johnson@example.com",
-        "address": {
-            "street": "789 Oak St",
-            "city": "Smalltown",
-            "state": "TX",
-            "zip": "98765"
-        }
-    },
-    {
-        "id": 4,
-        "name": "Bob Williams",
-        "age": 40,
-        "email": "bob.williams@example.com",
-        "address": {
-            "street": "101 Pine St",
-            "city": "Hometown",
-            "state": "FL",
-            "zip": "24680"
-        }
-    },
-    {
-        "id": 5,
-        "name": "Emily Brown",
-        "age": 28,
-        "email": "emily.brown@example.com",
-        "address": {
-            "street": "222 Cedar St",
-            "city": "Villagetown",
-            "state": "WA",
-            "zip": "13579"
-        }
-    },
-    {
-        "id": 6,
-        "name": "Michael Wilson",
-        "age": 45,
-        "email": "michael.wilson@example.com",
-        "address": {
-            "street": "333 Maple St",
-            "city": "Metropolis",
-            "state": "IL",
-            "zip": "86420"
-        }
-    },
-    {
-        "id": 7,
-        "name": "Sophia Lee",
-        "age": 33,
-        "email": "sophia.lee@example.com",
-        "address": {
-            "street": "444 Walnut St",
-            "city": "Suburbia",
-            "state": "PA",
-            "zip": "97531"
-        }
-    },
-    {
-        "id": 8,
-        "name": "James Taylor",
-        "age": 32,
-        "email": "james.taylor@example.com",
-        "address": {
-            "street": "555 Birch St",
-            "city": "Cityville",
-            "state": "MI",
-            "zip": "75319"
-        }
-    },
-    {
-        "id": 9,
-        "name": "Olivia Martinez",
-        "age": 27,
-        "email": "olivia.martinez@example.com",
-        "address": {
-            "street": "666 Pineapple St",
-            "city": "Beachtown",
-            "state": "CA",
-            "zip": "12345"
-        }
-    },
-    {
-        "id": 10,
-        "name": "Liam Garcia",
-        "age": 38,
-        "email": "liam.garcia@example.com",
-        "address": {
-            "street": "777 Banana St",
-            "city": "Boardwalk",
-            "state": "FL",
-            "zip": "24680"
-        }
-    },
-    {
-        "id": 11,
-        "name": "Ava Rodriguez",
-        "age": 31,
-        "email": "ava.rodriguez@example.com",
-        "address": {
-            "street": "888 Coconut St",
-            "city": "Seaside",
-            "state": "WA",
-            "zip": "13579"
-        }
-    },
-    {
-        "id": 12,
-        "name": "Noah Hernandez",
-        "age": 29,
-        "email": "noah.hernandez@example.com",
-        "address": {
-            "street": "999 Orange St",
-            "city": "Surftown",
-            "state": "CA",
-            "zip": "98765"
-        }
-    },
-    {
-        "id": 13,
-        "name": "Isabella Lopez",
-        "age": 37,
-        "email": "isabella.lopez@example.com",
-        "address": {
-            "street": "111 Pineapple St",
-            "city": "Beachtown",
-            "state": "CA",
-            "zip": "12345"
-        }
-    },
-    {
-        "id": 14,
-        "name": "Mason Martinez",
-        "age": 26,
-        "email": "mason.martinez@example.com",
-        "address": {
-            "street": "222 Banana St",
-            "city": "Boardwalk",
-            "state": "FL",
-            "zip": "24680"
-        }
-    },
-    {
-        "id": 15,
-        "name": "Charlotte Brown",
-        "age": 34,
-        "email": "charlotte.brown@example.com",
-        "address": {
-            "street": "333 Coconut St",
-            "city": "Seaside",
-            "state": "WA",
-            "zip": "13579"
-        }
-    },
-    {
-        "id": 16,
-        "name": "Ethan Hernandez",
-        "age": 39,
-        "email": "ethan.hernandez@example.com",
-        "address": {
-            "street": "444 Orange St",
-            "city": "Surftown",
-            "state": "CA",
-            "zip": "98765"
-        }
-    },
-    {
-        "id": 17,
-        "name": "Amelia Lopez",
-        "age": 28,
-        "email": "amelia.lopez@example.com",
-        "address": {
-            "street": "555 Pineapple St",
-            "city": "Beachtown",
-            "state": "CA",
-            "zip": "12345"
-        }
-    },
-    {
-        "id": 18,
-        "name": "Alexander Martinez",
-        "age": 36,
-        "email": "alexander.martinez@example.com",
-        "address": {
-            "street": "666 Banana St",
-            "city": "Boardwalk",
-            "state": "FL",
-            "zip": "24680"
-        }
-    },
-    {
-        "id": 19,
-        "name": "Harper Brown",
-        "age": 30,
-        "email": "harper.brown@example.com",
-        "address": {
-            "street": "777 Coconut St",
-            "city": "Seaside",
-            "state": "WA",
-            "zip": "13579"
-        }
-    },
-    {
-        "id": 20,
-        "name": "Sebastian Hernandez",
+Feature: Disclaimer Page Navigation
+In order to ensure the users understand and agree to the legal disclaimer before proceeding,
+As a legal or compliance officer,
+I want to make sure that users can only proceed after agreeing to the terms of the disclaimer.
+
+Scenario 1: Viewing the disclaimer page
+Given a user navigates to the disclaimer page,
+Then they see a header with "Please read before continuing",
+And a body of text stating "This is a legal disclaimer and will be read aloud",
+And a tick box with the label "I agree to terms" to the left of it,
+And a greyed-out "Next" button.
+
+Scenario 2: Attempting to proceed without agreeing to the disclaimer
+Given a user is on the disclaimer page,
+When the tick box is not ticked,
+Then the "Next" button remains greyed out,
+And the user cannot proceed to the next page.
+
+Scenario 3: Agreeing to the disclaimer
+Given a user is on the disclaimer page,
+When the user ticks the "I agree to terms" tick box,
+Then the "Next" button becomes clickable.
+
+Scenario 4: Proceeding after agreeing to the disclaimer
+Given the "I agree to terms" tick box is ticked,
+When the user clicks on the "Next" button,
+Then the user is taken to the next page in the process.
