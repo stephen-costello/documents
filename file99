@@ -1,27 +1,11 @@
-Feature: Disclaimer Page Navigation
-In order to ensure the users understand and agree to the legal disclaimer before proceeding,
-As a legal or compliance officer,
-I want to make sure that users can only proceed after agreeing to the terms of the disclaimer.
+As the year comes to a close, it's a great opportunity to take a moment and appreciate the incredible contributions Jason has made to our team, especially regarding the Chimera squad releases. His commitment and precision in his role as a Quality Engineer have truly set a high standard.
 
-Scenario 1: Viewing the disclaimer page
-Given a user navigates to the disclaimer page,
-Then they see a header with "Please read before continuing",
-And a body of text stating "This is a legal disclaimer and will be read aloud",
-And a tick box with the label "I agree to terms" to the left of it,
-And a greyed-out "Next" button.
+Consistent Positivity: Anyone you ask would echo the sentiment that Jason's positive feedback and approach to his work have been a beacon of professionalism. His unwavering positivity, even when deadlines loom and pressure mounts, not only uplifts the team but also significantly boosts our collective productivity.
 
-Scenario 2: Attempting to proceed without agreeing to the disclaimer
-Given a user is on the disclaimer page,
-When the tick box is not ticked,
-Then the "Next" button remains greyed out,
-And the user cannot proceed to the next page.
+Meticulous Testing: Jason's approach to test setup is nothing short of meticulous. It’s this attention to detail that has been a key factor in the high-quality releases of the Chimera squad. His dedication ensures that our products stand out for their excellence, reinforcing our commitment to quality in the eyes of our clients and stakeholders.
 
-Scenario 3: Agreeing to the disclaimer
-Given a user is on the disclaimer page,
-When the user ticks the "I agree to terms" tick box,
-Then the "Next" button becomes clickable.
+Effective Team Collaboration: In a setting where the pace is relentless and the stakes are high, Jason's ability to delegate and oversee testing processes shines through. His knack for ensuring that everything runs smoothly, allowing us to meet critical deadlines without sacrificing quality, is commendable. His management of these responsibilities has been vital in maintaining our track record of timely, high-quality releases.
 
-Scenario 4: Proceeding after agreeing to the disclaimer
-Given the "I agree to terms" tick box is ticked,
-When the user clicks on the "Next" button,
-Then the user is taken to the next page in the process.
+Reflecting on Jason's work over the past year, it's clear that his contributions have been invaluable. His dedication, precision, and teamwork under tight deadlines have not only elevated our projects but have also set a benchmark for excellence within our team. It’s the hard work and commitment of team members like Jason that drive our success and innovation.
+
+Here's to recognizing Jason's outstanding efforts and looking forward to the continued excellence and ingenuity he brings to our team.
