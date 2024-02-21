@@ -1,11 +1,45 @@
-As the year comes to a close, it's a great opportunity to take a moment and appreciate the incredible contributions Jason has made to our team, especially regarding the Chimera squad releases. His commitment and precision in his role as a Quality Engineer have truly set a high standard.
+As a user,
+I want to have toggle options for 'Last 2 days' and 'Last 7 days' in the 'My Activities' tab of the search module.
 
-Consistent Positivity: Anyone you ask would echo the sentiment that Jason's positive feedback and approach to his work have been a beacon of professionalism. His unwavering positivity, even when deadlines loom and pressure mounts, not only uplifts the team but also significantly boosts our collective productivity.
+Background:
+Given the user is on the 'My Activities' tab in the search module
 
-Meticulous Testing: Jason's approach to test setup is nothing short of meticulous. It’s this attention to detail that has been a key factor in the high-quality releases of the Chimera squad. His dedication ensures that our products stand out for their excellence, reinforcing our commitment to quality in the eyes of our clients and stakeholders.
+Scenario: Display of toggle options
+Given the user navigates to the 'My Activities' tab,
+Then the user sees two toggles prefixed with 'View:' text,
+And 'Last 2 days()' toggle is visible on the right,
+And 'Last 7 days()' toggle is also visible on the right,
+And the number of activities for each view is displayed to the right of each toggle name.
+Scenario: Default state of toggles
+Given the user navigates to the 'My Activities' tab,
+Then neither 'Last 2 days()' nor 'Last 7 days()' toggles are selected by default.
+Scenario: Select 'Last 2 days' view
+When the user clicks on the 'Last 2 days()' toggle,
+Then the 'Last 2 days()' toggle turns green,
+And the 'Last 7 days()' toggle remains inactive,
+And only the activities from the last 2 days are displayed.
+Scenario: Select 'Last 7 days' view
+When the user clicks on the 'Last 7 days()' toggle,
+Then the 'Last 7 days()' toggle turns green,
+And the 'Last 2 days()' toggle remains inactive,
+And only the activities from the last 7 days are displayed.
+Scenario: Toggle between views
+Given the 'Last 2 days()' toggle is selected,
 
-Effective Team Collaboration: In a setting where the pace is relentless and the stakes are high, Jason's ability to delegate and oversee testing processes shines through. His knack for ensuring that everything runs smoothly, allowing us to meet critical deadlines without sacrificing quality, is commendable. His management of these responsibilities has been vital in maintaining our track record of timely, high-quality releases.
+When the user clicks on the 'Last 7 days()' toggle,
 
-Reflecting on Jason's work over the past year, it's clear that his contributions have been invaluable. His dedication, precision, and teamwork under tight deadlines have not only elevated our projects but have also set a benchmark for excellence within our team. It’s the hard work and commitment of team members like Jason that drive our success and innovation.
+Then the 'Last 7 days()' toggle turns green,
 
-Here's to recognizing Jason's outstanding efforts and looking forward to the continued excellence and ingenuity he brings to our team.
+And the 'Last 2 days()' toggle turns inactive,
+
+And only the activities from the last 7 days are displayed.
+
+Given the 'Last 7 days()' toggle is selected,
+
+When the user clicks on the 'Last 2 days()' toggle,
+
+Then the 'Last 2 days()' toggle turns green,
+
+And the 'Last 7 days()' toggle turns inactive,
+
+And only the activities from the last 2 days are displayed.
