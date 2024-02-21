@@ -1,18 +1,20 @@
 As a user,
-I want to see each activity recorded with a date and time stamp in a specific format and order.
+I want to see the customer name matching the participant banner, displayed in all capital letters and as a clickable link.
 
-Scenario: Correct date and time format for each activity
-Given the user has activities recorded,
-When the user views the activities in the table,
-Then each activity's date is displayed in the "MM/DD/YYYY" format,
-And each activity's time is displayed in the "HH:MM:SS AM/PM" format, all times in EST.
-Scenario: Activities are ordered by date and time from newest to oldest
-Given the user has multiple activities recorded,
-When the user views the activities in the table,
-Then the activities are ordered with the most recent date and time at the top of the table,
-And activities follow in descending order towards the oldest at the bottom.
-Scenario: Displaying activities with the correct time zone
+Scenario: Customer name matches the participant banner
 Given the user is viewing the activities table,
-When the activities have different recorded times,
-Then all displayed times are in the Eastern Standard Time (EST) zone,
-And the time zone is clearly indicated either as part of the time format or elsewhere in the table for user awareness.
+When the table displays the customer name,
+Then the customer name in the table matches exactly with the customer name on the participant banner.
+Scenario: Customer name displayed in all capital letters
+Given the user is viewing the activities table,
+When the table displays the customer name,
+Then the customer name is displayed in all capital letters,
+And the text is in black.
+Scenario: Customer name is a clickable link
+Given the user is viewing the activities table,
+When the table displays the customer name,
+Then the customer name is underlined indicating it is a clickable link.
+Scenario: Mouse icon change on hover over customer name
+Given the user is viewing the activities table,
+When the user hovers the mouse over a customer name,
+Then the mouse icon changes to indicate that the customer name is interactive (e.g., changes to a hand pointer).
