@@ -1,28 +1,26 @@
 As a user,
-I want to log calls through the Call Logger app before ending the session, ensuring these interactions are recorded in 'My Activities'.
+I want to be able to log each call and end each session in sequence, ensuring all interactions are captured in 'My Activities'.
 
-Scenario: Handling an incoming call while on the search and workspace is active
-Given the user is on search and the workspace is active,
-When a call comes in via the Genesys queue,
-Then the participant is placed in context and the participant banner is displayed.
-Scenario: Logging a call before ending the session
-Given an incoming call is in progress and the participant banner is displayed,
-When the user selects the 'End Session' button on the controller,
-Then the Call Logger app appears,
-And the user must log the call for the session to end.
-Scenario: Return to search module landing after call logging
-Given the user has logged the call through the Call Logger app,
-When the call logging is completed,
-Then the session ends,
-And the user is returned to the search module landing page.
-Scenario: Record of call activity in 'My Activities' tab
-Given the user has logged a call and ended the session,
-When the user checks the 'My Activities' tab,
-Then there is a record of the activity for that participant,
-And the activity includes Date/Time, Duration, Customer Name, Client Name, Plan ID,
+Scenario: Logging multiple calls in sequence
+Given the user receives a call and is in a session,
+And another call comes in before the first call is logged and the session is ended,
+When the user ends the first session but does not immediately log the call,
+And then ends the second session,
+Then the user must log the first call,
+And subsequently log the second call.
+Scenario: Accurate record of multiple activities in 'My Activities'
+Given the user has received and ended sessions for two consecutive calls,
+When the user logs both calls in sequence as per the system's requirement,
+Then the user has a record of both activities in the 'My Activities' tab,
+And each activity entry includes Date/Time, Duration, Customer Name, Client Name, Plan ID,
 And the activities are ordered from newest to oldest based on the Date/Time stamp.
-Scenario: Consistency of activity details with call information
-Given a call has been logged and the activity recorded,
-When the user views the details of the activity in the 'My Activities' tab,
-Then the details such as Customer Name, Client Name, and Plan ID match those from the call,
-And the Date/Time and Duration accurately reflect the call's timing and length.
+Scenario: Ensuring no loss of call information between sessions
+Given multiple calls have been received and sessions initiated,
+When the calls stack up due to the user not getting a chance to log each call immediately,
+Then the system ensures no loss of information for each call,
+And prompts the user to log each call in the order they were received and sessions ended.
+Scenario: Maintaining sequential integrity of call logs
+Given the user is managing multiple calls in a busy queue,
+When the user completes a session and moves to log the call,
+Then the system presents the call logging interface for each call in the sequence they were received and ended,
+And ensures that the user can accurately log details for each call before proceeding to the next.
