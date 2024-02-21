@@ -1,18 +1,18 @@
 As a user,
-I want to see my activities organized in a table with predefined headers.
+I want to see each activity recorded with a date and time stamp in a specific format and order.
 
-Scenario: Activities table is correctly formatted with headers
-Given the user is on the 'My Activities' tab where activities are present,
-When the user views the activities,
-Then the activities are displayed in a table format,
-And the table includes the headers: "Date/Time," "Duration," "Customer Name," "Client Name," and "Plan ID."
-Scenario: No activities present - table structure
-Given the user is on the 'My Activities' tab but no activities have been recorded for the selected time frame,
-When the user views the activities section,
-Then the table structure is still displayed with the headers: "Date/Time," "Duration," "Customer Name," "Client Name," and "Plan ID",
-And a message under the table headers indicates "No activities found."
-Scenario: Display recorded activities in the table
-Given the user has activities recorded within the selected time frame,
-When the user views the activities,
-Then each recorded activity is displayed in a row under the appropriate headers,
-And each activity's details align under the headers "Date/Time," "Duration," "Customer Name," "Client Name," and "Plan ID."
+Scenario: Correct date and time format for each activity
+Given the user has activities recorded,
+When the user views the activities in the table,
+Then each activity's date is displayed in the "MM/DD/YYYY" format,
+And each activity's time is displayed in the "HH:MM:SS AM/PM" format, all times in EST.
+Scenario: Activities are ordered by date and time from newest to oldest
+Given the user has multiple activities recorded,
+When the user views the activities in the table,
+Then the activities are ordered with the most recent date and time at the top of the table,
+And activities follow in descending order towards the oldest at the bottom.
+Scenario: Displaying activities with the correct time zone
+Given the user is viewing the activities table,
+When the activities have different recorded times,
+Then all displayed times are in the Eastern Standard Time (EST) zone,
+And the time zone is clearly indicated either as part of the time format or elsewhere in the table for user awareness.
