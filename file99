@@ -1,45 +1,15 @@
 As a user,
-I want to have toggle options for 'Last 2 days' and 'Last 7 days' in the 'My Activities' tab of the search module.
+I want to see a 'No activities found.' message and have the activities count displayed as zero for the selected time frame.
 
-Background:
-Given the user is on the 'My Activities' tab in the search module
-
-Scenario: Display of toggle options
-Given the user navigates to the 'My Activities' tab,
-Then the user sees two toggles prefixed with 'View:' text,
-And 'Last 2 days()' toggle is visible on the right,
-And 'Last 7 days()' toggle is also visible on the right,
-And the number of activities for each view is displayed to the right of each toggle name.
-Scenario: Default state of toggles
-Given the user navigates to the 'My Activities' tab,
-Then neither 'Last 2 days()' nor 'Last 7 days()' toggles are selected by default.
-Scenario: Select 'Last 2 days' view
+Scenario: Display message and zero count for no activities in the last 2 days
+Given the user is on the 'My Activities' tab in the search module,
+And the user has not recorded any activities in the last 2 days,
 When the user clicks on the 'Last 2 days()' toggle,
-Then the 'Last 2 days()' toggle turns green,
-And the 'Last 7 days()' toggle remains inactive,
-And only the activities from the last 2 days are displayed.
-Scenario: Select 'Last 7 days' view
+Then the 'No activities found.' message displays on the top right,
+And the activities count next to the 'Last 2 days()' toggle is zero.
+Scenario: Display message and zero count for no activities in the last 7 days
+Given the user is on the 'My Activities' tab in the search module,
+And the user has not recorded any activities in the last 7 days,
 When the user clicks on the 'Last 7 days()' toggle,
-Then the 'Last 7 days()' toggle turns green,
-And the 'Last 2 days()' toggle remains inactive,
-And only the activities from the last 7 days are displayed.
-Scenario: Toggle between views
-Given the 'Last 2 days()' toggle is selected,
-
-When the user clicks on the 'Last 7 days()' toggle,
-
-Then the 'Last 7 days()' toggle turns green,
-
-And the 'Last 2 days()' toggle turns inactive,
-
-And only the activities from the last 7 days are displayed.
-
-Given the 'Last 7 days()' toggle is selected,
-
-When the user clicks on the 'Last 2 days()' toggle,
-
-Then the 'Last 2 days()' toggle turns green,
-
-And the 'Last 7 days()' toggle turns inactive,
-
-And only the activities from the last 2 days are displayed.
+Then the 'No activities found.' message displays on the top right,
+And the activities count next to the 'Last 7 days()' toggle is zero.
