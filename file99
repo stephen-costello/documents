@@ -1,23 +1,28 @@
 As a user,
-I want to have a record of each session ended with a participant, including relevant details and displayed in the correct order.
+I want to log calls through the Call Logger app before ending the session, ensuring these interactions are recorded in 'My Activities'.
 
-Scenario: End session and return to search module landing
-Given the user has searched and found a participant in the search module,
-And the participant banner is displayed indicating the participant is in context,
+Scenario: Handling an incoming call while on the search and workspace is active
+Given the user is on search and the workspace is active,
+When a call comes in via the Genesys queue,
+Then the participant is placed in context and the participant banner is displayed.
+Scenario: Logging a call before ending the session
+Given an incoming call is in progress and the participant banner is displayed,
 When the user selects the 'End Session' button on the controller,
-Then the session with the participant ends,
+Then the Call Logger app appears,
+And the user must log the call for the session to end.
+Scenario: Return to search module landing after call logging
+Given the user has logged the call through the Call Logger app,
+When the call logging is completed,
+Then the session ends,
 And the user is returned to the search module landing page.
-Scenario: Record of activity for ended session
-Given the user has ended a session with a participant,
+Scenario: Record of call activity in 'My Activities' tab
+Given the user has logged a call and ended the session,
 When the user checks the 'My Activities' tab,
 Then there is a record of the activity for that participant,
-And the activity includes details like Date/Time, Duration, Customer Name, Client Name, Plan ID.
-Scenario: Activities ordered by newest to oldest
-Given the user has multiple recorded activities,
-When the user views the 'My Activities' tab,
-Then the activities are displayed in the table ordered from newest to oldest based on the Date/Time stamp.
-Scenario: Activity details match session information
-Given the user has ended a session with a participant and the activity is recorded,
+And the activity includes Date/Time, Duration, Customer Name, Client Name, Plan ID,
+And the activities are ordered from newest to oldest based on the Date/Time stamp.
+Scenario: Consistency of activity details with call information
+Given a call has been logged and the activity recorded,
 When the user views the details of the activity in the 'My Activities' tab,
-Then the details such as Customer Name, Client Name, and Plan ID match those from the session,
-And the Date/Time and Duration accurately reflect the session's timing and length.
+Then the details such as Customer Name, Client Name, and Plan ID match those from the call,
+And the Date/Time and Duration accurately reflect the call's timing and length.
