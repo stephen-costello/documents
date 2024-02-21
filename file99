@@ -1,15 +1,18 @@
 As a user,
-I want to see a 'No activities found.' message and have the activities count displayed as zero for the selected time frame.
+I want to see my activities organized in a table with predefined headers.
 
-Scenario: Display message and zero count for no activities in the last 2 days
-Given the user is on the 'My Activities' tab in the search module,
-And the user has not recorded any activities in the last 2 days,
-When the user clicks on the 'Last 2 days()' toggle,
-Then the 'No activities found.' message displays on the top right,
-And the activities count next to the 'Last 2 days()' toggle is zero.
-Scenario: Display message and zero count for no activities in the last 7 days
-Given the user is on the 'My Activities' tab in the search module,
-And the user has not recorded any activities in the last 7 days,
-When the user clicks on the 'Last 7 days()' toggle,
-Then the 'No activities found.' message displays on the top right,
-And the activities count next to the 'Last 7 days()' toggle is zero.
+Scenario: Activities table is correctly formatted with headers
+Given the user is on the 'My Activities' tab where activities are present,
+When the user views the activities,
+Then the activities are displayed in a table format,
+And the table includes the headers: "Date/Time," "Duration," "Customer Name," "Client Name," and "Plan ID."
+Scenario: No activities present - table structure
+Given the user is on the 'My Activities' tab but no activities have been recorded for the selected time frame,
+When the user views the activities section,
+Then the table structure is still displayed with the headers: "Date/Time," "Duration," "Customer Name," "Client Name," and "Plan ID",
+And a message under the table headers indicates "No activities found."
+Scenario: Display recorded activities in the table
+Given the user has activities recorded within the selected time frame,
+When the user views the activities,
+Then each recorded activity is displayed in a row under the appropriate headers,
+And each activity's details align under the headers "Date/Time," "Duration," "Customer Name," "Client Name," and "Plan ID."
