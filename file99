@@ -1,20 +1,23 @@
 As a user,
-I want to see the customer name matching the participant banner, displayed in all capital letters and as a clickable link.
+I want to have a record of each session ended with a participant, including relevant details and displayed in the correct order.
 
-Scenario: Customer name matches the participant banner
-Given the user is viewing the activities table,
-When the table displays the customer name,
-Then the customer name in the table matches exactly with the customer name on the participant banner.
-Scenario: Customer name displayed in all capital letters
-Given the user is viewing the activities table,
-When the table displays the customer name,
-Then the customer name is displayed in all capital letters,
-And the text is in black.
-Scenario: Customer name is a clickable link
-Given the user is viewing the activities table,
-When the table displays the customer name,
-Then the customer name is underlined indicating it is a clickable link.
-Scenario: Mouse icon change on hover over customer name
-Given the user is viewing the activities table,
-When the user hovers the mouse over a customer name,
-Then the mouse icon changes to indicate that the customer name is interactive (e.g., changes to a hand pointer).
+Scenario: End session and return to search module landing
+Given the user has searched and found a participant in the search module,
+And the participant banner is displayed indicating the participant is in context,
+When the user selects the 'End Session' button on the controller,
+Then the session with the participant ends,
+And the user is returned to the search module landing page.
+Scenario: Record of activity for ended session
+Given the user has ended a session with a participant,
+When the user checks the 'My Activities' tab,
+Then there is a record of the activity for that participant,
+And the activity includes details like Date/Time, Duration, Customer Name, Client Name, Plan ID.
+Scenario: Activities ordered by newest to oldest
+Given the user has multiple recorded activities,
+When the user views the 'My Activities' tab,
+Then the activities are displayed in the table ordered from newest to oldest based on the Date/Time stamp.
+Scenario: Activity details match session information
+Given the user has ended a session with a participant and the activity is recorded,
+When the user views the details of the activity in the 'My Activities' tab,
+Then the details such as Customer Name, Client Name, and Plan ID match those from the session,
+And the Date/Time and Duration accurately reflect the session's timing and length.
