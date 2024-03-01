@@ -1,4 +1,15 @@
-As a user,
+7As 
+
+
+Test Execution Overview:
+
+This test execution plan is designed to conduct comprehensive regression testing on the ADE application and the Newsline application within the UAT (User Acceptance Testing) environment. Our objective is to ensure that both applications perform as expected, delivering accurate and relevant suggested actions to users. The testing scope encompasses manual checks and automated test scripts to cover a wide range of scenarios, including edge cases and typical user interactions.
+
+
+
+
+
+a user,
 I want to click on a customer name to bring them back into context and manage the session accordingly, ensuring subsequent activities are accurately recorded.
 
 Scenario: Recalling a participant from 'My Activities'
