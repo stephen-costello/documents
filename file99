@@ -1,33 +1,25 @@
-7As 
+Certainly! Below are the detailed BDD (Behavior-Driven Development) test scenarios for the NewsLine application within the ADE desktop application, presented in a clear text format suitable for use in test case documentation:
 
+### Feature: Display and Interaction Capabilities of NewsLine within ADE
 
-Test Execution Overview:
+**Test Case 1: Verify NewsLine Glue Header Display**
+- **Given** the ADE desktop application is open,
+- **When** the user navigates to the NewsLine application,
+- **Then** the user should see the Glue Header labeled 'NewsLine' displayed in bold.
 
-This test execution plan is designed to conduct comprehensive regression testing on the ADE application and the Newsline application within the UAT (User Acceptance Testing) environment. Our objective is to ensure that both applications perform as expected, delivering accurate and relevant suggested actions to users. The testing scope encompasses manual checks and automated test scripts to cover a wide range of scenarios, including edge cases and typical user interactions.
+**Test Case 2: Expand NewsLine to Full Screen**
+- **Given** the NewsLine application is viewed within ADE,
+- **When** the user clicks the expand application button,
+- **Then** the NewsLine application should expand to occupy the full screen.
 
+**Test Case 3: Pop Out NewsLine Application**
+- **Given** the NewsLine application is active within ADE,
+- **When** the user long-presses on the NewsLine Glue header,
+- **Then** the NewsLine application should 'pop out', allowing the user to move it around independently of the ADE desktop application.
 
+**Test Case 4: Re-attach Popped-Out NewsLine Application**
+- **Given** the NewsLine application has been popped out,
+- **When** the user drags and drops the NewsLine application back to the ADE desktop environment,
+- **Then** the NewsLine application should reattach and integrate back into the ADE desktop application layout.
 
-
-
-a user,
-I want to click on a customer name to bring them back into context and manage the session accordingly, ensuring subsequent activities are accurately recorded.
-
-Scenario: Recalling a participant from 'My Activities'
-Given the user is viewing 'My Activities',
-When the user clicks on the clickable link of a customer name,
-Then that customer is displayed in context on the participant banner.
-Scenario: Ending a session after recalling a participant
-Given a participant has been recalled into context from 'My Activities',
-When the user selects the 'End Session' button on the controller,
-Then the user is returned to the search module landing page.
-Scenario: Logging new activity for a recalled participant
-Given a participant has been recalled and the session subsequently ended,
-When the user checks 'My Activities',
-Then there is a new activity record for that participant,
-And this activity is the latest based on the timestamp, ensuring it appears at the top of the activities list if sorted by newest to oldest.
-Scenario: Consistency and accuracy of activity records
-Given a participant has been recalled to context and the session ended,
-When the user views the new activity in 'My Activities',
-Then the activity details accurately reflect the recent interaction,
-And include Date/Time, Duration, Customer Name, Client Name, Plan ID,
-And this new activity follows the ordering rule, placed as the most recent activity.
+These test cases are designed to verify the functionality and user interactions with the NewsLine application within ADE, ensuring that users can view, expand, move, and reattach the application as expected.
