@@ -1,10 +1,23 @@
-Feature: Selecting an Archive Date and Returning to Today's News
-Scenario: Navigating from Selected Archive Date Back to Today's News
+Scenario 1: Highlighting Unread Articles
 
-Given the user has selected a date from the date picker in the NewsLine application,
-When the user navigates back to the archive for that selected date,
-Then a new link labeled 'Back to today' with an arrow to the left should be displayed,
-And this link should be green and underlined.
-When the user clicks on the 'Back to today' link,
-Then the user should be returned to the 'Today's News' section of the NewsLine application.
-This scenario ensures that users who have navigated to a specific date's archive have a clear, convenient way to return to the current day's news, enhancing the usability and navigation flow within the NewsLine application.
+Given an article appears in today's news or archives,
+And the article has not been read by the user,
+When the user views the list of articles,
+Then the unread article should be highlighted with a green border,
+And the user should see a 'Read more' link, which is green and underlined, on all such articles.
+Scenario 2: Viewing Article Content
+
+Given the user is presented with an unread article highlighted with a green border,
+When the user clicks on the 'Read more' link for the article,
+Then the user should see the content of the article.
+Scenario 3: Unhighlighting Article After Reading
+
+Given the user has clicked 'Read more' and viewed an article's content,
+When the user selects 'Back' to return to the list of articles,
+Then the previously viewed article should no longer be highlighted with a green border.
+Scenario 4: Remembering Read/Unread Status
+
+Given the user has previously read or not read articles in today's news or archives,
+When the user navigates away from and then returns to the NewsLine application,
+Then the read status of articles (whether they have been read or not) should be remembered and displayed accordingly, with unread articles highlighted with a green border and read articles not highlighted.
+These scenarios ensure a user-friendly approach to managing and indicating the read status of articles within the NewsLine application, enhancing the overall user experience by making it easy to identify new content and track reading progress.
