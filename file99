@@ -1,6 +1,100 @@
-Test Case 5: Display Message When No News Content is Available
+Scenario 1: Verify NewsLine Glue Header Display
+
+Given the ADE desktop application is open,
+When the user navigates to the NewsLine application,
+Then the user should see the Glue Header labeled 'NewsLine' displayed in bold.
+Scenario 2: Expand NewsLine to Full Screen
+
+Given the NewsLine application is viewed within ADE,
+When the user clicks the expand application button,
+Then the NewsLine application should expand to occupy the full screen.
+Scenario 3: Pop Out NewsLine Application
+
+Given the NewsLine application is active within ADE,
+When the user long-presses on the NewsLine Glue header,
+Then the NewsLine application should 'pop out', allowing the user to move it around independently of the ADE desktop application.
+Scenario 4: Re-attach Popped-Out NewsLine Application
+
+Given the NewsLine application has been popped out,
+When the user drags and drops the NewsLine application back to the ADE desktop environment,
+Then the NewsLine application should reattach and integrate back into the ADE desktop application layout.
+Feature: Handling of No News Content in NewsLine within ADE
+Scenario 5: Display Message When No News Content is Available
 
 Given the user is viewing the NewsLine application within ADE,
 And there is no news available for the current day (e.g., July 4th) in either today's news or the archives,
 When the user checks the news content for the current day,
 Then NewsLine should display the message 'No content at this time.' directly under the 'View Archives' link.
+These scenarios are structured to guide the development and testing process, focusing on user interactions and expected outcomes with the NewsLine application within the ADE desktop application.
+
+
+1 / 2
+
+User
+Cool, here is my next feature for a date picker 
+When user lands on NewsLine appication, they will see a link (in green) for View archives and a date picker icon to the left
+
+If user clicks on view archives a date picker window will open 
+
+Date picker will have header 'News archives' (bold, black)
+Text 'Select a date from the previous six months' 
+Arrow left (green) that user can navigate months 
+Arrow right will be disabled f on todays date, otherwise it will be green user can navigate months 
+Month and year will be displayed dynamically between arrows
+Only 6 months will be available on date picker 
+Weekend dates will be greyed out 
+Weekday dates will be gren links 
+Bottom left will have 'Select today link (green, underlined) - This will return to todays news
+Bottom right will have Close link (green underlined) - This will close date picker 
+
+If a archive date is clicked, user will see news archives for that date 
+ChatGPT
+For the new feature concerning the date picker in the NewsLine application, here are the BDD scenarios that describe the functionality and user interactions with the date picker for viewing news archives:
+
+Feature: Date Picker for Viewing News Archives in NewsLine
+Scenario 1: Accessing the Date Picker Through View Archives
+
+Given the user lands on the NewsLine application,
+When the user clicks on the 'View Archives' link displayed in green,
+Then a date picker window should open with the header 'News Archives'.
+Scenario 2: Date Picker Window Layout and Instructions
+
+Given the date picker window is open,
+Then the user should see the header 'News Archives' in bold and black,
+And text stating 'Select a date from the previous six months'.
+Scenario 3: Navigating Months in Date Picker
+
+Given the date picker window is open,
+When the user clicks the left arrow (in green),
+Then the user can navigate to the previous month,
+But when on today's date, the right arrow should be disabled,
+And when not on today's date, the right arrow should be green and clickable to navigate to the next month.
+Scenario 4: Displaying Month and Year Dynamically
+
+Given the date picker window is open,
+Then the month and year should be displayed dynamically between the navigation arrows.
+Scenario 5: Limiting Date Selection to Six Months
+
+Given the date picker window is open,
+Then only dates from the previous six months should be available for selection.
+Scenario 6: Weekend and Weekday Date Appearance
+
+Given the date picker window is open,
+Then weekend dates should be greyed out and not selectable,
+And weekday dates should be displayed as green links.
+Scenario 7: Selecting Today's News
+
+Given the date picker window is open,
+When the user clicks the 'Select today' link at the bottom left,
+Then the user should be returned to today's news.
+Scenario 8: Closing the Date Picker
+
+Given the date picker window is open,
+When the user clicks the 'Close' link at the bottom right,
+Then the date picker should close.
+Scenario 9: Viewing News Archives for a Selected Date
+
+Given the date picker window is open,
+And the user selects a weekday date from the previous six months,
+When the user clicks on a date,
+Then the user should see news archives for that selected date.
