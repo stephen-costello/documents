@@ -98,3 +98,5 @@ Given the date picker window is open,
 And the user selects a weekday date from the previous six months,
 When the user clicks on a date,
 Then the user should see news archives for that selected date.
+
+These scenarios comprehensively cover the user interactions and expectations with the date picker feature in the NewsLine application, ensuring a user-friendly experience while accessing news archives.
