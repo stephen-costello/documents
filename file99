@@ -1,23 +1,15 @@
-Scenario 1: Highlighting Unread Articles
+Feature: Display Defaults for Articles in NewsLine
+Scenario: Displaying Default Article Attributes
 
-Given an article appears in today's news or archives,
-And the article has not been read by the user,
-When the user views the list of articles,
-Then the unread article should be highlighted with a green border,
-And the user should see a 'Read more' link, which is green and underlined, on all such articles.
-Scenario 2: Viewing Article Content
-
-Given the user is presented with an unread article highlighted with a green border,
-When the user clicks on the 'Read more' link for the article,
-Then the user should see the content of the article.
-Scenario 3: Unhighlighting Article After Reading
-
-Given the user has clicked 'Read more' and viewed an article's content,
-When the user selects 'Back' to return to the list of articles,
-Then the previously viewed article should no longer be highlighted with a green border.
-Scenario 4: Remembering Read/Unread Status
-
-Given the user has previously read or not read articles in today's news or archives,
-When the user navigates away from and then returns to the NewsLine application,
-Then the read status of articles (whether they have been read or not) should be remembered and displayed accordingly, with unread articles highlighted with a green border and read articles not highlighted.
-These scenarios ensure a user-friendly approach to managing and indicating the read status of articles within the NewsLine application, enhancing the overall user experience by making it easy to identify new content and track reading progress.
+Given the user is viewing an article on today's news or the archives landing page,
+Then the user should see the following defaults for each article:
+Article Audience: Specified (e.g., All, DC, PS, etc.),
+Article Title: Displayed in bold; the color should be black if the article has been read and green if not read,
+Day: Displayed in full (e.g., Monday, Tuesday),
+Month: Displayed in full (e.g., January, February),
+Date: Displayed as a number,
+Year: Displayed as a four-digit number,
+Time: Displayed with AM or PM notation,
+Article Summary: A brief summary of the article's content,
+Read More Link: A green, underlined link for users to click on to read the full article.
+This scenario ensures that all articles presented to the user, whether in today's news or in the archives, follow a consistent format.
