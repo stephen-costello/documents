@@ -1,25 +1,6 @@
-Certainly! Below are the detailed BDD (Behavior-Driven Development) test scenarios for the NewsLine application within the ADE desktop application, presented in a clear text format suitable for use in test case documentation:
+Test Case 5: Display Message When No News Content is Available
 
-### Feature: Display and Interaction Capabilities of NewsLine within ADE
-
-**Test Case 1: Verify NewsLine Glue Header Display**
-- **Given** the ADE desktop application is open,
-- **When** the user navigates to the NewsLine application,
-- **Then** the user should see the Glue Header labeled 'NewsLine' displayed in bold.
-
-**Test Case 2: Expand NewsLine to Full Screen**
-- **Given** the NewsLine application is viewed within ADE,
-- **When** the user clicks the expand application button,
-- **Then** the NewsLine application should expand to occupy the full screen.
-
-**Test Case 3: Pop Out NewsLine Application**
-- **Given** the NewsLine application is active within ADE,
-- **When** the user long-presses on the NewsLine Glue header,
-- **Then** the NewsLine application should 'pop out', allowing the user to move it around independently of the ADE desktop application.
-
-**Test Case 4: Re-attach Popped-Out NewsLine Application**
-- **Given** the NewsLine application has been popped out,
-- **When** the user drags and drops the NewsLine application back to the ADE desktop environment,
-- **Then** the NewsLine application should reattach and integrate back into the ADE desktop application layout.
-
-These test cases are designed to verify the functionality and user interactions with the NewsLine application within ADE, ensuring that users can view, expand, move, and reattach the application as expected.
+Given the user is viewing the NewsLine application within ADE,
+And there is no news available for the current day (e.g., July 4th) in either today's news or the archives,
+When the user checks the news content for the current day,
+Then NewsLine should display the message 'No content at this time.' directly under the 'View Archives' link.
