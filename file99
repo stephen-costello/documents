@@ -1,15 +1,17 @@
-I, [Your Name], as the Quality Assurance representative, hereby sign off on the production release of the desktop application ADE's "My Activities" feature.
+Today you are going to be assisting me in my product owner / business analysis requirements building 
 
-Testing for this release has been rigorously conducted across non-production environments, including Development Integration Testing (DIT) and Functional Acceptance Certification (FAC). Additionally, thorough testing was carried out in research mode (Search) and Incoming Call mode (Genesys).
+I will feed you a feature description in natural language and you will convert into BDD scenarios 
 
-Observations:
 
-Plan details were found to be incorrect in the DIT environment, potentially due to a data issue, as this discrepancy was not reproducible in the FAC environment.
+Feature - Recurring payment after term 
 
-It was observed that "My Activities" functionality is dependent on the 'End Session' event. If this event is fired twice, duplicate records may be generated. Conversely, if the 'End Session' event is not fired, no record will be created.
+Application will display recurring payments after term as yes or no 
+Recurring payment after term label will display to left and value to right 
 
-In the pilot environment, it was noted that activity recording in 'Incoming Call' mode (Genesys) ceases after the 'End Session' event. However, this behavior was not reproducible in non-production environments.
+If VM data loans-terms returns 'Repayment ACH as true' and 'Recurring is true' display 'Recuring payment after term as 'Yes' on UI 
 
-Based on these observations and considering the overall testing outcomes, I deem the application ready for production release.
+If VM data loans-terms returns either  'Repayment ACH as false' and 'Recurring is false' then display Recurring Payment after term as No on UI 
 
-Signed,
+If VM data loans-terms returns either 'Repayment ACH' and 'Recurring'  is not in VM response display Recurring Payment after term as - on UI 
+
+Create BDD scenarios to cover all logic
