@@ -1,17 +1,33 @@
-Today you are going to be assisting me in my product owner / business analysis requirements building 
+Feature: Associate View - Change Trade Date Yellow Box
+Scenario 1: Display yellow box with trade date and change link when user has associate phone rep access
 
-I will feed you a feature description in natural language and you will convert into BDD scenarios 
+Given the user navigates to the NetBenefits Associate view Withdrawals review page
+And the user has associate phone rep access
+When the user looks under the amount section of the page
+Then a yellow box is displayed
+And the yellow box includes the text 'Associate view only' at the top
+And 'Trade date: <Mon-dd-yyyy>' in bold text is displayed in the middle
+And a clickable link 'Change trade date' is displayed next to the trade date
 
 
-Feature - Recurring payment after term 
+Scenario 2: Display additional message when paperwork is required
 
-Application will display recurring payments after term as yes or no 
-Recurring payment after term label will display to left and value to right 
+Given the user navigates to the NetBenefits Associate view Withdrawals review page
+And the user has associate phone rep access
+And paperwork is required for the withdrawal
+When the user looks under the amount section of the page
+Then the message 'Trade date will be determined after paperwork is completed and approved.' is displayed in the yellow box
 
-If VM data loans-terms returns 'Repayment ACH as true' and 'Recurring is true' display 'Recuring payment after term as 'Yes' on UI 
+Scenario 3: Do not display additional message when paperwork is not required
 
-If VM data loans-terms returns either  'Repayment ACH as false' and 'Recurring is false' then display Recurring Payment after term as No on UI 
+Given the user navigates to the NetBenefits Associate view Withdrawals review page
+And the user has associate phone rep access
+And no paperwork is required for the withdrawal
+When the user looks under the amount section of the page
+Then no additional message about the trade date and paperwork is displayed in the yellow box
 
-If VM data loans-terms returns either 'Repayment ACH' and 'Recurring'  is not in VM response display Recurring Payment after term as - on UI 
+Scenario 4: Do not display yellow box in participant withdrawals review page
 
-Create BDD scenarios to cover all logic
+Given the user navigates to the NetBenefits participant withdrawals review page
+When the user looks under the amount section of the page
+Then no yellow box is displayed
