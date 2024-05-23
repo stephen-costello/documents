@@ -1,21 +1,33 @@
-Problem Statement: API Failure in RepDistributions Impacting User Operations
-
-Overview:
-The 'RepDistributions' feature within our application, specifically the 'Distributions Panel', is experiencing operational failures. The core issue has been identified with the API endpoint 'DC SWPS - Get Elections'. This failure is prominently flagged in our monitoring tools, DataDog and Splunk, indicating significant disruptions in functionality.
-
-Issue Description:
-Investigations reveal that the API 'DC SWPS - Get Elections' is generating IOM (TRANINFO) errors at the database layer. These errors are predominantly permission-related, affecting certain users of the RepDistributions feature. The errors trace back to missing FPRS (Financial Planning & Reporting System) access for affected users, which prevents successful API execution.
-
-Impact:
-The absence of FPRS permissions for certain users not only leads to failed API calls but also triggers extensive logging of errors. This excessive logging further complicates data analysis and operational monitoring, leading to reduced system performance and increased difficulty in issue tracking.
-
-Current Limitations:
-This issue is beyond the remediation scope of Team Nova at the Experience API layer, necessitating a broader approach to address the permission errors and logging issues effectively.
-
-Proposed Remediation Options:
-
-User-Level Access Management: Impacted users should be instructed and facilitated to apply for the necessary FPRS access, ensuring compliance and functionality.
-Database Error Handling Enhancements: Improve error handling at the database layer to gracefully manage permission errors and enhance user feedback.
-Optimization of Logging Processes: Implement filters to reduce excessive logging, focusing on critical errors to improve system performance and monitoring efficiency.
-Conclusion:
-Immediate attention and collaborative efforts across departments are essential to resolve these permission issues, optimize error handling, and adjust logging practices. By addressing these key areas, we can restore full functionality to the RepDistributions feature and ensure a seamless user experience.
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Report</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 20px;
+        }
+        h2 {
+            color: #333;
+        }
+        p {
+            margin: 10px 0;
+        }
+        .note {
+            font-style: italic;
+            color: #555;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h2>Wednesday:</h2>
+    <p>ADE QE team was unable to continue with pending 10% functional testing in FAC due to environment issues on FAC environment.</p>
+    <div class="note">
+        <p><strong>Note:</strong> Details on issue faced in FAC environment: All FP modules are not loading in ADE. Initially, this was identified as an issue with Fortress. Further analysis discovered that the actual issue is on the side of FocusPoint (not Fortress) where the credentials are being reset but not being updated in the code.</p>
+    </div>
+</body>
+</html>
