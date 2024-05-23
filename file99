@@ -1,33 +1,44 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Report</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            line-height: 1.6;
-            margin: 20px;
-        }
-        h2 {
-            color: #333;
-        }
-        p {
-            margin: 10px 0;
-        }
-        .note {
-            font-style: italic;
-            color: #555;
-            margin-top: 20px;
-        }
-    </style>
-</head>
-<body>
-    <h2>Wednesday:</h2>
-    <p>ADE QE team was unable to continue with pending 10% functional testing in FAC due to environment issues on FAC environment.</p>
-    <div class="note">
-        <p><strong>Note:</strong> Details on issue faced in FAC environment: All FP modules are not loading in ADE. Initially, this was identified as an issue with Fortress. Further analysis discovered that the actual issue is on the side of FocusPoint (not Fortress) where the credentials are being reset but not being updated in the code.</p>
-    </div>
-</body>
-</html>
+Testing Plan Schedule
+
+May 23rd
+
+Activity: DIT Sanity testing
+Performers: FAC Deployment
+May 24th
+
+Activity: FAC Sanity testing & HP bug detection
+
+Performers: Offshore IND-IRL hours
+
+Activity: Continued FAC sanity & HP bug detection, automation setup
+
+Performers: Global/US
+
+May 24th
+
+Activity: Baseline test 1 16GB & 32GB laptop & results gathering
+May 27th
+
+Activity: Functional testing and B2B testing
+Performers: IRL
+May 28th
+
+Activity: Continued functional testing and B2B testing
+
+Performers: Global
+
+Activity: Stopwatch testing
+
+Performers: Global
+
+Activity: Baseline test 2
+
+May 29th
+
+Activity: Continued functional testing / stopwatch testing
+
+Activity: Evening stress testing and longevity testing
+
+May 30th
+
+Activity: Testing close out go-no go
