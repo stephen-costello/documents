@@ -1,44 +1,153 @@
-Testing Plan Schedule
+est Plan: May 23rd - May 29th, 2024
 
-May 23rd
+Objective: To ensure the quality and readiness of the latest ADE build through comprehensive testing, including sanity checks, functional testing, defect detection, and stress testing.
 
-Activity: DIT Sanity testing
-Performers: FAC Deployment
-May 24th
+Schedule and Activities:
+May 23rd, 2024
+DIT Sanity Testing:
 
-Activity: FAC Sanity testing & HP bug detection
+Time: 9:00 AM - 12:00 PM
+Team: QE squad
+Description: Conduct back-to-back calls to sanity test the latest ADE build and help determine FAC readiness.
+Goal: Ensure basic functionality and stability of the build.
+FAC Sanity Testing:
 
-Performers: Offshore IND-IRL hours
+Time: 1:00 PM - 4:00 PM
+Team: QE squad
+Description: Conduct back-to-back calls to sanity test the latest ADE build.
+Goal: Verify functionality and stability specifically for FAC.
+May 24th - May 26th, 2024
+Back-to-Back and Functional Testing:
 
-Activity: Continued FAC sanity & HP bug detection, automation setup
+Time: Continuous (24 hours)
+Team: Global QE team
+Description: Conduct back-to-back testing sessions targeting high priority defects, updating test case statuses and bugs.
+Goal: Identify and resolve high priority defects, ensure functional integrity.
+Baseline Testing Automation:
 
-Performers: Global/US
+Time: 9:00 AM - 5:00 PM (Onshore team)
+Team: Onshore QE team
+Description: Generate a large volume of calls on a 32GB laptop. Teams should be out of FAC and off Genesys to avoid disturbing calls.
+Goal: Establish a performance baseline under high load conditions.
+Functional / Back-to-Back Calls / Defect Detection:
 
-May 24th
+Time: Continuous (24 hours)
+Teams: US, India, Ireland QE teams
+Description: Execute functional and back-to-back calls around the clock to increase functional coverage and keep defect detection up to date.
+Goal: Increase functional coverage and maintain current defect detection.
+May 27th, 2024
+Stopwatch Testing:
 
-Activity: Baseline test 1 16GB & 32GB laptop & results gathering
-May 27th
+Time: 10:00 AM - 2:00 PM (India team) / 2:00 PM - 6:00 PM (US team)
+Teams: India and US QE teams
+Description: Conduct stopwatch testing on 16GB and 32GB configurations.
+Goal: Measure and verify response times and performance metrics.
+Longevity Test:
 
-Activity: Functional testing and B2B testing
-Performers: IRL
-May 28th
+Time: 3:00 PM - 10:00 PM
+Team: Global QE team
+Description: Kick off Mox longevity test, including B2B testing.
+Goal: Assess system stability over an extended period under continuous load.
+May 28th, 2024
+Baseline 2 Testing:
+Time: 7:00 PM - 11:00 PM (After hours, US time)
+Team: Onshore QE team
+Description: Conduct a second baseline test to verify performance under consistent conditions.
+Goal: Validate performance consistency compared to the first baseline test.
+May 29th, 2024
+Stress Test:
+Time: 9:00 AM - 10:00 AM
+Team: Global QE team
+Description: Complete 60 calls in 1 hour with no force exit scenarios.
+Goal: Test system endurance and reliability under high call volume.
+Responsibilities:
+QE Squad: Conduct DIT and FAC sanity testing.
+Global QE Team: Perform back-to-back testing, functional testing, stopwatch testing, longevity testing, and stress testing.
+Onshore QE Team: Execute baseline testing automation and Baseline 2 testing.
+US, India, Ireland Teams: Collaborate on continuous functional and defect detection testing.
+Deliverables:
+Test Case Status Reports: Daily updates on test case execution and defect status.
+Defect Reports: Detailed reports on defects identified during testing.
+Performance Metrics: Results from stopwatch testing, baseline tests, and stress tests.
+Longevity Test Results: Summary of system stability and performance over the test period.
+Communication Plan:
+Daily Stand-Up Meetings: 9:00 AM local time for each team to discuss progress and issues.
+End-of-Day Reports: Summarized testing activities and outcomes.
+Defect Review Meetings: As needed, based on defect discovery and priority.
+Tools and Environment:
+Testing Tools: Automation scripts, stopwatch tools, performance monitoring tools.
+Environment: 32GB laptops for baseline tests, 16GB and 32GB configurations for stopwatch tests, and global test environments for functional and longevity tests.
+By following this detailed test plan, the QE teams will ensure a thorough assessment of the latest ADE build, focusing on both functional integrity and performance under various conditions.
 
-Activity: Continued functional testing and B2B testing
+Can you remove times please 
+ChatGPT
+Test Plan: May 23rd - May 29th, 2024
 
-Performers: Global
+Objective: To ensure the quality and readiness of the latest ADE build through comprehensive testing, including sanity checks, functional testing, defect detection, and stress testing.
 
-Activity: Stopwatch testing
+Schedule and Activities:
+May 23rd, 2024
+DIT Sanity Testing:
 
-Performers: Global
+Team: QE squad
+Description: Conduct back-to-back calls to sanity test the latest ADE build and help determine FAC readiness.
+Goal: Ensure basic functionality and stability of the build.
+FAC Sanity Testing:
 
-Activity: Baseline test 2
+Team: QE squad
+Description: Conduct back-to-back calls to sanity test the latest ADE build.
+Goal: Verify functionality and stability specifically for FAC.
+May 24th - May 26th, 2024
+Back-to-Back and Functional Testing:
 
-May 29th
+Team: Global QE team
+Description: Conduct back-to-back testing sessions targeting high priority defects, updating test case statuses and bugs.
+Goal: Identify and resolve high priority defects, ensure functional integrity.
+Baseline Testing Automation:
 
-Activity: Continued functional testing / stopwatch testing
+Team: Onshore QE team
+Description: Generate a large volume of calls on a 32GB laptop. Teams should be out of FAC and off Genesys to avoid disturbing calls.
+Goal: Establish a performance baseline under high load conditions.
+Functional / Back-to-Back Calls / Defect Detection:
 
-Activity: Evening stress testing and longevity testing
+Teams: US, India, Ireland QE teams
+Description: Execute functional and back-to-back calls around the clock to increase functional coverage and keep defect detection up to date.
+Goal: Increase functional coverage and maintain current defect detection.
+May 27th, 2024
+Stopwatch Testing:
 
-May 30th
+Teams: India and US QE teams
+Description: Conduct stopwatch testing on 16GB and 32GB configurations.
+Goal: Measure and verify response times and performance metrics.
+Longevity Test:
 
-Activity: Testing close out go-no go
+Team: Global QE team
+Description: Kick off Mox longevity test, including B2B testing.
+Goal: Assess system stability over an extended period under continuous load.
+May 28th, 2024
+Baseline 2 Testing:
+Team: Onshore QE team
+Description: Conduct a second baseline test to verify performance under consistent conditions.
+Goal: Validate performance consistency compared to the first baseline test.
+May 29th, 2024
+Stress Test:
+Team: Global QE team
+Description: Complete 60 calls in 1 hour with no force exit scenarios.
+Goal: Test system endurance and reliability under high call volume.
+Responsibilities:
+QE Squad: Conduct DIT and FAC sanity testing.
+Global QE Team: Perform back-to-back testing, functional testing, stopwatch testing, longevity testing, and stress testing.
+Onshore QE Team: Execute baseline testing automation and Baseline 2 testing.
+US, India, Ireland Teams: Collaborate on continuous functional and defect detection testing.
+Deliverables:
+Test Case Status Reports: Daily updates on test case execution and defect status.
+Defect Reports: Detailed reports on defects identified during testing.
+Performance Metrics: Results from stopwatch testing, baseline tests, and stress tests.
+Longevity Test Results: Summary of system stability and performance over the test period.
+Communication Plan:
+Daily Stand-Up Meetings: Local time for each team to discuss progress and issues.
+End-of-Day Reports: Summarized testing activities and outcomes.
+Defect Review Meetings: As needed, based on defect discovery and priority.
+Tools and Environment:
+Testing Tools: Automation scripts, stopwatch tools, performance monitoring tools.
+Environment: 32GB laptops for baseline tests, 16GB and 32GB configurations for stopwatch tests, and global test environments for functional and longevity tests.
