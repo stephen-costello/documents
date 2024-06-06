@@ -18,3 +18,25 @@ And I am in the search module
 When I check the activities tab
 And I click the refresh button
 Then a new activity for the participant will appear
+
+Feature: Handling Transferred Calls in ADE with Genesys Integration
+Scenario 1: Receiving a Transferred Call and Displaying Participant Information
+Given I am logged into ADE and Genesys is set to 'ready'
+When I receive a call that is transferred
+Then the participant will come into context
+And the participant banner will be displayed with the correct name and plan
+
+Scenario 2: Ending the Transferred Call and Logging the Call
+Given I am on a transferred call with a participant
+When I select the end session button on the global navigation
+Then the call logger will require me to log the call
+When I log the call
+Then the session will end
+And I will return to the search module
+
+Scenario 3: Verifying Logged Transferred Call in Search Module
+Given I have ended a transferred call and logged it
+And I am in the search module
+When I check the activities tab
+And I click the refresh button
+Then a new activity for the participant will appear
