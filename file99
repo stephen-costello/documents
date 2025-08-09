@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RTE News Tile</title>
+    <title>Datadog Tile</title>
     <style>
         * {
             margin: 0;
@@ -13,7 +13,7 @@
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: #ffffff;
             min-height: 100vh;
             display: flex;
             align-items: center;
@@ -25,33 +25,34 @@
             perspective: 1000px;
         }
 
-        .news-tile {
+        .datadog-tile {
             width: 280px;
             height: 160px;
-            background: linear-gradient(135deg, #00A4DB 0%, #0068A5 50%, #004B7A 100%);
+            background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 50%, #ffffff 100%);
             border-radius: 12px;
             padding: 20px;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
             text-decoration: none;
-            color: white;
+            color: #1a1a1a;
             position: relative;
             overflow: hidden;
             transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             transform-style: preserve-3d;
-            box-shadow: 0 8px 32px rgba(0, 164, 219, 0.3);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
             backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            border: 2px solid #e9ecef;
         }
 
-        .news-tile:hover {
-            transform: translateY(-8px) rotateY(5deg) rotateX(5deg) scale(1.02);
-            box-shadow: 0 20px 60px rgba(0, 164, 219, 0.4);
-            background: linear-gradient(135deg, #0DB5E8 0%, #0078C1 50%, #005691 100%);
+        .datadog-tile:hover {
+            transform: translateY(-8px) rotateY(-5deg) rotateX(5deg) scale(1.02);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+            background: linear-gradient(135deg, #ffffff 0%, #f1f3f4 50%, #ffffff 100%);
+            border-color: #FF6B6B;
         }
 
-        .news-tile:active {
+        .datadog-tile:active {
             transform: translateY(-4px) scale(0.98);
             transition: all 0.1s ease;
         }
@@ -63,29 +64,36 @@
             margin-bottom: 8px;
         }
 
-        .rte-icon {
+        .datadog-icon {
             width: 40px;
             height: 40px;
-            background: rgba(255, 255, 255, 0.15);
+            background: #FF6B6B;
             border-radius: 8px;
             display: flex;
             align-items: center;
             justify-content: center;
             font-weight: bold;
             font-size: 16px;
-            letter-spacing: -0.5px;
+            color: white;
             backdrop-filter: blur(10px);
             animation: pulse 2s infinite;
+            position: relative;
+        }
+
+        .datadog-logo {
+            width: 24px;
+            height: 24px;
+            fill: white;
         }
 
         @keyframes pulse {
             0%, 100% {
                 transform: scale(1);
-                box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.3);
+                box-shadow: 0 0 0 0 rgba(255, 107, 107, 0.4);
             }
             50% {
                 transform: scale(1.05);
-                box-shadow: 0 0 0 10px rgba(255, 255, 255, 0);
+                box-shadow: 0 0 0 10px rgba(255, 107, 107, 0);
             }
         }
 
@@ -93,14 +101,16 @@
             font-size: 18px;
             font-weight: 600;
             margin: 0;
-            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            color: #1a1a1a;
+            text-shadow: none;
         }
 
         .tile-subtitle {
             font-size: 12px;
-            opacity: 0.9;
+            opacity: 0.7;
             margin: 4px 0 0 0;
             font-weight: 400;
+            color: #6c757d;
         }
 
         .tile-footer {
@@ -110,7 +120,7 @@
             margin-top: auto;
         }
 
-        .live-indicator {
+        .monitoring-indicator {
             display: flex;
             align-items: center;
             gap: 6px;
@@ -118,35 +128,51 @@
             text-transform: uppercase;
             letter-spacing: 0.5px;
             font-weight: 500;
+            color: #6c757d;
         }
 
-        .live-dot {
-            width: 6px;
-            height: 6px;
-            background: #ff4757;
-            border-radius: 50%;
-            animation: blink 1.5s infinite;
+        .metrics-bars {
+            display: flex;
+            gap: 2px;
+            align-items: end;
         }
 
-        @keyframes blink {
-            0%, 50% { opacity: 1; }
-            51%, 100% { opacity: 0.3; }
+        .bar {
+            width: 3px;
+            background: #FF6B6B;
+            border-radius: 1px;
+            animation: bounce 1.5s infinite ease-in-out;
+        }
+
+        .bar:nth-child(1) { height: 8px; animation-delay: -0.32s; }
+        .bar:nth-child(2) { height: 12px; animation-delay: -0.16s; }
+        .bar:nth-child(3) { height: 10px; animation-delay: 0s; }
+        .bar:nth-child(4) { height: 6px; animation-delay: -0.48s; }
+
+        @keyframes bounce {
+            0%, 40%, 100% {
+                transform: scaleY(0.4);
+                opacity: 0.8;
+            }
+            20% {
+                transform: scaleY(1);
+                opacity: 1;
+            }
         }
 
         .arrow-icon {
             width: 24px;
             height: 24px;
-            background: rgba(255, 255, 255, 0.1);
+            background: rgba(0, 0, 0, 0.05);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             transition: all 0.3s ease;
-            backdrop-filter: blur(10px);
         }
 
-        .news-tile:hover .arrow-icon {
-            background: rgba(255, 255, 255, 0.2);
+        .datadog-tile:hover .arrow-icon {
+            background: rgba(255, 107, 107, 0.1);
             transform: translateX(4px);
         }
 
@@ -156,7 +182,7 @@
             right: -50%;
             width: 200%;
             height: 200%;
-            background: radial-gradient(circle, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+            background: radial-gradient(circle, rgba(0, 0, 0, 0.02) 1px, transparent 1px);
             background-size: 20px 20px;
             animation: float 20s infinite linear;
             pointer-events: none;
@@ -173,16 +199,62 @@
             left: -100%;
             width: 100%;
             height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            background: linear-gradient(90deg, transparent, rgba(0, 0, 0, 0.03), transparent);
             transition: left 0.5s ease;
         }
 
-        .news-tile:hover .shine-effect {
+        .datadog-tile:hover .shine-effect {
             left: 100%;
         }
 
+        .dog-emoji {
+            font-size: 20px;
+            filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+        }
+
+        .status-indicators {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            display: flex;
+            gap: 4px;
+        }
+
+        .status-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            animation: statusPulse 2s infinite;
+        }
+
+        .status-dot:nth-child(1) {
+            background: #28a745;
+            animation-delay: 0s;
+        }
+
+        .status-dot:nth-child(2) {
+            background: #ffc107;
+            animation-delay: 0.3s;
+        }
+
+        .status-dot:nth-child(3) {
+            background: #FF6B6B;
+            animation-delay: 0.6s;
+        }
+
+        @keyframes statusPulse {
+            0%, 70%, 100% {
+                transform: scale(1);
+                opacity: 0.7;
+            }
+            35% {
+                transform: scale(1.2);
+                opacity: 1;
+            }
+        }
+
         @media (max-width: 320px) {
-            .news-tile {
+            .datadog-tile {
                 width: 100%;
                 min-width: 260px;
             }
@@ -191,26 +263,41 @@
 </head>
 <body>
     <div class="tile-container">
-        <a href="https://www.rte.ie/news/" target="_blank" class="news-tile">
+        <a href="https://docs.datadoghq.com/" target="_blank" class="datadog-tile">
             <div class="background-pattern"></div>
             <div class="shine-effect"></div>
+            <div class="status-indicators">
+                <div class="status-dot"></div>
+                <div class="status-dot"></div>
+                <div class="status-dot"></div>
+            </div>
             
             <div class="tile-header">
-                <div class="rte-icon">RTÉ</div>
+                <div class="datadog-icon">
+                    <svg class="datadog-logo" viewBox="0 0 24 24" fill="none">
+                        <path d="M12 2L14.5 8.5L21 9L16 14L17.5 21L12 18L6.5 21L8 14L3 9L9.5 8.5L12 2Z" fill="currentColor"/>
+                        <circle cx="12" cy="12" r="2" fill="currentColor"/>
+                    </svg>
+                </div>
                 <div>
-                    <h3 class="tile-title">RTÉ News</h3>
-                    <p class="tile-subtitle">Irish National News</p>
+                    <h3 class="tile-title">Datadog</h3>
+                    <p class="tile-subtitle">Documentation Hub</p>
                 </div>
             </div>
             
             <div class="tile-footer">
-                <div class="live-indicator">
-                    <div class="live-dot"></div>
-                    <span>Live Updates</span>
+                <div class="monitoring-indicator">
+                    <div class="metrics-bars">
+                        <div class="bar"></div>
+                        <div class="bar"></div>
+                        <div class="bar"></div>
+                        <div class="bar"></div>
+                    </div>
+                    <span>Monitoring</span>
                 </div>
                 <div class="arrow-icon">
                     <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
-                        <path d="M4 9L8 5L4 1" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M4 9L8 5L4 1" stroke="#6c757d" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                     </svg>
                 </div>
             </div>
