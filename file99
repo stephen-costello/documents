@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GitHub Tile</title>
+    <title>Jenkins Core Tile</title>
     <style>
         * {
             margin: 0;
@@ -25,34 +25,34 @@
             perspective: 1000px;
         }
 
-        .github-tile {
+        .jenkins-tile {
             width: 280px;
             height: 160px;
-            background: linear-gradient(135deg, #24292f 0%, #1c2128 50%, #0d1117 100%);
+            background: linear-gradient(135deg, #335061 0%, #2b4450 50%, #1e2f38 100%);
             border-radius: 12px;
             padding: 20px;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
             text-decoration: none;
-            color: #f0f6fc;
+            color: #ffffff;
             position: relative;
             overflow: hidden;
             transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             transform-style: preserve-3d;
-            box-shadow: 0 8px 32px rgba(36, 41, 47, 0.3);
+            box-shadow: 0 8px 32px rgba(51, 80, 97, 0.3);
             backdrop-filter: blur(10px);
-            border: 2px solid #30363d;
+            border: 2px solid #4a6c7a;
         }
 
-        .github-tile:hover {
-            transform: translateY(-8px) rotateY(5deg) rotateX(5deg) scale(1.02);
-            box-shadow: 0 20px 60px rgba(36, 41, 47, 0.4);
-            background: linear-gradient(135deg, #30363d 0%, #24292f 50%, #1c2128 100%);
-            border-color: #58a6ff;
+        .jenkins-tile:hover {
+            transform: translateY(-8px) rotateY(-5deg) rotateX(5deg) scale(1.02);
+            box-shadow: 0 20px 60px rgba(51, 80, 97, 0.4);
+            background: linear-gradient(135deg, #3d5d71 0%, #335061 50%, #2b4450 100%);
+            border-color: #f37321;
         }
 
-        .github-tile:active {
+        .jenkins-tile:active {
             transform: translateY(-4px) scale(0.98);
             transition: all 0.1s ease;
         }
@@ -64,21 +64,21 @@
             margin-bottom: 8px;
         }
 
-        .github-icon {
+        .jenkins-icon {
             width: 40px;
             height: 40px;
-            background: #f0f6fc;
+            background: #f37321;
             border-radius: 8px;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: #24292f;
+            color: #ffffff;
             backdrop-filter: blur(10px);
             animation: pulse 2s infinite;
             position: relative;
         }
 
-        .github-logo {
+        .jenkins-logo {
             width: 24px;
             height: 24px;
             fill: currentColor;
@@ -87,11 +87,11 @@
         @keyframes pulse {
             0%, 100% {
                 transform: scale(1);
-                box-shadow: 0 0 0 0 rgba(240, 246, 252, 0.4);
+                box-shadow: 0 0 0 0 rgba(243, 115, 33, 0.4);
             }
             50% {
                 transform: scale(1.05);
-                box-shadow: 0 0 0 10px rgba(240, 246, 252, 0);
+                box-shadow: 0 0 0 10px rgba(243, 115, 33, 0);
             }
         }
 
@@ -99,7 +99,7 @@
             font-size: 18px;
             font-weight: 600;
             margin: 0;
-            color: #f0f6fc;
+            color: #ffffff;
             text-shadow: none;
         }
 
@@ -108,7 +108,7 @@
             opacity: 0.7;
             margin: 4px 0 0 0;
             font-weight: 400;
-            color: #7d8590;
+            color: #a0b4c0;
         }
 
         .tile-footer {
@@ -118,7 +118,7 @@
             margin-top: auto;
         }
 
-        .repo-indicator {
+        .build-indicator {
             display: flex;
             align-items: center;
             gap: 6px;
@@ -126,36 +126,49 @@
             text-transform: uppercase;
             letter-spacing: 0.5px;
             font-weight: 500;
-            color: #7d8590;
+            color: #a0b4c0;
         }
 
-        .commit-activity {
+        .build-status {
             display: flex;
-            gap: 2px;
+            gap: 3px;
             align-items: center;
         }
 
-        .commit-dot {
-            width: 3px;
-            height: 3px;
-            background: #39d353;
-            border-radius: 50%;
-            animation: commitPulse 2s infinite ease-in-out;
+        .build-bar {
+            width: 4px;
+            border-radius: 2px;
+            animation: buildProgress 2s infinite ease-in-out;
         }
 
-        .commit-dot:nth-child(1) { animation-delay: 0s; }
-        .commit-dot:nth-child(2) { animation-delay: 0.2s; }
-        .commit-dot:nth-child(3) { animation-delay: 0.4s; }
-        .commit-dot:nth-child(4) { animation-delay: 0.6s; }
-        .commit-dot:nth-child(5) { animation-delay: 0.8s; }
+        .build-bar:nth-child(1) { 
+            height: 8px; 
+            background: #4caf50; 
+            animation-delay: 0s; 
+        }
+        .build-bar:nth-child(2) { 
+            height: 12px; 
+            background: #4caf50; 
+            animation-delay: 0.2s; 
+        }
+        .build-bar:nth-child(3) { 
+            height: 10px; 
+            background: #ff9800; 
+            animation-delay: 0.4s; 
+        }
+        .build-bar:nth-child(4) { 
+            height: 6px; 
+            background: #4caf50; 
+            animation-delay: 0.6s; 
+        }
 
-        @keyframes commitPulse {
+        @keyframes buildProgress {
             0%, 70%, 100% {
-                transform: scale(1);
-                opacity: 0.5;
+                transform: scaleY(0.6);
+                opacity: 0.7;
             }
             35% {
-                transform: scale(1.5);
+                transform: scaleY(1);
                 opacity: 1;
             }
         }
@@ -163,7 +176,7 @@
         .arrow-icon {
             width: 24px;
             height: 24px;
-            background: rgba(240, 246, 252, 0.1);
+            background: rgba(255, 255, 255, 0.1);
             border-radius: 50%;
             display: flex;
             align-items: center;
@@ -171,8 +184,8 @@
             transition: all 0.3s ease;
         }
 
-        .github-tile:hover .arrow-icon {
-            background: rgba(88, 166, 255, 0.2);
+        .jenkins-tile:hover .arrow-icon {
+            background: rgba(243, 115, 33, 0.2);
             transform: translateX(4px);
         }
 
@@ -182,7 +195,7 @@
             right: -50%;
             width: 200%;
             height: 200%;
-            background: radial-gradient(circle, rgba(240, 246, 252, 0.02) 1px, transparent 1px);
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
             background-size: 20px 20px;
             animation: float 20s infinite linear;
             pointer-events: none;
@@ -199,15 +212,15 @@
             left: -100%;
             width: 100%;
             height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(240, 246, 252, 0.05), transparent);
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.05), transparent);
             transition: left 0.5s ease;
         }
 
-        .github-tile:hover .shine-effect {
+        .jenkins-tile:hover .shine-effect {
             left: 100%;
         }
 
-        .branch-indicators {
+        .pipeline-indicators {
             position: absolute;
             top: 15px;
             right: 15px;
@@ -215,29 +228,29 @@
             gap: 4px;
         }
 
-        .branch-dot {
+        .pipeline-dot {
             width: 6px;
             height: 6px;
             border-radius: 50%;
-            animation: branchPulse 3s infinite;
+            animation: pipelinePulse 3s infinite;
         }
 
-        .branch-dot:nth-child(1) {
-            background: #39d353;
+        .pipeline-dot:nth-child(1) {
+            background: #4caf50;
             animation-delay: 0s;
         }
 
-        .branch-dot:nth-child(2) {
-            background: #58a6ff;
+        .pipeline-dot:nth-child(2) {
+            background: #ff9800;
             animation-delay: 1s;
         }
 
-        .branch-dot:nth-child(3) {
-            background: #f85149;
+        .pipeline-dot:nth-child(3) {
+            background: #2196f3;
             animation-delay: 2s;
         }
 
-        @keyframes branchPulse {
+        @keyframes pipelinePulse {
             0%, 70%, 100% {
                 transform: scale(1);
                 opacity: 0.6;
@@ -249,7 +262,7 @@
         }
 
         @media (max-width: 320px) {
-            .github-tile {
+            .jenkins-tile {
                 width: 100%;
                 min-width: 260px;
             }
@@ -258,41 +271,57 @@
 </head>
 <body>
     <div class="tile-container">
-        <a href="https://docs.github.com/" target="_blank" class="github-tile">
+        <a href="https://www.jenkins.io/doc/" target="_blank" class="jenkins-tile">
             <div class="background-pattern"></div>
             <div class="shine-effect"></div>
-            <div class="branch-indicators">
-                <div class="branch-dot"></div>
-                <div class="branch-dot"></div>
-                <div class="branch-dot"></div>
+            <div class="pipeline-indicators">
+                <div class="pipeline-dot"></div>
+                <div class="pipeline-dot"></div>
+                <div class="pipeline-dot"></div>
             </div>
             
             <div class="tile-header">
-                <div class="github-icon">
-                    <svg class="github-logo" viewBox="0 0 24 24" fill="none">
-                        <path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" fill="currentColor"/>
+                <div class="jenkins-icon">
+                    <svg class="jenkins-logo" viewBox="0 0 24 24" fill="none">
+                        <!-- Jenkins Butler head -->
+                        <circle cx="12" cy="8" r="4" fill="currentColor"/>
+                        <!-- Butler mustache -->
+                        <ellipse cx="12" cy="9.5" rx="2" ry="0.5" fill="#335061"/>
+                        <!-- Butler bow tie -->
+                        <path d="M10 12 L12 11 L14 12 L12 13 Z" fill="currentColor"/>
+                        <!-- Butler body/suit -->
+                        <rect x="10" y="12" width="4" height="8" rx="1" fill="currentColor"/>
+                        <!-- Gear/cog elements around butler -->
+                        <circle cx="6" cy="6" r="1.5" fill="none" stroke="currentColor" stroke-width="1"/>
+                        <circle cx="18" cy="6" r="1.5" fill="none" stroke="currentColor" stroke-width="1"/>
+                        <circle cx="6" cy="18" r="1.5" fill="none" stroke="currentColor" stroke-width="1"/>
+                        <circle cx="18" cy="18" r="1.5" fill="none" stroke="currentColor" stroke-width="1"/>
+                        <!-- Small gear teeth -->
+                        <rect x="5.5" y="4.5" width="1" height="3" fill="currentColor"/>
+                        <rect x="17.5" y="4.5" width="1" height="3" fill="currentColor"/>
+                        <rect x="5.5" y="16.5" width="1" height="3" fill="currentColor"/>
+                        <rect x="17.5" y="16.5" width="1" height="3" fill="currentColor"/>
                     </svg>
                 </div>
                 <div>
                     <h3 class="tile-title">Customer Comments</h3>
-                    <p class="tile-subtitle">Test Code GitHub</p>
+                    <p class="tile-subtitle">Jenkins Core</p>
                 </div>
             </div>
             
             <div class="tile-footer">
-                <div class="repo-indicator">
-                    <div class="commit-activity">
-                        <div class="commit-dot"></div>
-                        <div class="commit-dot"></div>
-                        <div class="commit-dot"></div>
-                        <div class="commit-dot"></div>
-                        <div class="commit-dot"></div>
+                <div class="build-indicator">
+                    <div class="build-status">
+                        <div class="build-bar"></div>
+                        <div class="build-bar"></div>
+                        <div class="build-bar"></div>
+                        <div class="build-bar"></div>
                     </div>
-                    <span>Active</span>
+                    <span>Building</span>
                 </div>
                 <div class="arrow-icon">
                     <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
-                        <path d="M4 9L8 5L4 1" stroke="#7d8590" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M4 9L8 5L4 1" stroke="#a0b4c0" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                     </svg>
                 </div>
             </div>
