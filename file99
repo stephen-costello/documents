@@ -1,13 +1,17 @@
-<!DOCTYPE html>
-<html lang="en">
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>ADE - FAC Tile</title>
-    <style>
+    <style type="text/css">
+        /* <![CDATA[ */
         * {
             margin: 0;
             padding: 0;
+            -webkit-box-sizing: border-box;
+            -moz-box-sizing: border-box;
             box-sizing: border-box;
         }
 
@@ -15,50 +19,87 @@
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background: #ffffff;
             min-height: 100vh;
+            display: -webkit-flex;
+            display: -moz-flex;
             display: flex;
+            -webkit-align-items: center;
+            -moz-align-items: center;
             align-items: center;
+            -webkit-justify-content: center;
+            -moz-justify-content: center;
             justify-content: center;
             padding: 20px;
         }
 
         .tile-container {
+            -webkit-perspective: 1000px;
+            -moz-perspective: 1000px;
             perspective: 1000px;
         }
 
         .ade-tile {
             width: 280px;
             height: 160px;
+            background: -webkit-linear-gradient(135deg, #ffffff 0%, #f8f9fa 50%, #ffffff 100%);
+            background: -moz-linear-gradient(135deg, #ffffff 0%, #f8f9fa 50%, #ffffff 100%);
             background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 50%, #ffffff 100%);
+            -webkit-border-radius: 12px;
+            -moz-border-radius: 12px;
             border-radius: 12px;
             padding: 20px;
+            display: -webkit-flex;
+            display: -moz-flex;
             display: flex;
+            -webkit-flex-direction: column;
+            -moz-flex-direction: column;
             flex-direction: column;
+            -webkit-justify-content: space-between;
+            -moz-justify-content: space-between;
             justify-content: space-between;
             text-decoration: none;
             color: #1a1a1a;
             position: relative;
             overflow: hidden;
+            -webkit-transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            -moz-transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            -webkit-transform-style: preserve-3d;
+            -moz-transform-style: preserve-3d;
             transform-style: preserve-3d;
+            -webkit-box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            -moz-box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-            backdrop-filter: blur(10px);
             border: 2px solid #e9ecef;
         }
 
         .ade-tile:hover {
+            -webkit-transform: translateY(-8px) rotateY(-5deg) rotateX(5deg) scale(1.02);
+            -moz-transform: translateY(-8px) rotateY(-5deg) rotateX(5deg) scale(1.02);
             transform: translateY(-8px) rotateY(-5deg) rotateX(5deg) scale(1.02);
+            -webkit-box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+            -moz-box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
             box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+            background: -webkit-linear-gradient(135deg, #ffffff 0%, #f1f3f4 50%, #ffffff 100%);
+            background: -moz-linear-gradient(135deg, #ffffff 0%, #f1f3f4 50%, #ffffff 100%);
             background: linear-gradient(135deg, #ffffff 0%, #f1f3f4 50%, #ffffff 100%);
             border-color: #28a745;
         }
 
         .ade-tile:active {
+            -webkit-transform: translateY(-4px) scale(0.98);
+            -moz-transform: translateY(-4px) scale(0.98);
             transform: translateY(-4px) scale(0.98);
+            -webkit-transition: all 0.1s ease;
+            -moz-transition: all 0.1s ease;
             transition: all 0.1s ease;
         }
 
         .tile-header {
+            display: -webkit-flex;
+            display: -moz-flex;
             display: flex;
+            -webkit-align-items: center;
+            -moz-align-items: center;
             align-items: center;
             gap: 12px;
             margin-bottom: 8px;
@@ -68,15 +109,46 @@
             width: 40px;
             height: 40px;
             background: #28a745;
+            -webkit-border-radius: 8px;
+            -moz-border-radius: 8px;
             border-radius: 8px;
+            display: -webkit-flex;
+            display: -moz-flex;
             display: flex;
+            -webkit-align-items: center;
+            -moz-align-items: center;
             align-items: center;
+            -webkit-justify-content: center;
+            -moz-justify-content: center;
             justify-content: center;
             font-weight: bold;
             font-size: 14px;
             color: white;
-            backdrop-filter: blur(10px);
+            -webkit-animation: pulse 2s infinite;
+            -moz-animation: pulse 2s infinite;
             animation: pulse 2s infinite;
+        }
+
+        @-webkit-keyframes pulse {
+            0%, 100% {
+                -webkit-transform: scale(1);
+                -webkit-box-shadow: 0 0 0 0 rgba(40, 167, 69, 0.4);
+            }
+            50% {
+                -webkit-transform: scale(1.05);
+                -webkit-box-shadow: 0 0 0 10px rgba(40, 167, 69, 0);
+            }
+        }
+
+        @-moz-keyframes pulse {
+            0%, 100% {
+                -moz-transform: scale(1);
+                -moz-box-shadow: 0 0 0 0 rgba(40, 167, 69, 0.4);
+            }
+            50% {
+                -moz-transform: scale(1.05);
+                -moz-box-shadow: 0 0 0 10px rgba(40, 167, 69, 0);
+            }
         }
 
         @keyframes pulse {
@@ -107,14 +179,24 @@
         }
 
         .tile-footer {
+            display: -webkit-flex;
+            display: -moz-flex;
             display: flex;
+            -webkit-align-items: center;
+            -moz-align-items: center;
             align-items: center;
+            -webkit-justify-content: space-between;
+            -moz-justify-content: space-between;
             justify-content: space-between;
             margin-top: auto;
         }
 
         .monitoring-indicator {
+            display: -webkit-flex;
+            display: -moz-flex;
             display: flex;
+            -webkit-align-items: center;
+            -moz-align-items: center;
             align-items: center;
             gap: 6px;
             font-size: 11px;
@@ -125,41 +207,81 @@
         }
 
         .synthetic-tests {
+            display: -webkit-flex;
+            display: -moz-flex;
             display: flex;
             gap: 2px;
+            -webkit-align-items: end;
+            -moz-align-items: end;
             align-items: end;
         }
 
         .test-bar {
             width: 3px;
+            -webkit-border-radius: 1px;
+            -moz-border-radius: 1px;
             border-radius: 1px;
+            -webkit-animation: testExecution 2s infinite ease-in-out;
+            -moz-animation: testExecution 2s infinite ease-in-out;
             animation: testExecution 2s infinite ease-in-out;
         }
 
-        .test-bar:nth-child(1) { 
+        .test-bar-1 { 
             height: 8px; 
             background: #28a745; 
+            -webkit-animation-delay: 0s;
+            -moz-animation-delay: 0s;
             animation-delay: 0s; 
         }
-        .test-bar:nth-child(2) { 
+        .test-bar-2 { 
             height: 12px; 
             background: #28a745; 
+            -webkit-animation-delay: 0.2s;
+            -moz-animation-delay: 0.2s;
             animation-delay: 0.2s; 
         }
-        .test-bar:nth-child(3) { 
+        .test-bar-3 { 
             height: 10px; 
             background: #ffc107; 
+            -webkit-animation-delay: 0.4s;
+            -moz-animation-delay: 0.4s;
             animation-delay: 0.4s; 
         }
-        .test-bar:nth-child(4) { 
+        .test-bar-4 { 
             height: 6px; 
             background: #28a745; 
+            -webkit-animation-delay: 0.6s;
+            -moz-animation-delay: 0.6s;
             animation-delay: 0.6s; 
         }
-        .test-bar:nth-child(5) { 
+        .test-bar-5 { 
             height: 9px; 
             background: #28a745; 
+            -webkit-animation-delay: 0.8s;
+            -moz-animation-delay: 0.8s;
             animation-delay: 0.8s; 
+        }
+
+        @-webkit-keyframes testExecution {
+            0%, 70%, 100% {
+                -webkit-transform: scaleY(0.4);
+                opacity: 0.8;
+            }
+            35% {
+                -webkit-transform: scaleY(1);
+                opacity: 1;
+            }
+        }
+
+        @-moz-keyframes testExecution {
+            0%, 70%, 100% {
+                -moz-transform: scaleY(0.4);
+                opacity: 0.8;
+            }
+            35% {
+                -moz-transform: scaleY(1);
+                opacity: 1;
+            }
         }
 
         @keyframes testExecution {
@@ -177,88 +299,28 @@
             width: 24px;
             height: 24px;
             background: rgba(0, 0, 0, 0.05);
+            -webkit-border-radius: 50%;
+            -moz-border-radius: 50%;
             border-radius: 50%;
+            display: -webkit-flex;
+            display: -moz-flex;
             display: flex;
+            -webkit-align-items: center;
+            -moz-align-items: center;
             align-items: center;
+            -webkit-justify-content: center;
+            -moz-justify-content: center;
             justify-content: center;
+            -webkit-transition: all 0.3s ease;
+            -moz-transition: all 0.3s ease;
             transition: all 0.3s ease;
         }
 
         .ade-tile:hover .arrow-icon {
             background: rgba(40, 167, 69, 0.1);
+            -webkit-transform: translateX(4px);
+            -moz-transform: translateX(4px);
             transform: translateX(4px);
-        }
-
-        .background-pattern {
-            position: absolute;
-            top: -50%;
-            right: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(0, 0, 0, 0.02) 1px, transparent 1px);
-            background-size: 20px 20px;
-            animation: float 20s infinite linear;
-            pointer-events: none;
-        }
-
-        @keyframes float {
-            0% { transform: translate(0, 0) rotate(0deg); }
-            100% { transform: translate(-20px, -20px) rotate(360deg); }
-        }
-
-        .shine-effect {
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(0, 0, 0, 0.03), transparent);
-            transition: left 0.5s ease;
-        }
-
-        .ade-tile:hover .shine-effect {
-            left: 100%;
-        }
-
-        .status-indicators {
-            position: absolute;
-            top: 15px;
-            right: 15px;
-            display: flex;
-            gap: 4px;
-        }
-
-        .status-dot {
-            width: 6px;
-            height: 6px;
-            border-radius: 50%;
-            animation: statusPulse 2s infinite;
-        }
-
-        .status-dot:nth-child(1) {
-            background: #28a745;
-            animation-delay: 0s;
-        }
-
-        .status-dot:nth-child(2) {
-            background: #28a745;
-            animation-delay: 0.3s;
-        }
-
-        .status-dot:nth-child(3) {
-            background: #ffc107;
-            animation-delay: 0.6s;
-        }
-
-        @keyframes statusPulse {
-            0%, 70%, 100% {
-                transform: scale(1);
-                opacity: 0.7;
-            }
-            35% {
-                transform: scale(1.2);
-                opacity: 1;
-            }
         }
 
         .ade-logo {
@@ -267,42 +329,31 @@
             fill: currentColor;
         }
 
-        @media (max-width: 320px) {
+        @media screen and (max-width: 320px) {
             .ade-tile {
                 width: 100%;
                 min-width: 260px;
             }
         }
+        /* ]]> */
     </style>
 </head>
 <body>
     <div class="tile-container">
-        <a href="https://www.skysports.com/news" target="_blank" class="ade-tile">
-            <div class="background-pattern"></div>
-            <div class="shine-effect"></div>
-            <div class="status-indicators">
-                <div class="status-dot"></div>
-                <div class="status-dot"></div>
-                <div class="status-dot"></div>
-            </div>
+        <a href="https://www.skysports.com/news" class="ade-tile">
             
             <div class="tile-header">
                 <div class="ade-icon">
-                    <svg class="ade-logo" viewBox="0 0 24 24" fill="none">
-                        <!-- ADE - FAC synthetic test monitoring logo -->
-                        <!-- Monitor/screen representing synthetic testing -->
+                    <svg class="ade-logo" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <rect x="3" y="5" width="18" height="12" rx="2" stroke="currentColor" stroke-width="1.5" fill="none"/>
                         <rect x="5" y="7" width="14" height="8" rx="1" fill="currentColor" opacity="0.1"/>
                         
-                        <!-- Test execution waves -->
                         <path d="M7 11 L9 9 L11 13 L13 8 L15 12 L17 10" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
                         
-                        <!-- Synthetic test nodes -->
                         <circle cx="8" cy="10" r="1" fill="currentColor"/>
                         <circle cx="12" cy="10" r="1" fill="currentColor"/>
                         <circle cx="16" cy="11" r="1" fill="currentColor"/>
                         
-                        <!-- Monitor base -->
                         <rect x="10" y="17" width="4" height="2" rx="1" fill="currentColor"/>
                         <rect x="8" y="19" width="8" height="1" rx="0.5" fill="currentColor"/>
                     </svg>
@@ -316,16 +367,16 @@
             <div class="tile-footer">
                 <div class="monitoring-indicator">
                     <div class="synthetic-tests">
-                        <div class="test-bar"></div>
-                        <div class="test-bar"></div>
-                        <div class="test-bar"></div>
-                        <div class="test-bar"></div>
-                        <div class="test-bar"></div>
+                        <div class="test-bar test-bar-1"></div>
+                        <div class="test-bar test-bar-2"></div>
+                        <div class="test-bar test-bar-3"></div>
+                        <div class="test-bar test-bar-4"></div>
+                        <div class="test-bar test-bar-5"></div>
                     </div>
                     <span>Synthetic</span>
                 </div>
                 <div class="arrow-icon">
-                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M4 9L8 5L4 1" stroke="#6c757d" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                     </svg>
                 </div>
