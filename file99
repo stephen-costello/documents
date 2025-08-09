@@ -1,387 +1,680 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<!DOCTYPE html>
+<html lang="en">
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>ADE - FAC Tile</title>
-    <style type="text/css">
-        /* <![CDATA[ */
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Playwright Testing Framework Architecture</title>
+    <style>
         * {
             margin: 0;
             padding: 0;
-            -webkit-box-sizing: border-box;
-            -moz-box-sizing: border-box;
             box-sizing: border-box;
         }
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: #ffffff;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
-            display: -webkit-flex;
-            display: -moz-flex;
-            display: flex;
-            -webkit-align-items: center;
-            -moz-align-items: center;
-            align-items: center;
-            -webkit-justify-content: center;
-            -moz-justify-content: center;
-            justify-content: center;
             padding: 20px;
         }
 
-        .tile-container {
-            -webkit-perspective: 1000px;
-            -moz-perspective: 1000px;
-            perspective: 1000px;
-        }
-
-        .ade-tile {
-            width: 280px;
-            height: 160px;
-            background: -webkit-linear-gradient(135deg, #ffffff 0%, #f8f9fa 50%, #ffffff 100%);
-            background: -moz-linear-gradient(135deg, #ffffff 0%, #f8f9fa 50%, #ffffff 100%);
-            background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 50%, #ffffff 100%);
-            -webkit-border-radius: 12px;
-            -moz-border-radius: 12px;
-            border-radius: 12px;
-            padding: 20px;
-            display: -webkit-flex;
-            display: -moz-flex;
-            display: flex;
-            -webkit-flex-direction: column;
-            -moz-flex-direction: column;
-            flex-direction: column;
-            -webkit-justify-content: space-between;
-            -moz-justify-content: space-between;
-            justify-content: space-between;
-            text-decoration: none;
-            color: #1a1a1a;
-            position: relative;
-            overflow: hidden;
-            -webkit-transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            -moz-transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            -webkit-transform-style: preserve-3d;
-            -moz-transform-style: preserve-3d;
-            transform-style: preserve-3d;
-            -webkit-box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-            -moz-box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-            border: 2px solid #e9ecef;
-        }
-
-        .ade-tile:hover {
-            -webkit-transform: translateY(-8px) rotateY(-5deg) rotateX(5deg) scale(1.02);
-            -moz-transform: translateY(-8px) rotateY(-5deg) rotateX(5deg) scale(1.02);
-            transform: translateY(-8px) rotateY(-5deg) rotateX(5deg) scale(1.02);
-            -webkit-box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
-            -moz-box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+        .architecture-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 16px;
+            padding: 30px;
             box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
-            background: -webkit-linear-gradient(135deg, #ffffff 0%, #f1f3f4 50%, #ffffff 100%);
-            background: -moz-linear-gradient(135deg, #ffffff 0%, #f1f3f4 50%, #ffffff 100%);
-            background: linear-gradient(135deg, #ffffff 0%, #f1f3f4 50%, #ffffff 100%);
-            border-color: #28a745;
         }
 
-        .ade-tile:active {
-            -webkit-transform: translateY(-4px) scale(0.98);
-            -moz-transform: translateY(-4px) scale(0.98);
-            transform: translateY(-4px) scale(0.98);
-            -webkit-transition: all 0.1s ease;
-            -moz-transition: all 0.1s ease;
-            transition: all 0.1s ease;
+        .diagram-title {
+            text-align: center;
+            font-size: 26px;
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 10px;
         }
 
-        .tile-header {
-            display: -webkit-flex;
-            display: -moz-flex;
-            display: flex;
-            -webkit-align-items: center;
-            -moz-align-items: center;
-            align-items: center;
-            gap: 12px;
-            margin-bottom: 8px;
+        .diagram-subtitle {
+            text-align: center;
+            font-size: 16px;
+            color: #7f8c8d;
+            margin-bottom: 30px;
         }
 
-        .ade-icon {
-            width: 40px;
-            height: 40px;
-            background: #28a745;
-            -webkit-border-radius: 8px;
-            -moz-border-radius: 8px;
-            border-radius: 8px;
-            display: -webkit-flex;
-            display: -moz-flex;
-            display: flex;
-            -webkit-align-items: center;
-            -moz-align-items: center;
-            align-items: center;
-            -webkit-justify-content: center;
-            -moz-justify-content: center;
-            justify-content: center;
-            font-weight: bold;
-            font-size: 14px;
-            color: white;
-            -webkit-animation: pulse 2s infinite;
-            -moz-animation: pulse 2s infinite;
+        .architecture-svg {
+            width: 100%;
+            height: 700px;
+            border-radius: 12px;
+            background: linear-gradient(145deg, #f8f9fa 0%, #e9ecef 100%);
+        }
+
+        .service-box {
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .service-box:hover {
+            transform: scale(1.08);
+        }
+
+        .service-box:hover .service-rect {
+            filter: drop-shadow(0 12px 24px rgba(0, 0, 0, 0.25));
+        }
+
+        .health-indicator {
             animation: pulse 2s infinite;
         }
 
-        @-webkit-keyframes pulse {
-            0%, 100% {
-                -webkit-transform: scale(1);
-                -webkit-box-shadow: 0 0 0 0 rgba(40, 167, 69, 0.4);
-            }
-            50% {
-                -webkit-transform: scale(1.05);
-                -webkit-box-shadow: 0 0 0 10px rgba(40, 167, 69, 0);
-            }
-        }
-
-        @-moz-keyframes pulse {
-            0%, 100% {
-                -moz-transform: scale(1);
-                -moz-box-shadow: 0 0 0 0 rgba(40, 167, 69, 0.4);
-            }
-            50% {
-                -moz-transform: scale(1.05);
-                -moz-box-shadow: 0 0 0 10px rgba(40, 167, 69, 0);
-            }
-        }
-
         @keyframes pulse {
-            0%, 100% {
-                transform: scale(1);
-                box-shadow: 0 0 0 0 rgba(40, 167, 69, 0.4);
-            }
-            50% {
-                transform: scale(1.05);
-                box-shadow: 0 0 0 10px rgba(40, 167, 69, 0);
-            }
+            0%, 100% { opacity: 0.7; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.2); }
         }
 
-        .tile-title {
-            font-size: 18px;
-            font-weight: 600;
-            margin: 0;
-            color: #1a1a1a;
-            text-shadow: none;
+        .test-flow {
+            stroke-dasharray: 8, 4;
+            animation: testFlow 2.5s linear infinite;
         }
 
-        .tile-subtitle {
-            font-size: 12px;
-            opacity: 0.7;
-            margin: 4px 0 0 0;
-            font-weight: 400;
-            color: #6c757d;
+        .report-flow {
+            stroke-dasharray: 12, 6;
+            animation: reportFlow 3s linear infinite;
         }
 
-        .tile-footer {
-            display: -webkit-flex;
-            display: -moz-flex;
+        .build-flow {
+            stroke-dasharray: 15, 8;
+            animation: buildFlow 4s linear infinite;
+        }
+
+        @keyframes testFlow {
+            0% { stroke-dashoffset: 0; }
+            100% { stroke-dashoffset: 12; }
+        }
+
+        @keyframes reportFlow {
+            0% { stroke-dashoffset: 0; }
+            100% { stroke-dashoffset: 18; }
+        }
+
+        @keyframes buildFlow {
+            0% { stroke-dashoffset: 0; }
+            100% { stroke-dashoffset: 23; }
+        }
+
+        .execution-indicator {
+            animation: testRun 1.5s ease-in-out infinite;
+        }
+
+        @keyframes testRun {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 1; }
+        }
+
+        .tooltip {
+            position: absolute;
+            background: #2c3e50;
+            color: white;
+            padding: 14px 18px;
+            border-radius: 10px;
+            font-size: 14px;
+            pointer-events: none;
+            opacity: 0;
+            transform: translateY(15px);
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            z-index: 1000;
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
+            max-width: 320px;
+            backdrop-filter: blur(10px);
+        }
+
+        .tooltip.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .tooltip h4 {
+            margin-bottom: 8px;
+            color: #3498db;
+            font-size: 16px;
+        }
+
+        .tooltip p {
+            margin-bottom: 4px;
+            font-size: 13px;
+            line-height: 1.4;
+        }
+
+        .status-healthy { color: #27ae60; }
+        .status-warning { color: #f39c12; }
+        .status-error { color: #e74c3c; }
+        .status-running { color: #3498db; }
+
+        .legend {
             display: flex;
-            -webkit-align-items: center;
-            -moz-align-items: center;
-            align-items: center;
-            -webkit-justify-content: space-between;
-            -moz-justify-content: space-between;
-            justify-content: space-between;
-            margin-top: auto;
-        }
-
-        .monitoring-indicator {
-            display: -webkit-flex;
-            display: -moz-flex;
-            display: flex;
-            -webkit-align-items: center;
-            -moz-align-items: center;
-            align-items: center;
-            gap: 6px;
-            font-size: 11px;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            font-weight: 500;
-            color: #6c757d;
-        }
-
-        .synthetic-tests {
-            display: -webkit-flex;
-            display: -moz-flex;
-            display: flex;
-            gap: 2px;
-            -webkit-align-items: end;
-            -moz-align-items: end;
-            align-items: end;
-        }
-
-        .test-bar {
-            width: 3px;
-            -webkit-border-radius: 1px;
-            -moz-border-radius: 1px;
-            border-radius: 1px;
-            -webkit-animation: testExecution 2s infinite ease-in-out;
-            -moz-animation: testExecution 2s infinite ease-in-out;
-            animation: testExecution 2s infinite ease-in-out;
-        }
-
-        .test-bar-1 { 
-            height: 8px; 
-            background: #28a745; 
-            -webkit-animation-delay: 0s;
-            -moz-animation-delay: 0s;
-            animation-delay: 0s; 
-        }
-        .test-bar-2 { 
-            height: 12px; 
-            background: #28a745; 
-            -webkit-animation-delay: 0.2s;
-            -moz-animation-delay: 0.2s;
-            animation-delay: 0.2s; 
-        }
-        .test-bar-3 { 
-            height: 10px; 
-            background: #ffc107; 
-            -webkit-animation-delay: 0.4s;
-            -moz-animation-delay: 0.4s;
-            animation-delay: 0.4s; 
-        }
-        .test-bar-4 { 
-            height: 6px; 
-            background: #28a745; 
-            -webkit-animation-delay: 0.6s;
-            -moz-animation-delay: 0.6s;
-            animation-delay: 0.6s; 
-        }
-        .test-bar-5 { 
-            height: 9px; 
-            background: #28a745; 
-            -webkit-animation-delay: 0.8s;
-            -moz-animation-delay: 0.8s;
-            animation-delay: 0.8s; 
-        }
-
-        @-webkit-keyframes testExecution {
-            0%, 70%, 100% {
-                -webkit-transform: scaleY(0.4);
-                opacity: 0.8;
-            }
-            35% {
-                -webkit-transform: scaleY(1);
-                opacity: 1;
-            }
-        }
-
-        @-moz-keyframes testExecution {
-            0%, 70%, 100% {
-                -moz-transform: scaleY(0.4);
-                opacity: 0.8;
-            }
-            35% {
-                -moz-transform: scaleY(1);
-                opacity: 1;
-            }
-        }
-
-        @keyframes testExecution {
-            0%, 70%, 100% {
-                transform: scaleY(0.4);
-                opacity: 0.8;
-            }
-            35% {
-                transform: scaleY(1);
-                opacity: 1;
-            }
-        }
-
-        .arrow-icon {
-            width: 24px;
-            height: 24px;
-            background: rgba(0, 0, 0, 0.05);
-            -webkit-border-radius: 50%;
-            -moz-border-radius: 50%;
-            border-radius: 50%;
-            display: -webkit-flex;
-            display: -moz-flex;
-            display: flex;
-            -webkit-align-items: center;
-            -moz-align-items: center;
-            align-items: center;
-            -webkit-justify-content: center;
-            -moz-justify-content: center;
             justify-content: center;
-            -webkit-transition: all 0.3s ease;
-            -moz-transition: all 0.3s ease;
+            gap: 35px;
+            margin-top: 25px;
+            flex-wrap: wrap;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 14px;
+            color: #6c757d;
+            padding: 8px 12px;
+            background: #f8f9fa;
+            border-radius: 8px;
+        }
+
+        .legend-line {
+            width: 20px;
+            height: 3px;
+            border-radius: 2px;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.75);
+            z-index: 2000;
+            backdrop-filter: blur(8px);
+        }
+
+        .modal-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            border-radius: 20px;
+            padding: 35px;
+            max-width: 600px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+            box-shadow: 0 25px 80px rgba(0, 0, 0, 0.4);
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            border-bottom: 2px solid #ecf0f1;
+            padding-bottom: 15px;
+        }
+
+        .modal-title {
+            font-size: 22px;
+            font-weight: 600;
+            color: #2c3e50;
+        }
+
+        .close-btn {
+            background: none;
+            border: none;
+            font-size: 28px;
+            cursor: pointer;
+            color: #95a5a6;
+            padding: 0;
+            width: 35px;
+            height: 35px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
             transition: all 0.3s ease;
         }
 
-        .ade-tile:hover .arrow-icon {
-            background: rgba(40, 167, 69, 0.1);
-            -webkit-transform: translateX(4px);
-            -moz-transform: translateX(4px);
-            transform: translateX(4px);
+        .close-btn:hover {
+            background: #ecf0f1;
+            color: #7f8c8d;
+            transform: rotate(90deg);
         }
 
-        .ade-logo {
-            width: 24px;
-            height: 24px;
-            fill: currentColor;
+        .modal-body {
+            line-height: 1.7;
+            color: #34495e;
         }
 
-        @media screen and (max-width: 320px) {
-            .ade-tile {
-                width: 100%;
-                min-width: 260px;
-            }
+        .modal-body h4 {
+            margin: 20px 0 12px 0;
+            color: #2c3e50;
+            font-size: 18px;
         }
-        /* ]]> */
+
+        .modal-body h4:first-child {
+            margin-top: 0;
+        }
+
+        .modal-body p {
+            margin-bottom: 15px;
+        }
+
+        .tech-stack {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-top: 12px;
+        }
+
+        .tech-tag {
+            background: #3498db;
+            color: white;
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        .tech-tag.jenkins { background: #ff6600; }
+        .tech-tag.playwright { background: #2EAD33; }
+        .tech-tag.reportportal { background: #7c4dff; }
+
+        .metrics {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .metric {
+            background: linear-gradient(145deg, #f8f9fa, #e9ecef);
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+            border: 1px solid #dee2e6;
+        }
+
+        .metric-value {
+            font-size: 20px;
+            font-weight: 700;
+            color: #2c3e50;
+            margin-bottom: 5px;
+        }
+
+        .metric-label {
+            font-size: 12px;
+            color: #7f8c8d;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .test-results {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .test-result {
+            padding: 10px;
+            border-radius: 8px;
+            text-align: center;
+            font-weight: 600;
+        }
+
+        .test-result.passed {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .test-result.failed {
+            background: #f8d7da;
+            color: #721c24;
+        }
+
+        .test-result.skipped {
+            background: #fff3cd;
+            color: #856404;
+        }
     </style>
 </head>
 <body>
-    <div class="tile-container">
-        <a href="https://www.skysports.com/news" class="ade-tile">
+    <div class="architecture-container">
+        <h1 class="diagram-title">Customer Comments Testing Architecture</h1>
+        <p class="diagram-subtitle">Playwright + Jenkins Core + ReportPortal Integration</p>
+        
+        <svg class="architecture-svg" viewBox="0 0 1200 600">
+            <!-- Background grid -->
+            <defs>
+                <pattern id="grid" width="25" height="25" patternUnits="userSpaceOnUse">
+                    <path d="M 25 0 L 0 0 0 25" fill="none" stroke="#e9ecef" stroke-width="1"/>
+                </pattern>
+                <!-- Gradient definitions -->
+                <linearGradient id="jenkinsGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" style="stop-color:#ff6600;stop-opacity:1" />
+                    <stop offset="100%" style="stop-color:#cc5200;stop-opacity:1" />
+                </linearGradient>
+                <linearGradient id="playwrightGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" style="stop-color:#2EAD33;stop-opacity:1" />
+                    <stop offset="100%" style="stop-color:#228B22;stop-opacity:1" />
+                </linearGradient>
+                <linearGradient id="reportportalGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" style="stop-color:#7c4dff;stop-opacity:1" />
+                    <stop offset="100%" style="stop-color:#6a1b9a;stop-opacity:1" />
+                </linearGradient>
+            </defs>
+            <rect width="100%" height="100%" fill="url(#grid)" />
             
-            <div class="tile-header">
-                <div class="ade-icon">
-                    <svg class="ade-logo" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <rect x="3" y="5" width="18" height="12" rx="2" stroke="currentColor" stroke-width="1.5" fill="none"/>
-                        <rect x="5" y="7" width="14" height="8" rx="1" fill="currentColor" opacity="0.1"/>
-                        
-                        <path d="M7 11 L9 9 L11 13 L13 8 L15 12 L17 10" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
-                        
-                        <circle cx="8" cy="10" r="1" fill="currentColor"/>
-                        <circle cx="12" cy="10" r="1" fill="currentColor"/>
-                        <circle cx="16" cy="11" r="1" fill="currentColor"/>
-                        
-                        <rect x="10" y="17" width="4" height="2" rx="1" fill="currentColor"/>
-                        <rect x="8" y="19" width="8" height="1" rx="0.5" fill="currentColor"/>
-                    </svg>
-                </div>
-                <div>
-                    <h3 class="tile-title">ADE - FAC</h3>
-                    <p class="tile-subtitle">Synthetic Test Monitoring</p>
-                </div>
-            </div>
+            <!-- Flow Lines -->
+            <!-- Jenkins to Playwright -->
+            <path d="M 300 150 Q 400 100 500 150" stroke="#ff6600" stroke-width="4" fill="none" class="build-flow" />
+            <!-- Playwright to App -->
+            <path d="M 650 200 L 850 200" stroke="#2EAD33" stroke-width="4" fill="none" class="test-flow" />
+            <!-- Playwright to ReportPortal -->
+            <path d="M 600 250 Q 650 350 700 400" stroke="#7c4dff" stroke-width="4" fill="none" class="report-flow" />
+            <!-- ReportPortal to Jenkins (feedback) -->
+            <path d="M 650 450 Q 450 500 250 400" stroke="#9b59b6" stroke-width="3" fill="none" class="report-flow" />
             
-            <div class="tile-footer">
-                <div class="monitoring-indicator">
-                    <div class="synthetic-tests">
-                        <div class="test-bar test-bar-1"></div>
-                        <div class="test-bar test-bar-2"></div>
-                        <div class="test-bar test-bar-3"></div>
-                        <div class="test-bar test-bar-4"></div>
-                        <div class="test-bar test-bar-5"></div>
-                    </div>
-                    <span>Synthetic</span>
-                </div>
-                <div class="arrow-icon">
-                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M4 9L8 5L4 1" stroke="#6c757d" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                    </svg>
-                </div>
+            <!-- CI/CD Pipeline Layer -->
+            <text x="150" y="40" text-anchor="middle" fill="#2c3e50" font-size="16" font-weight="600">CI/CD Pipeline</text>
+            
+            <!-- Jenkins Core -->
+            <g class="service-box" data-service="jenkins">
+                <rect class="service-rect" x="50" y="80" width="200" height="80" rx="12" fill="url(#jenkinsGrad)" stroke="#cc5200" stroke-width="2"/>
+                <text x="150" y="110" text-anchor="middle" fill="white" font-size="16" font-weight="600">Jenkins Core</text>
+                <text x="150" y="130" text-anchor="middle" fill="#fff3cd" font-size="13">Build Pipeline</text>
+                <text x="150" y="145" text-anchor="middle" fill="#fff3cd" font-size="11">Customer Comments CI</text>
+                <circle class="health-indicator" cx="230" cy="100" r="7" fill="#27ae60"/>
+            </g>
+
+            <!-- Test Execution Layer -->
+            <text x="600" y="40" text-anchor="middle" fill="#2c3e50" font-size="16" font-weight="600">Test Execution</text>
+            
+            <!-- Playwright Framework -->
+            <g class="service-box" data-service="playwright">
+                <rect class="service-rect" x="400" y="120" width="250" height="100" rx="12" fill="url(#playwrightGrad)" stroke="#228B22" stroke-width="2"/>
+                <text x="525" y="150" text-anchor="middle" fill="white" font-size="18" font-weight="600">Playwright Framework</text>
+                <text x="525" y="170" text-anchor="middle" fill="#e8f5e8" font-size="13">E2E Test Automation</text>
+                <text x="525" y="185" text-anchor="middle" fill="#e8f5e8" font-size="12">Cross-browser Testing</text>
+                <text x="525" y="200" text-anchor="middle" fill="#e8f5e8" font-size="11">Comments App Tests</text>
+                <circle class="health-indicator" cx="630" cy="140" r="7" fill="#27ae60"/>
+                
+                <!-- Test execution indicators -->
+                <circle class="execution-indicator" cx="430" cy="160" r="4" fill="#fff"/>
+                <circle class="execution-indicator" cx="450" cy="180" r="4" fill="#fff"/>
+                <circle class="execution-indicator" cx="430" cy="200" r="4" fill="#fff"/>
+            </g>
+
+            <!-- Application Under Test -->
+            <g class="service-box" data-service="app">
+                <rect class="service-rect" x="750" y="160" width="200" height="80" rx="12" fill="#3498db" stroke="#2980b9" stroke-width="2"/>
+                <text x="850" y="190" text-anchor="middle" fill="white" font-size="16" font-weight="600">Customer Comments</text>
+                <text x="850" y="210" text-anchor="middle" fill="#ecf0f1" font-size="13">Application Under Test</text>
+                <text x="850" y="225" text-anchor="middle" fill="#ecf0f1" font-size="11">React + API + DB</text>
+                <circle class="health-indicator" cx="930" cy="180" r="7" fill="#f39c12"/>
+            </g>
+
+            <!-- Test Environments -->
+            <text x="1050" y="40" text-anchor="middle" fill="#2c3e50" font-size="16" font-weight="600">Environments</text>
+            
+            <g class="service-box" data-service="environments">
+                <rect class="service-rect" x="1000" y="80" width="150" height="180" rx="12" fill="#34495e" stroke="#2c3e50" stroke-width="2"/>
+                <text x="1075" y="110" text-anchor="middle" fill="white" font-size="14" font-weight="600">Test Environments</text>
+                
+                <!-- Environment boxes -->
+                <rect x="1020" y="130" width="110" height="25" rx="4" fill="#27ae60" opacity="0.8"/>
+                <text x="1075" y="147" text-anchor="middle" fill="white" font-size="11">DEV</text>
+                
+                <rect x="1020" y="165" width="110" height="25" rx="4" fill="#f39c12" opacity="0.8"/>
+                <text x="1075" y="182" text-anchor="middle" fill="white" font-size="11">STAGING</text>
+                
+                <rect x="1020" y="200" width="110" height="25" rx="4" fill="#e74c3c" opacity="0.8"/>
+                <text x="1075" y="217" text-anchor="middle" fill="white" font-size="11">PROD</text>
+                
+                <circle class="health-indicator" cx="1130" cy="100" r="6" fill="#27ae60"/>
+            </g>
+
+            <!-- Reporting Layer -->
+            <text x="600" y="320" text-anchor="middle" fill="#2c3e50" font-size="16" font-weight="600">Test Reporting & Analytics</text>
+            
+            <!-- ReportPortal -->
+            <g class="service-box" data-service="reportportal">
+                <rect class="service-rect" x="500" y="360" width="280" height="120" rx="12" fill="url(#reportportalGrad)" stroke="#6a1b9a" stroke-width="2"/>
+                <text x="640" y="390" text-anchor="middle" fill="white" font-size="18" font-weight="600">ReportPortal</text>
+                <text x="640" y="410" text-anchor="middle" fill="#e1bee7" font-size="13">AI-Powered Test Analytics</text>
+                <text x="640" y="430" text-anchor="middle" fill="#e1bee7" font-size="12">Real-time Reporting</text>
+                <text x="640" y="445" text-anchor="middle" fill="#e1bee7" font-size="11">Historical Trends & Insights</text>
+                <text x="640" y="460" text-anchor="middle" fill="#e1bee7" font-size="11">Failure Analysis</text>
+                <circle class="health-indicator" cx="760" cy="380" r="7" fill="#27ae60"/>
+            </g>
+
+            <!-- Test Data Management -->
+            <g class="service-box" data-service="testdata">
+                <rect class="service-rect" x="50" y="320" width="180" height="80" rx="12" fill="#9b59b6" stroke="#8e44ad" stroke-width="2"/>
+                <text x="140" y="350" text-anchor="middle" fill="white" font-size="14" font-weight="600">Test Data</text>
+                <text x="140" y="370" text-anchor="middle" fill="#e8daef" font-size="12">Fixtures & Mocks</text>
+                <text x="140" y="385" text-anchor="middle" fill="#e8daef" font-size="11">Comment Scenarios</text>
+                <circle class="health-indicator" cx="210" cy="340" r="6" fill="#27ae60"/>
+            </g>
+
+            <!-- Browser Grid -->
+            <g class="service-box" data-service="browsers">
+                <rect class="service-rect" x="850" y="320" width="180" height="120" rx="12" fill="#e67e22" stroke="#d35400" stroke-width="2"/>
+                <text x="940" y="350" text-anchor="middle" fill="white" font-size="14" font-weight="600">Browser Grid</text>
+                <text x="940" y="370" text-anchor="middle" fill="#fdeaa7" font-size="12">Cross-browser Testing</text>
+                
+                <!-- Browser icons -->
+                <circle cx="880" cy="390" r="8" fill="#4285f4" opacity="0.8"/>
+                <text x="880" y="395" text-anchor="middle" fill="white" font-size="8">Chr</text>
+                
+                <circle cx="920" cy="390" r="8" fill="#ff9500" opacity="0.8"/>
+                <text x="920" y="395" text-anchor="middle" fill="white" font-size="8">FF</text>
+                
+                <circle cx="960" cy="390" r="8" fill="#00a1f1" opacity="0.8"/>
+                <text x="960" y="395" text-anchor="middle" fill="white" font-size="8">Edg</text>
+                
+                <circle cx="1000" cy="390" r="8" fill="#1b88c9" opacity="0.8"/>
+                <text x="1000" y="395" text-anchor="middle" fill="white" font-size="8">Saf</text>
+                
+                <text x="940" y="420" text-anchor="middle" fill="#fdeaa7" font-size="11">Parallel Execution</text>
+                <circle class="health-indicator" cx="1010" cy="340" r="6" fill="#27ae60"/>
+            </g>
+
+            <!-- Notification System -->
+            <g class="service-box" data-service="notifications">
+                <rect class="service-rect" x="50" y="480" width="180" height="60" rx="12" fill="#e74c3c" stroke="#c0392b" stroke-width="2"/>
+                <text x="140" y="505" text-anchor="middle" fill="white" font-size="14" font-weight="600">Notifications</text>
+                <text x="140" y="520" text-anchor="middle" fill="#fadbd8" font-size="12">Slack / Email / Teams</text>
+                <circle class="health-indicator" cx="210" cy="495" r="6" fill="#27ae60"/>
+            </g>
+        </svg>
+
+        <div class="legend">
+            <div class="legend-item">
+                <div class="legend-line" style="background: #ff6600;"></div>
+                <span>Build Trigger</span>
             </div>
-        </a>
+            <div class="legend-item">
+                <div class="legend-line" style="background: #2EAD33;"></div>
+                <span>Test Execution</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-line" style="background: #7c4dff;"></div>
+                <span>Report Generation</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-line" style="background: #9b59b6;"></div>
+                <span>Feedback Loop</span>
+            </div>
+        </div>
     </div>
-</body>
-</html>
+
+    <!-- Tooltip -->
+    <div class="tooltip" id="tooltip"></div>
+
+    <!-- Modal -->
+    <div class="modal" id="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title" id="modal-title">Component Details</h2>
+                <button class="close-btn" onclick="closeModal()">&times;</button>
+            </div>
+            <div class="modal-body" id="modal-body">
+                <!-- Content will be populated by JavaScript -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const testingData = {
+            jenkins: {
+                title: "Jenkins Core",
+                description: "Central CI/CD orchestrator that triggers automated test runs for the Customer Comments application. Manages build pipelines, environment deployments, and test execution scheduling.",
+                status: "healthy",
+                uptime: "99.97%",
+                lastBuild: "12 minutes ago",
+                version: "v2.426.1",
+                technologies: ["Jenkins Core", "Pipeline Plugin", "Docker", "Git", "Groovy"],
+                metrics: {
+                    "Builds Today": "47",
+                    "Success Rate": "94.2%",
+                    "Avg Build Time": "8.5 min",
+                    "Queue Length": "2",
+                    "Active Jobs": "12",
+                    "Failed Builds": "3"
+                }
+            },
+            playwright: {
+                title: "Playwright Test Framework",
+                description: "Modern end-to-end testing framework that validates the Customer Comments application across multiple browsers. Handles user journeys, API testing, and visual regression testing.",
+                status: "running",
+                uptime: "99.95%",
+                lastRun: "5 minutes ago",
+                version: "v1.40.1",
+                technologies: ["Playwright", "TypeScript", "Node.js", "Jest", "Allure", "Docker"],
+                metrics: {
+                    "Total Tests": "347",
+                    "Pass Rate": "96.8%",
+                    "Execution Time": "12.3 min",
+                    "Browsers": "4",
+                    "Parallel Workers": "8",
+                    "Coverage": "89.2%"
+                },
+                testResults: {
+                    "Passed": 336,
+                    "Failed": 8,
+                    "Skipped": 3
+                }
+            },
+            app: {
+                title: "Customer Comments Application",
+                description: "The target application under test - a React-based customer feedback platform with real-time commenting, user authentication, and administrative features.",
+                status: "warning",
+                uptime: "99.92%",
+                lastDeploy: "2 hours ago",
+                version: "v3.2.1",
+                technologies: ["React", "Node.js", "Express", "PostgreSQL", "Redis", "Docker"],
+                metrics: {
+                    "Response Time": "245ms",
+                    "Active Users": "1,847",
+                    "Comments/Day": "3.2k",
+                    "API Calls/min": "892",
+                    "Error Rate": "0.8%",
+                    "Memory Usage": "78%"
+                }
+            },
+            environments: {
+                title: "Test Environments",
+                description: "Multi-environment testing infrastructure supporting development, staging, and production testing scenarios for comprehensive validation coverage.",
+                status: "healthy",
+                uptime: "99.89%",
+                lastUpdate: "6 hours ago",
+                version: "v2.1.0",
+                technologies: ["Docker", "Kubernetes", "AWS ECS", "Terraform", "Helm"],
+                metrics: {
+                    "Dev Env Health": "100%",
+                    "Staging Health": "95%",
+                    "Prod Health": "87%",
+                    "Deployments Today": "14",
+                    "Resource Usage": "67%",
+                    "Auto-scaling": "Active"
+                }
+            },
+            reportportal: {
+                title: "ReportPortal Analytics",
+                description: "AI-powered test reporting platform that aggregates results from Playwright, provides intelligent failure analysis, and generates actionable insights for the testing team.",
+                status: "healthy",
+                uptime: "99.98%",
+                lastReport: "3 minutes ago",
+                version: "v5.7.4",
+                technologies: ["ReportPortal", "Elasticsearch", "PostgreSQL", "React", "Java Spring", "Machine Learning"],
+                metrics: {
+                    "Reports Generated": "1,247",
+                    "AI Accuracy": "94.7%",
+                    "Defect Patterns": "23",
+                    "Time Saved": "45 hrs",
+                    "Trend Analysis": "Positive",
+                    "Integrations": "8"
+                }
+            },
+            testdata: {
+                title: "Test Data Management",
+                description: "Centralized test data repository containing fixtures, mock data, and realistic comment scenarios for comprehensive testing of the Customer Comments platform.",
+                status: "healthy",
+                uptime: "100%",
+                lastUpdate: "1 day ago",
+                version: "v1.4.2",
+                technologies: ["JSON", "Faker.js", "PostgreSQL", "Redis", "Docker"],
+                metrics: {
+                    "Data Sets": "156",
+                    "Mock Users": "2,500",
+                    "Comment Templates": "89",
+                    "API Responses": "234",
+                    "Refresh Rate": "Daily",
+                    "Data Volume": "2.8GB"
+                }
+            },
+            browsers: {
+                title: "Cross-Browser Testing Grid",
+                description: "Distributed browser testing infrastructure running Chrome, Firefox, Edge, and Safari in parallel to ensure Customer Comments works across all user environments.",
+                status: "healthy",
+                uptime: "99.94%",
+                lastExecution: "8 minutes ago",
+                version: "Grid 4.15.0",
+                technologies: ["Selenium Grid", "Docker", "Chrome", "Firefox", "Edge", "Safari"],
+                metrics: {
+                    "Active Sessions": "12",
+                    "Max Capacity": "50",
+                    "Chrome Tests": "89%",
+                    "Firefox Tests": "11%",
+                    "Success Rate": "97.2%",
+                    "Avg Session": "3.4 min"
+                }
+            },
+            notifications: {
+                title: "Notification System",
+                description: "Multi-channel notification system that delivers test results, build status, and critical alerts to development teams via Slack, email, and Microsoft Teams.",
+                status: "healthy",
+                uptime: "99.99%",
+                lastNotification: "15 minutes ago",
+                version: "v2.3.1",
+                technologies: ["Slack API", "SMTP", "Teams Webhook", "Jenkins Plugin", "Node.js"],
+                metrics: {
+                    "Messages Today": "142",
+                    "Slack Channels": "8",
+                    "Email Recipients": "23",
+                    "Teams Channels": "5",
+                    "Delivery Rate": "99.8%",
+                    "Response Time": "1.2s"
+                }
+            }
+        };
+
+        const tooltip = document.getElementById('tooltip');
+        const modal = document.getElementById('modal');
+        
+        // Add event listeners to service boxes
+        document.querySelectorAll('.service-box').forEach(box => {
+            const serviceName = box.getAttribute('data-service');
+            const service = testingData[serviceName];
+            
+            box.addEventListener('mouseenter', (e) => {
+                showTooltip(e
