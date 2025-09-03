@@ -23,8 +23,9 @@
 
         .container {
             display: flex;
+            flex-direction: column;
             gap: 16px;
-            align-items: stretch;
+            align-items: center;
         }
 
         .tile {
@@ -44,7 +45,6 @@
 
         .tile:nth-child(1) { animation-delay: 0.1s; }
         .tile:nth-child(2) { animation-delay: 0.2s; }
-        .tile:nth-child(3) { animation-delay: 0.3s; }
 
         @keyframes slideUp {
             0% {
@@ -76,10 +76,6 @@
             --tile-color: #0091ae;
         }
 
-        .ireland-tile {
-            --tile-color: #00a4bd;
-        }
-
         .tile-icon {
             width: 40px;
             height: 40px;
@@ -98,11 +94,6 @@
 
         .miro-tile .tile-icon {
             background: linear-gradient(135deg, #0091ae, #00a4bd);
-            color: white;
-        }
-
-        .ireland-tile .tile-icon {
-            background: linear-gradient(135deg, #00a4bd, #33b5e5);
             color: white;
         }
 
@@ -142,45 +133,6 @@
             opacity: 0.9;
         }
 
-        .ireland-map {
-            width: 60px;
-            height: 40px;
-            margin: 8px auto 12px auto;
-            position: relative;
-            background: linear-gradient(135deg, #00a4bd, #33b5e5);
-            border-radius: 4px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .city-dot {
-            position: absolute;
-            width: 4px;
-            height: 4px;
-            background: #ff7a59;
-            border-radius: 50%;
-            border: 1px solid white;
-            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
-        }
-
-        .dublin-dot {
-            top: 25%;
-            right: 30%;
-        }
-
-        .galway-dot {
-            top: 45%;
-            left: 20%;
-        }
-
-        .map-text {
-            color: white;
-            font-size: 8px;
-            font-weight: 700;
-            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
-        }
-
         .status-indicator {
             position: absolute;
             top: 8px;
@@ -197,17 +149,6 @@
 
         .miro-tile .status-indicator {
             background: #0091ae;
-        }
-
-        @media (max-width: 768px) {
-            .container {
-                flex-direction: column;
-                align-items: center;
-            }
-            
-            .tile {
-                width: 200px;
-            }
         }
 
         /* Ripple effect */
@@ -247,19 +188,6 @@
             <p>Official documentation</p>
             <div class="tile-button">View Docs</div>
         </div>
-
-        <!-- 3. Ireland Operations Tile -->
-        <div class="tile ireland-tile" onclick="showIreland(event)">
-            <div class="status-indicator"></div>
-            <div class="tile-icon">🇮🇪</div>
-            <h3>Ireland Operations</h3>
-            <div class="ireland-map">
-                <span class="map-text">IE</span>
-                <div class="city-dot dublin-dot"></div>
-                <div class="city-dot galway-dot"></div>
-            </div>
-            <p>Dublin • Galway</p>
-        </div>
     </div>
 
     <script>
@@ -275,12 +203,6 @@
             setTimeout(() => {
                 window.open('https://miro.com/app/board/', '_blank');
             }, 150);
-        }
-
-        function showIreland(e) {
-            createRipple(e);
-            // Add your Ireland operations action here
-            console.log('Ireland operations clicked');
         }
 
         function createRipple(e) {
