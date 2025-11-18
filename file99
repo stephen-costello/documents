@@ -1,254 +1,1626 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HubSpot Style Tiles</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+# Fidelity QE Automation Standards - AI Assistant Guide
+
+## Quick Reference for AI Assistants
+
+### MANDATORY DEFAULTS
+- **Primary Language**: TypeScript
+- **Primary Framework**: Playwright
+- **Secondary Frameworks**: Karate (API), Selenium (legacy)
+- **Test File Naming**: `*.spec.ts` (Playwright), `*.feature` (Karate)
+- **Design Pattern**: Page Object Model (ALWAYS)
+- **Wait Strategy**: Explicit waits ONLY (NEVER implicit waits)
+- **Authentication**: ALWAYS fetch from Vault (NEVER hardcode)
+- **Case Styles**: 
+  - Classes: PascalCase
+  - Methods/Variables: camelCase
+  - Files: kebab-case
+  - Test Names: Descriptive with action verbs
+
+### CRITICAL RULES
+```
+✅ ALWAYS DO:
+- Use Page Object Model pattern
+- Fetch secrets from Vault
+- Include at least one test tag (@Smoke, @Functional, @Regression, @E2E, @Health)
+- Add comprehensive error handling with try-catch
+- Capture screenshots on failure
+- Log all critical actions
+- Include meaningful assertions with descriptive messages
+- Follow camelCase for methods and variables
+
+❌ NEVER DO:
+- Hardcode credentials, API keys, or PII
+- Use implicit waits (Selenium/Playwright)
+- Create tests without tags
+- Skip error handling
+- Leave commented-out code in production
+- Use sleep() or fixed waits
+- Duplicate code (use utility functions)
+- Skip documentation for complex logic
+```
+
+---
+
+## 1. Fidelity-Specific Context
+
+### Our Technology Stack
+- **Frontend**: Angular (FocusPoint desktop application)
+- **API Testing**: Karate, Bruno
+- **UI Testing**: Playwright (primary), Selenium (legacy migration)
+- **Secret Management**: HashiCorp Vault
+- **Observability**: Grafana, Datadog, Report Portal
+- **Test Management**: Jira/Xray
+- **CI/CD**: [Add your pipeline tool]
+- **Browser**: Chrome (migrated from OpenFin)
+
+### Business Domain
+- **US Retirement Market**: 401(k) processing, loans, withdrawals
+- **Compliance**: Fintech regulations, PII handling, audit trails
+- **Users**: Internal operations teams, financial advisors, plan participants
+
+### 8-Layer Testing Strategy
+Our comprehensive testing approach covers:
+1. **Synthetic Monitoring** - Production health checks
+2. **E2E Testing** - Complete user journeys
+3. **Integration Testing** - Service-to-service validation
+4. **API Testing** - Contract and functional validation
+5. **Unit Testing** - Component-level validation
+6. **Performance Testing** - Load and stress testing
+7. **Security Testing** - Vulnerability scanning
+8. **Observability** - Real-time monitoring and alerting
+
+### Quality Metrics & Dashboards
+- **Weighted Quality Score**: Calculated from Report Portal, Grafana, Datadog, Jira/Xray
+- **Test Execution KPIs**: 
+  - Pass rate target: >95%
+  - Test execution time: <30 min for smoke, <2 hours for regression
+  - Flakiness rate: <2%
+- **Dashboard Requirements**: Real-time monitoring with unified metrics
+
+---
+
+## 2. AI Assistant Decision Trees
+
+### When User Requests Test Creation
+
+```
+IF request contains "test" OR "automate" OR "validate":
+  ├─ Ask: What type of test? (UI, API, E2E, Performance)
+  ├─ IF UI test:
+  │   ├─ Use Playwright with Page Object Model
+  │   ├─ Ask for: page/component, user flow, expected outcomes
+  │   ├─ Generate: Page object class + spec file + utility functions
+  │   └─ Include: Error handling, screenshots, logging, tags
+  ├─ IF API test:
+  │   ├─ Use Karate framework
+  │   ├─ Ask for: endpoint, method, auth requirements, payload
+  │   ├─ Generate: Feature file with scenarios
+  │   └─ Include: Response validation, status codes, schema validation
+  ├─ IF E2E test:
+  │   ├─ Use Playwright for multi-step flows
+  │   ├─ Ask for: Complete user journey steps
+  │   ├─ Generate: Modular test with reusable functions
+  │   └─ Include: @E2E tag, comprehensive logging, checkpoints
+  └─ ALWAYS:
+      ├─ Add appropriate tags
+      ├─ Include error handling
+      ├─ Follow naming conventions
+      └─ Add documentation comments
+```
+
+### When User Requests Refactoring
+
+```
+IF request contains "refactor" OR "improve" OR "optimize":
+  ├─ Analyze existing code for:
+  │   ├─ Code duplication (create utilities)
+  │   ├─ Hardcoded values (move to config/vault)
+  │   ├─ Missing error handling (add try-catch)
+  │   ├─ Poor naming (suggest improvements)
+  │   └─ Missing documentation (add comments)
+  ├─ Check for anti-patterns:
+  │   ├─ Implicit waits → Convert to explicit
+  │   ├─ sleep() calls → Replace with proper waits
+  │   ├─ Hardcoded credentials → Move to vault
+  │   └─ Repeated code → Extract to utilities
+  ├─ Suggest improvements:
+  │   ├─ Show before/after comparison
+  │   ├─ Explain benefits of changes
+  │   └─ Highlight any breaking changes
+  └─ MAINTAIN:
+      ├─ All existing functionality
+      ├─ Test coverage
+      └─ Backward compatibility (flag if not possible)
+```
+
+### When User Reports a Bug/Failure
+
+```
+IF request contains "failing" OR "broken" OR "error" OR "bug":
+  ├─ Ask for:
+  │   ├─ Error message/stack trace
+  │   ├─ Test file name
+  │   ├─ Environment (dev, test, prod)
+  │   └─ Steps to reproduce
+  ├─ Analyze for common issues:
+  │   ├─ Timing issues (add proper waits)
+  │   ├─ Stale elements (refresh locators)
+  │   ├─ Environment differences (check config)
+  │   ├─ Flaky selectors (suggest more robust locators)
+  │   └─ Data dependencies (check test data setup)
+  ├─ Provide:
+  │   ├─ Root cause analysis
+  │   ├─ Fixed code with explanations
+  │   ├─ Prevention strategies
+  │   └─ Enhanced error handling
+  └─ Suggest:
+      ├─ Additional logging points
+      ├─ Retry logic if appropriate
+      └─ Monitoring/alerting improvements
+```
+
+---
+
+## 3. Code Templates by Framework
+
+### Playwright Test Template (TypeScript)
+
+```typescript
+import { test, expect, Page } from '@playwright/test';
+import { LoginPage } from '../pages/login.page';
+import { VaultService } from '../utils/vault.service';
+import { Logger } from '../utils/logger';
+
+/**
+ * Test Suite: [Feature Name]
+ * Description: [What this test suite validates]
+ * Owner: [Team/Person]
+ */
+test.describe('[Feature Name] Tests', () => {
+  let loginPage: LoginPage;
+  let credentials: { username: string; password: string };
+  const logger = new Logger('FeatureName');
+
+  test.beforeEach(async ({ page }) => {
+    // Fetch credentials from Vault (NEVER hardcode)
+    credentials = await VaultService.getCredentials('test-user');
+    loginPage = new LoginPage(page);
+    
+    logger.info('Test setup completed');
+  });
+
+  test.afterEach(async ({ page }, testInfo) => {
+    if (testInfo.status !== 'passed') {
+      // Capture screenshot on failure
+      await page.screenshot({ 
+        path: `screenshots/${testInfo.title}-${Date.now()}.png`,
+        fullPage: true 
+      });
+      logger.error(`Test failed: ${testInfo.title}`, testInfo.error);
+    }
+  });
+
+  /**
+   * @Smoke @Functional
+   * Test: Validate successful user login
+   * Preconditions: User exists in system
+   * Expected: User redirected to dashboard
+   */
+  test('[ACTION_VERB] [WHAT] [EXPECTED_RESULT]', { 
+    tag: ['@Smoke', '@Functional'] 
+  }, async ({ page }) => {
+    try {
+      logger.info('Starting login test');
+      
+      // Navigate to application
+      await loginPage.navigate();
+      logger.info('Navigated to login page');
+      
+      // Perform login
+      await loginPage.login(credentials.username, credentials.password);
+      logger.info('Login credentials submitted');
+      
+      // Validate successful login
+      await expect(page).toHaveURL(/.*dashboard/);
+      await expect(page.locator('[data-testid="welcome-message"]')).toBeVisible();
+      
+      logger.info('Login validation successful');
+    } catch (error) {
+      logger.error('Login test failed', error);
+      throw error;
+    }
+  });
+});
+```
+
+### Page Object Model Template (TypeScript)
+
+```typescript
+import { Page, Locator } from '@playwright/test';
+import { Logger } from '../utils/logger';
+
+/**
+ * Page Object: [Page Name]
+ * Description: Represents [page description] and its interactions
+ */
+export class LoginPage {
+  readonly page: Page;
+  readonly logger: Logger;
+  
+  // Locators - use data-testid or stable attributes
+  readonly usernameInput: Locator;
+  readonly passwordInput: Locator;
+  readonly loginButton: Locator;
+  readonly errorMessage: Locator;
+
+  constructor(page: Page) {
+    this.page = page;
+    this.logger = new Logger('LoginPage');
+    
+    // Define locators with robust selectors
+    this.usernameInput = page.locator('[data-testid="username-input"]');
+    this.passwordInput = page.locator('[data-testid="password-input"]');
+    this.loginButton = page.locator('[data-testid="login-button"]');
+    this.errorMessage = page.locator('[data-testid="error-message"]');
+  }
+
+  /**
+   * Navigate to login page
+   */
+  async navigate(): Promise<void> {
+    await this.page.goto('/login');
+    await this.page.waitForLoadState('networkidle');
+    this.logger.info('Navigated to login page');
+  }
+
+  /**
+   * Perform login action
+   * @param username - User's username
+   * @param password - User's password
+   */
+  async login(username: string, password: string): Promise<void> {
+    try {
+      await this.usernameInput.fill(username);
+      this.logger.info(`Username entered: ${username}`);
+      
+      await this.passwordInput.fill(password);
+      this.logger.info('Password entered');
+      
+      await this.loginButton.click();
+      this.logger.info('Login button clicked');
+      
+      // Wait for navigation or error
+      await Promise.race([
+        this.page.waitForURL(/.*dashboard/, { timeout: 10000 }),
+        this.errorMessage.waitFor({ state: 'visible', timeout: 10000 })
+      ]);
+    } catch (error) {
+      this.logger.error('Login failed', error);
+      throw new Error(`Login action failed: ${error.message}`);
+    }
+  }
+
+  /**
+   * Check if error message is displayed
+   * @returns True if error is visible
+   */
+  async hasError(): Promise<boolean> {
+    return await this.errorMessage.isVisible();
+  }
+
+  /**
+   * Get error message text
+   * @returns Error message content
+   */
+  async getErrorMessage(): Promise<string> {
+    const message = await this.errorMessage.textContent();
+    this.logger.info(`Error message: ${message}`);
+    return message || '';
+  }
+}
+```
+
+### Karate API Test Template
+
+```gherkin
+Feature: API Test - [Feature Name]
+  Description: [What this API test validates]
+  
+  Background:
+    * url baseUrl
+    * def credentials = callonce read('classpath:vault-service.js')
+    * header Content-Type = 'application/json'
+    * header Authorization = 'Bearer ' + credentials.token
+
+  @Smoke @API
+  Scenario: Validate successful API response
+    Given path '/api/v1/endpoint'
+    And request { "key": "value" }
+    When method POST
+    Then status 200
+    And match response == 
+      """
+      {
+        "status": "success",
+        "data": "#object",
+        "timestamp": "#string"
+      }
+      """
+    And match response.data contains { id: '#notnull' }
+
+  @Functional @API
+  Scenario Outline: Validate multiple scenarios
+    Given path '/api/v1/endpoint'
+    And request { "param": "<param>" }
+    When method GET
+    Then status <expectedStatus>
+    And match response.result == "<expectedResult>"
+    
+    Examples:
+      | param | expectedStatus | expectedResult |
+      | valid | 200            | success        |
+      | invalid | 400          | error          |
+
+  @Regression @API
+  Scenario: Validate error handling
+    Given path '/api/v1/endpoint'
+    And request { "invalid": "data" }
+    When method POST
+    Then status 400
+    And match response.error == '#present'
+    And match response.error.message == '#string'
+    And match response.error.code == '#number'
+```
+
+### Utility Functions Template
+
+```typescript
+// vault.service.ts
+import { Logger } from './logger';
+
+export class VaultService {
+  private static logger = new Logger('VaultService');
+
+  /**
+   * Fetch credentials from HashiCorp Vault
+   * @param credentialPath - Path to credential in Vault
+   * @returns Credentials object
+   */
+  static async getCredentials(credentialPath: string): Promise<any> {
+    try {
+      // NEVER hardcode credentials
+      const vaultUrl = process.env.VAULT_URL;
+      const vaultToken = process.env.VAULT_TOKEN;
+      
+      this.logger.info(`Fetching credentials from Vault: ${credentialPath}`);
+      
+      // Implement Vault API call
+      const response = await fetch(`${vaultUrl}/v1/secret/data/${credentialPath}`, {
+        headers: {
+          'X-Vault-Token': vaultToken
         }
+      });
+      
+      if (!response.ok) {
+        throw new Error(`Vault request failed: ${response.statusText}`);
+      }
+      
+      const data = await response.json();
+      this.logger.info('Credentials fetched successfully');
+      
+      return data.data.data;
+    } catch (error) {
+      this.logger.error('Failed to fetch credentials from Vault', error);
+      throw error;
+    }
+  }
+}
 
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: #f5f8fa;
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
+// logger.ts
+export class Logger {
+  private context: string;
+
+  constructor(context: string) {
+    this.context = context;
+  }
+
+  info(message: string, data?: any): void {
+    console.log(`[${new Date().toISOString()}] [INFO] [${this.context}] ${message}`, data || '');
+  }
+
+  error(message: string, error?: any): void {
+    console.error(`[${new Date().toISOString()}] [ERROR] [${this.context}] ${message}`, error || '');
+  }
+
+  warn(message: string, data?: any): void {
+    console.warn(`[${new Date().toISOString()}] [WARN] [${this.context}] ${message}`, data || '');
+  }
+
+  debug(message: string, data?: any): void {
+    if (process.env.DEBUG === 'true') {
+      console.debug(`[${new Date().toISOString()}] [DEBUG] [${this.context}] ${message}`, data || '');
+    }
+  }
+}
+
+// wait.utils.ts
+import { Page } from '@playwright/test';
+
+export class WaitUtils {
+  /**
+   * Wait for element to be visible and stable
+   * @param page - Playwright page object
+   * @param selector - Element selector
+   * @param timeout - Max wait time in ms
+   */
+  static async waitForElementStable(page: Page, selector: string, timeout = 10000): Promise<void> {
+    const element = page.locator(selector);
+    await element.waitFor({ state: 'visible', timeout });
+    await element.waitFor({ state: 'stable', timeout });
+  }
+
+  /**
+   * Wait for network to be idle
+   * @param page - Playwright page object
+   */
+  static async waitForNetworkIdle(page: Page): Promise<void> {
+    await page.waitForLoadState('networkidle');
+  }
+
+  /**
+   * Custom wait with retry logic
+   * @param condition - Async function that returns boolean
+   * @param timeout - Max wait time in ms
+   * @param interval - Check interval in ms
+   */
+  static async waitForCondition(
+    condition: () => Promise<boolean>,
+    timeout = 10000,
+    interval = 500
+  ): Promise<void> {
+    const startTime = Date.now();
+    
+    while (Date.now() - startTime < timeout) {
+      if (await condition()) {
+        return;
+      }
+      await new Promise(resolve => setTimeout(resolve, interval));
+    }
+    
+    throw new Error(`Condition not met within ${timeout}ms`);
+  }
+}
+```
+
+---
+
+## 4. Naming Conventions (Detailed)
+
+### Test File Naming
+```typescript
+// ✅ GOOD
+login.spec.ts
+user-profile-update.spec.ts
+withdrawal-process-e2e.spec.ts
+loan-calculator-api.feature
+
+// ❌ BAD
+test1.spec.ts
+myTest.spec.ts
+LoginTest.spec.ts (wrong case)
+```
+
+### Test Names
+```typescript
+// ✅ GOOD - Action verb + what + expected result
+test('validate successful login with valid credentials', ...)
+test('verify error message displayed for invalid password', ...)
+test('confirm loan amount calculated correctly', ...)
+
+// ❌ BAD
+test('test 1', ...)
+test('login', ...)
+test('should work', ...)
+```
+
+### Method Names
+```typescript
+// ✅ GOOD - Verbs describing action
+async fillLoginForm(username: string, password: string): Promise<void>
+async validateDashboardLoaded(): Promise<boolean>
+async fetchUserData(userId: string): Promise<User>
+
+// ❌ BAD
+async form(u, p) // Not descriptive
+async check() // Too vague
+async data() // Not a verb
+```
+
+### Variable Names
+```typescript
+// ✅ GOOD - Descriptive, camelCase
+const userName: string = 'testuser';
+const isLoggedIn: boolean = false;
+const accountBalance: number = 1000.50;
+const userProfileData: UserProfile = await fetchProfile();
+
+// ❌ BAD
+const x = 'testuser'; // Not descriptive
+const UserName = 'test'; // Wrong case
+const data = await fetch(); // Too generic
+```
+
+### Class Names
+```typescript
+// ✅ GOOD - PascalCase, descriptive
+export class LoginPage { }
+export class UserProfileService { }
+export class WithdrawalRequestValidator { }
+
+// ❌ BAD
+export class login { } // Wrong case
+export class page { } // Too generic
+export class LP { } // Abbreviation unclear
+```
+
+### Constants
+```typescript
+// ✅ GOOD - UPPER_SNAKE_CASE for true constants
+const MAX_RETRY_ATTEMPTS = 3;
+const DEFAULT_TIMEOUT_MS = 30000;
+const API_BASE_URL = process.env.API_URL;
+
+// Configuration objects - camelCase
+const testConfig = {
+  browser: 'chromium',
+  headless: true,
+  timeout: 30000
+};
+
+// ❌ BAD
+const max = 3; // Not clear it's a constant
+const TIMEOUT = 30; // Missing units
+```
+
+---
+
+## 5. Error Handling Patterns
+
+### Try-Catch Implementation
+```typescript
+// ✅ COMPREHENSIVE ERROR HANDLING
+async performComplexOperation(): Promise<void> {
+  try {
+    logger.info('Starting complex operation');
+    
+    // Step 1
+    await this.step1();
+    logger.info('Step 1 completed');
+    
+    // Step 2
+    await this.step2();
+    logger.info('Step 2 completed');
+    
+    // Step 3
+    await this.step3();
+    logger.info('Step 3 completed');
+    
+  } catch (error) {
+    // Log error with context
+    logger.error('Complex operation failed', {
+      errorMessage: error.message,
+      stack: error.stack,
+      timestamp: new Date().toISOString()
+    });
+    
+    // Capture screenshot if browser context available
+    if (this.page) {
+      await this.page.screenshot({ 
+        path: `error-screenshots/${Date.now()}.png` 
+      });
+    }
+    
+    // Re-throw with more context
+    throw new Error(`Complex operation failed at step: ${error.message}`);
+  } finally {
+    // Cleanup resources
+    logger.info('Cleaning up resources');
+    await this.cleanup();
+  }
+}
+```
+
+### Assertion with Meaningful Messages
+```typescript
+// ✅ GOOD - Clear assertion messages
+await expect(page.locator('[data-testid="balance"]'))
+  .toHaveText('$1,000.50', { 
+    timeout: 5000,
+    message: 'Account balance should display $1,000.50 after deposit'
+  });
+
+await expect(response.status).toBe(200, 
+  `Expected successful response, got ${response.status}`
+);
+
+// ❌ BAD - No context
+await expect(page.locator('[data-testid="balance"]')).toHaveText('$1,000.50');
+```
+
+### Retry Logic for Flaky Operations
+```typescript
+/**
+ * Retry operation with exponential backoff
+ */
+async retryOperation<T>(
+  operation: () => Promise<T>,
+  maxAttempts = 3,
+  delayMs = 1000
+): Promise<T> {
+  for (let attempt = 1; attempt <= maxAttempts; attempt++) {
+    try {
+      logger.info(`Attempt ${attempt}/${maxAttempts}`);
+      return await operation();
+    } catch (error) {
+      if (attempt === maxAttempts) {
+        logger.error(`All ${maxAttempts} attempts failed`, error);
+        throw error;
+      }
+      
+      const delay = delayMs * Math.pow(2, attempt - 1); // Exponential backoff
+      logger.warn(`Attempt ${attempt} failed, retrying in ${delay}ms`, error);
+      await new Promise(resolve => setTimeout(resolve, delay));
+    }
+  }
+  
+  throw new Error('Operation failed after all retries');
+}
+
+// Usage
+const userData = await retryOperation(() => 
+  fetchUserDataFromAPI(userId), 
+  3, 
+  2000
+);
+```
+
+---
+
+## 6. Test Tagging Strategy
+
+### Tag Application Rules
+```typescript
+// ✅ CORRECT TAGGING
+test('validate login redirects to dashboard', { 
+  tag: ['@Smoke', '@Functional', '@E2E'] 
+}, async ({ page }) => {
+  // Test implementation
+});
+
+// Multiple related tags allowed
+test('verify 401k withdrawal calculation', { 
+  tag: ['@Functional', '@Regression', '@FinancialCalculation'] 
+}, async ({ page }) => {
+  // Test implementation
+});
+
+// ❌ INCORRECT - No tags
+test('some test', async ({ page }) => {
+  // This will fail code review
+});
+```
+
+### Tag Definitions with Use Cases
+```
+@Smoke
+├─ Purpose: Critical path validation
+├─ Execution: Before every deployment
+├─ Target Duration: <10 minutes
+└─ Example: Login, navigation, critical transactions
+
+@Functional
+├─ Purpose: Feature acceptance validation
+├─ Execution: Per sprint/feature
+├─ Target Duration: <30 minutes
+└─ Example: New feature validation, edge cases
+
+@Regression
+├─ Purpose: Comprehensive system validation
+├─ Execution: Nightly builds, pre-release
+├─ Target Duration: <2 hours
+└─ Example: All functional scenarios
+
+@E2E
+├─ Purpose: Complete user journey validation
+├─ Execution: Daily, pre-release
+├─ Target Duration: <45 minutes
+└─ Example: User onboarding, loan application process
+
+@Health
+├─ Purpose: System health checks
+├─ Execution: Continuous (synthetic monitoring)
+├─ Target Duration: <5 minutes
+└─ Example: Service availability, database connectivity
+
+@Visual
+├─ Purpose: UI consistency validation
+├─ Execution: Per UI change
+├─ Target Duration: <20 minutes
+└─ Example: Screenshot comparison, responsive design
+
+@Accessibility
+├─ Purpose: ADA/WCAG compliance validation
+├─ Execution: Per UI change
+├─ Target Duration: <15 minutes
+└─ Example: Screen reader compatibility, keyboard navigation
+
+@API
+├─ Purpose: API contract and functionality validation
+├─ Execution: Per API change
+├─ Target Duration: <15 minutes
+└─ Example: Endpoint validation, response schema
+
+@Performance
+├─ Purpose: Load and performance validation
+├─ Execution: Weekly, pre-release
+├─ Target Duration: <1 hour
+└─ Example: Load testing, stress testing, response time validation
+```
+
+### Custom Domain Tags
+```
+@401k - Tests specific to 401k processing
+@Loans - Tests specific to loan functionality
+@Withdrawals - Tests specific to withdrawal processing
+@Hardship - Tests specific to hardship withdrawals
+@FocusPoint - Tests specific to FocusPoint application
+@Angular - Tests specific to Angular UI components
+```
+
+---
+
+## 7. Secrets and PII Management
+
+### CRITICAL SECURITY RULES
+
+```typescript
+// ❌ NEVER DO THIS - Hardcoded credentials
+const username = 'admin@fidelity.com';
+const password = 'SuperSecret123!';
+const apiKey = 'sk-1234567890abcdef';
+
+// ❌ NEVER DO THIS - PII in logs
+logger.info(`User SSN: ${userSSN}`);
+logger.info(`Account number: ${accountNumber}`);
+
+// ✅ ALWAYS DO THIS - Fetch from Vault
+const credentials = await VaultService.getCredentials('qa/test-user');
+const apiKey = await VaultService.getSecret('api-keys/internal-service');
+
+// ✅ MASK PII in logs
+logger.info(`User SSN: ***-**-${userSSN.slice(-4)}`);
+logger.info(`Account: ****${accountNumber.slice(-4)}`);
+```
+
+### Vault Integration Pattern
+```typescript
+export class VaultService {
+  private static vaultClient: VaultClient;
+
+  static async initialize(): Promise<void> {
+    this.vaultClient = new VaultClient({
+      endpoint: process.env.VAULT_URL,
+      token: process.env.VAULT_TOKEN
+    });
+  }
+
+  /**
+   * Fetch test user credentials
+   * @param userType - Type of test user (admin, standard, readonly)
+   */
+  static async getTestUser(userType: string): Promise<TestUser> {
+    const path = `qa/users/${userType}`;
+    const secret = await this.vaultClient.read(path);
+    
+    return {
+      username: secret.data.username,
+      password: secret.data.password,
+      role: secret.data.role
+    };
+  }
+
+  /**
+   * Fetch API credentials
+   * @param serviceName - Name of the service
+   */
+  static async getAPICredentials(serviceName: string): Promise<APICredentials> {
+    const path = `qa/api-keys/${serviceName}`;
+    const secret = await this.vaultClient.read(path);
+    
+    return {
+      apiKey: secret.data.apiKey,
+      apiSecret: secret.data.apiSecret,
+      endpoint: secret.data.endpoint
+    };
+  }
+}
+
+// Usage in tests
+test.beforeEach(async () => {
+  const testUser = await VaultService.getTestUser('standard');
+  const apiCreds = await VaultService.getAPICredentials('retirement-api');
+  
+  // Use credentials in test
+});
+```
+
+### PII Masking Utility
+```typescript
+export class PIIMasker {
+  /**
+   * Mask Social Security Number
+   */
+  static maskSSN(ssn: string): string {
+    if (!ssn || ssn.length < 4) return '***-**-****';
+    return `***-**-${ssn.slice(-4)}`;
+  }
+
+  /**
+   * Mask account number
+   */
+  static maskAccount(account: string): string {
+    if (!account || account.length < 4) return '********';
+    return `****${account.slice(-4)}`;
+  }
+
+  /**
+   * Mask email address
+   */
+  static maskEmail(email: string): string {
+    const [local, domain] = email.split('@');
+    if (!local || !domain) return '***@***.com';
+    return `${local.slice(0, 2)}***@${domain}`;
+  }
+
+  /**
+   * Mask credit card
+   */
+  static maskCreditCard(card: string): string {
+    if (!card || card.length < 4) return '****-****-****-****';
+    return `****-****-****-${card.slice(-4)}`;
+  }
+}
+
+// Usage in logging
+logger.info('User logged in', {
+  username: testUser.username,
+  ssn: PIIMasker.maskSSN(testUser.ssn),
+  account: PIIMasker.maskAccount(testUser.accountNumber)
+});
+```
+
+---
+
+## 8. Code Review Checklist
+
+### Pre-Commit Validation (AI Should Check)
+
+```markdown
+## Test Implementation
+- [ ] Test has descriptive name with action verb
+- [ ] Test has at least one appropriate tag
+- [ ] Test follows Page Object Model pattern
+- [ ] Test includes error handling (try-catch)
+- [ ] Test captures screenshots on failure
+- [ ] Test includes comprehensive logging
+- [ ] Assertions have descriptive failure messages
+
+## Code Quality
+- [ ] No hardcoded credentials or PII
+- [ ] All secrets fetched from Vault
+- [ ] No implicit waits or sleep() calls
+- [ ] No code duplication (extracted to utilities)
+- [ ] Follows naming conventions (camelCase, PascalCase, kebab-case)
+- [ ] No commented-out code
+- [ ] No console.log() statements (use logger)
+
+## Documentation
+- [ ] Complex logic has explanatory comments
+- [ ] Public methods have JSDoc comments
+- [ ] Test suite has description header
+- [ ] Test has preconditions and expected results documented
+
+## Error Handling
+- [ ] Try-catch blocks around critical operations
+- [ ] Errors logged with context
+- [ ] Screenshots captured on failure
+- [ ] Cleanup in finally blocks
+- [ ] Meaningful error messages
+
+## Performance
+- [ ] Uses explicit waits appropriately
+- [ ] No unnecessary delays
+- [ ] Efficient locator strategies
+- [ ] Proper cleanup of resources
+
+## Security
+- [ ] No credentials in code
+- [ ] PII properly masked in logs
+- [ ] Vault integration for secrets
+- [ ] No sensitive data in screenshots
+
+## Maintainability
+- [ ] Code is modular and reusable
+- [ ] Page objects properly structured
+- [ ] Utilities extracted for common functions
+- [ ] Test data externalized
+- [ ] Config values in environment variables
+```
+
+### AI Code Review Response Template
+
+When reviewing code, AI should respond in this format:
+
+```markdown
+## Code Review Summary
+
+### ✅ Strengths
+- List what's done well
+
+### ⚠️ Issues Found
+1. **[Severity: Critical/High/Medium/Low]** Issue description
+   - Current code: `code snippet`
+   - Problem: Explanation
+   - Fix: `corrected code snippet`
+   - Why: Explanation of why this matters
+
+### 🔧 Suggested Improvements
+- Optional enhancements for better code quality
+
+### 📊 Checklist Status
+[X] Item passed
+[ ] Item needs attention
+
+### 🎯 Recommendation
+**[Approve / Approve with changes / Request changes]**
+Summary of recommendation
+```
+
+---
+
+## 9. Integration with Observability Tools
+
+### Report Portal Integration
+```typescript
+import { Reporter } from '@reportportal/agent-js-playwright';
+
+// playwright.config.ts
+export default defineConfig({
+  reporter: [
+    ['@reportportal/agent-js-playwright', {
+      apiKey: process.env.REPORT_PORTAL_API_KEY,
+      endpoint: process.env.REPORT_PORTAL_ENDPOINT,
+      project: 'fidelity-qa-automation',
+      launch: 'Regression Suite',
+      description: 'Automated test execution',
+      attributes: [
+        { key: 'environment', value: 'qa' },
+        { key: 'team', value: 'quality-engineering' }
+      ]
+    }]
+  ]
+});
+
+// Custom logging to Report Portal
+test('example with RP logging', async ({ page }) => {
+  // Log info
+  await test.info().annotations.push({ 
+    type: 'info', 
+    description: 'Starting user login flow' 
+  });
+  
+  // Log screenshot
+  const screenshot = await page.screenshot();
+  await test.info().attach('login-page', {
+    body: screenshot,
+    contentType: 'image/png'
+  });
+});
+```
+
+### Datadog Metrics
+```typescript
+import { StatsD } from 'node-dogstatsd';
+
+export class DatadogMetrics {
+  private static client = new StatsD({
+    host: process.env.DATADOG_HOST,
+    port: 8125
+  });
+
+  /**
+   * Track test execution time
+   */
+  static trackTestDuration(testName: string, duration: number): void {
+    this.client.timing('test.execution.duration', duration, {
+      test_name: testName,
+      environment: process.env.ENV
+    });
+  }
+
+  /**
+   * Track test result
+   */
+  static trackTestResult(testName: string, passed: boolean): void {
+    this.client.increment('test.execution.count', {
+      test_name: testName,
+      result: passed ? 'passed' : 'failed',
+      environment: process.env.ENV
+    });
+  }
+
+  /**
+   * Track flaky test
+   */
+  static trackFlakyTest(testName: string): void {
+    this.client.increment('test.flaky.count', {
+      test_name: testName
+    });
+  }
+}
+
+// Usage in test
+test.afterEach(async ({}, testInfo) => {
+  DatadogMetrics.trackTestDuration(testInfo.title, testInfo.duration);
+  DatadogMetrics.trackTestResult(testInfo.title, testInfo.status === 'passed');
+});
+```
+
+### Grafana Dashboard Metrics
+```typescript
+// Push custom metrics to Grafana
+export class GrafanaMetrics {
+  /**
+   * Push quality score metrics
+   */
+  static async pushQualityScore(score: QualityScore): Promise<void> {
+    const metrics = [
+      {
+        name: 'qa.quality_score.total',
+        value: score.total,
+        timestamp: Date.now()
+      },
+      {
+        name: 'qa.quality_score.pass_rate',
+        value: score.passRate,
+        timestamp: Date.now()
+      },
+      {
+        name: 'qa.quality_score.coverage',
+        value: score.coverage,
+        timestamp: Date.now()
+      }
+    ];
+
+    await fetch(process.env.GRAFANA_PUSH_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(metrics)
+    });
+  }
+}
+```
+
+### Jira/Xray Integration
+```typescript
+/**
+ * Automatically create Jira issues for test failures
+ */
+export class JiraIntegration {
+  static async createBugForFailure(testInfo: TestInfo, error: Error): Promise<string> {
+    const jiraClient = new JiraClient({
+      host: process.env.JIRA_HOST,
+      apiKey: await VaultService.getSecret('jira/api-key')
+    });
+
+    const issue = await jiraClient.createIssue({
+      fields: {
+        project: { key: 'QE' },
+        summary: `Test Failure: ${testInfo.title}`,
+        description: formatFailureDescription(testInfo, error),
+        issuetype: { name: 'Bug' },
+        priority: { name: 'High' },
+        labels: ['automation-failure', 'qa'],
+        components: [{ name: 'Automation' }],
+        customFields: {
+          'Test File': testInfo.file,
+          'Environment': process.env.ENV,
+          'Test Tags': testInfo.tags.join(', ')
         }
+      }
+    });
 
-        .container {
-            display: flex;
-            gap: 16px;
-            align-items: stretch;
-        }
+    return issue.key;
+  }
+}
 
-        .tile {
-            background: white;
-            border-radius: 8px;
-            padding: 20px;
-            width: 180px;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            border: 1px solid #e1e8ed;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
-            position: relative;
-            overflow: hidden;
-            animation: slideUp 0.4s ease-out;
-            text-align: center;
-        }
+function formatFailureDescription(testInfo: TestInfo, error: Error): string {
+  return `
+h3. Test Details
+* Test Name: ${testInfo.title}
+* Test File: ${testInfo.file}
+* Duration: ${testInfo.duration}ms
+* Tags: ${testInfo.tags.join(', ')}
 
-        .tile:nth-child(1) { animation-delay: 0.1s; }
-        .tile:nth-child(2) { animation-delay: 0.2s; }
+h3. Error Details
+{code:javascript}
+${error.message}
+${error.stack}
+{code}
 
-        @keyframes slideUp {
-            0% {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            100% {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
+h3. Steps to Reproduce
+1. Run test: \`${testInfo.title}\`
+2. Environment: ${process.env.ENV}
 
-        .tile:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
-            border-color: var(--tile-color);
-        }
+h3. Attachments
+See attached screenshots and logs
+  `;
+}
+```
 
-        .tile:active {
-            transform: translateY(0);
-            transition: all 0.1s ease;
-        }
+---
 
-        .contact-tile {
-            --tile-color: #ff7a59;
-        }
+## 10. Performance and Compliance
 
-        .miro-tile {
-            --tile-color: #0091ae;
-        }
+### Performance Requirements
+```typescript
+// Set performance budgets
+test('page should load within performance budget', async ({ page }) => {
+  const startTime = Date.now();
+  
+  await page.goto('/dashboard');
+  await page.waitForLoadState('networkidle');
+  
+  const loadTime = Date.now() - startTime;
+  
+  // Performance assertion
+  expect(loadTime).toBeLessThan(3000); // 3 second budget
+  
+  // Log performance metric
+  logger.info('Page load performance', {
+    loadTime,
+    budget: 3000,
+    status: loadTime < 3000 ? 'pass' : 'fail'
+  });
+});
 
-        .tile-icon {
-            width: 40px;
-            height: 40px;
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 12px auto;
-            font-size: 18px;
-        }
+// Monitor API response times
+test('API should respond within SLA', async ({ request }) => {
+  const startTime = Date.now();
+  
+  const response = await request.get('/api/v1/accounts');
+  
+  const responseTime = Date.now() - startTime;
+  
+  expect(response.status()).toBe(200);
+  expect(responseTime).toBeLessThan(500); // 500ms SLA
+});
+```
 
-        .contact-tile .tile-icon {
-            background: linear-gradient(135deg, #ff7a59, #ff9472);
-            color: white;
-        }
+### Compliance Requirements
+```typescript
+/**
+ * FINTECH COMPLIANCE CHECKLIST
+ * 
+ * For tests handling financial data:
+ * 1. All PII must be masked in logs
+ * 2. No financial data in screenshots
+ * 3. Audit trail must be maintained
+ * 4. Test data must be properly segregated
+ * 5. Access must be role-based
+ */
 
-        .miro-tile .tile-icon {
-            background: linear-gradient(135deg, #0091ae, #00a4bd);
-            color: white;
-        }
+// Audit trail logging
+export class AuditLogger {
+  static logTestAction(action: string, details: any): void {
+    const auditEntry = {
+      timestamp: new Date().toISOString(),
+      action,
+      user: process.env.TEST_USER,
+      environment: process.env.ENV,
+      details: sanitizeForAudit(details)
+    };
+    
+    // Send to audit logging system
+    sendToAuditLog(auditEntry);
+  }
+}
 
-        .tile h3 {
-            font-size: 14px;
-            margin-bottom: 6px;
-            color: #33475b;
-            font-weight: 600;
-            line-height: 1.3;
-        }
+function sanitizeForAudit(data: any): any {
+  // Remove or mask sensitive fields
+  const sanitized = { ...data };
+  
+  if (sanitized.ssn) sanitized.ssn = PIIMasker.maskSSN(sanitized.ssn);
+  if (sanitized.accountNumber) sanitized.accountNumber = PIIMasker.maskAccount(sanitized.accountNumber);
+  if (sanitized.password) delete sanitized.password;
+  
+  return sanitized;
+}
+```
 
-        .tile p {
-            color: #7c98b6;
-            font-size: 12px;
-            line-height: 1.4;
-            margin-bottom: 14px;
-        }
+---
 
-        .tile-button {
-            background: var(--tile-color);
-            color: white;
-            padding: 6px 12px;
-            border: none;
-            border-radius: 4px;
-            font-size: 11px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            text-decoration: none;
-            display: inline-block;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
+## 11. AI-Specific Instructions
 
-        .tile-button:hover {
-            transform: translateY(-1px);
-            opacity: 0.9;
-        }
+### When Generating Test Code
 
-        .status-indicator {
-            position: absolute;
-            top: 8px;
-            right: 8px;
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
-            background: #00a4bd;
-        }
+```
+ALWAYS:
+1. Start with Page Object Model pattern
+2. Include comprehensive error handling
+3. Add appropriate test tags
+4. Use Vault for credentials
+5. Add meaningful logging
+6. Capture screenshots on failure
+7. Include JSDoc comments
+8. Follow naming conventions strictly
+9. Add assertions with descriptive messages
+10. Use explicit waits only
 
-        .contact-tile .status-indicator {
-            background: #ff7a59;
-        }
+NEVER:
+1. Hardcode credentials
+2. Use implicit waits or sleep()
+3. Skip error handling
+4. Create tests without tags
+5. Leave commented code
+6. Use generic variable names
+7. Skip documentation
+8. Ignore PII masking requirements
+9. Create duplicate code
+10. Use console.log() (use logger instead)
+```
 
-        .miro-tile .status-indicator {
-            background: #0091ae;
-        }
+### Code Generation Workflow
 
-        /* Ripple effect */
-        .ripple {
-            position: absolute;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.6);
-            transform: scale(0);
-            animation: ripple-animation 0.6s linear;
-            pointer-events: none;
-        }
+```
+STEP 1: Clarify Requirements
+├─ Ask about test type (UI/API/E2E)
+├─ Ask about framework (Playwright/Karate/Selenium)
+├─ Ask about scope and user flow
+└─ Confirm expected outcomes
 
-        @keyframes ripple-animation {
-            to {
-                transform: scale(4);
-                opacity: 0;
-            }
-        }
-    </style>
-</head>
-<body>
-    <div class="container">
-        <!-- 1. Contact ELT Tile -->
-        <div class="tile contact-tile" onclick="contactELT(event)">
-            <div class="status-indicator"></div>
-            <div class="tile-icon">📧</div>
-            <h3>Contact ELT</h3>
-            <p>Reach leadership team</p>
-            <div class="tile-button">Email</div>
-        </div>
+STEP 2: Generate Structure
+├─ Create page object(s) if needed
+├─ Create utility functions if needed
+├─ Set up proper imports
+└─ Define test suite structure
 
-        <!-- 2. Miro Documentation Tile -->
-        <div class="tile miro-tile" onclick="openMiro(event)">
-            <div class="status-indicator"></div>
-            <div class="tile-icon">📋</div>
-            <h3>Follow Our Miro</h3>
-            <p>Official documentation</p>
-            <div class="tile-button">View Docs</div>
-        </div>
-    </div>
+STEP 3: Implement Test Logic
+├─ Add setup (beforeEach)
+├─ Add teardown (afterEach)
+├─ Implement test steps
+├─ Add assertions
+└─ Add error handling
 
-    <script>
-        function contactELT(e) {
-            createRipple(e);
-            setTimeout(() => {
-                window.location.href = 'mailto:costello.stephen@gmail.com';
-            }, 150);
-        }
+STEP 4: Add Observability
+├─ Add logging statements
+├─ Add screenshot capture
+├─ Add performance tracking
+└─ Add metrics reporting
 
-        function openMiro(e) {
-            createRipple(e);
-            setTimeout(() => {
-                window.open('https://miro.com/app/board/', '_blank');
-            }, 150);
-        }
+STEP 5: Review & Validate
+├─ Check against code review checklist
+├─ Verify naming conventions
+├─ Confirm no hardcoded secrets
+├─ Validate error handling
+└─ Ensure proper documentation
+```
 
-        function createRipple(e) {
-            const tile = e.currentTarget;
-            const ripple = document.createElement('div');
-            const rect = tile.getBoundingClientRect();
-            const size = Math.max(rect.width, rect.height);
-            const x = e.clientX - rect.left - size / 2;
-            const y = e.clientY - rect.top - size / 2;
-            
-            ripple.className = 'ripple';
-            ripple.style.width = ripple.style.height = size + 'px';
-            ripple.style.left = x + 'px';
-            ripple.style.top = y + 'px';
-            
-            tile.appendChild(ripple);
-            
-            setTimeout(() => {
-                ripple.remove();
-            }, 600);
-        }
+### Response Format for Test Generation
 
-        // Animate status indicators
-        document.addEventListener('DOMContentLoaded', function() {
-            const indicators = document.querySelectorAll('.status-indicator');
-            indicators.forEach((indicator, index) => {
-                setTimeout(() => {
-                    indicator.style.animation = 'pulse 2s infinite';
-                }, index * 200);
-            });
-        });
+```markdown
+## Generated Test Implementation
 
-        // Add pulse animation
-        const style = document.createElement('style');
-        style.textContent = `
-            @keyframes pulse {
-                0%, 100% { 
-                    opacity: 1; 
-                    transform: scale(1); 
-                }
-                50% { 
-                    opacity: 0.7; 
-                    transform: scale(1.1); 
-                }
-            }
-        `;
-        document.head.appendChild(style);
-    </script>
-</body>
-</html>
+### Overview
+[Brief description of what the test does]
+
+### Files Created
+1. `path/to/test.spec.ts` - Main test file
+2. `path/to/page.page.ts` - Page object (if applicable)
+3. `path/to/utils.ts` - Utility functions (if applicable)
+
+### Code
+
+[Full code implementation with explanations]
+
+### Usage
+```bash
+# Run this specific test
+npx playwright test path/to/test.spec.ts
+
+# Run with specific tags
+npx playwright test --grep @Smoke
+```
+
+### Notes
+- [Any important notes about the implementation]
+- [Dependencies or setup required]
+- [Known limitations or future improvements]
+
+### Validation Checklist
+- [x] Follows naming conventions
+- [x] Includes error handling
+- [x] Has appropriate tags
+- [x] Uses Page Object Model
+- [x] No hardcoded credentials
+- [x] Comprehensive logging
+- [x] Screenshot capture on failure
+```
+
+---
+
+## 12. Common Anti-Patterns to Avoid
+
+### ❌ Anti-Pattern: Hardcoded Waits
+```typescript
+// BAD
+await page.waitForTimeout(5000); // Never use fixed timeouts
+await new Promise(resolve => setTimeout(resolve, 3000));
+
+// GOOD
+await page.waitForSelector('[data-testid="element"]', { state: 'visible' });
+await page.waitForLoadState('networkidle');
+await expect(page.locator('[data-testid="element"]')).toBeVisible();
+```
+
+### ❌ Anti-Pattern: Fragile Selectors
+```typescript
+// BAD - Fragile selectors
+await page.click('body > div:nth-child(3) > button');
+await page.click('.submit-btn'); // Class name may change
+
+// GOOD - Stable selectors
+await page.click('[data-testid="submit-button"]');
+await page.click('[aria-label="Submit form"]');
+await page.click('button:has-text("Submit")');
+```
+
+### ❌ Anti-Pattern: No Error Context
+```typescript
+// BAD
+try {
+  await page.click('button');
+} catch (error) {
+  throw error; // No context added
+}
+
+// GOOD
+try {
+  await page.click('[data-testid="submit-button"]');
+} catch (error) {
+  logger.error('Failed to click submit button', {
+    error: error.message,
+    selector: '[data-testid="submit-button"]',
+    pageUrl: page.url()
+  });
+  
+  await page.screenshot({ path: 'error-submit-button.png' });
+  
+  throw new Error(`Submit button click failed: ${error.message}`);
+}
+```
+
+### ❌ Anti-Pattern: Test Interdependence
+```typescript
+// BAD - Tests depend on execution order
+test('create user', async () => {
+  await createUser();
+  globalUserId = userId; // Setting global state
+});
+
+test('update user', async () => {
+  await updateUser(globalUserId); // Depends on previous test
+});
+
+// GOOD - Independent tests
+test('create user', async () => {
+  const userId = await createUser();
+  expect(userId).toBeDefined();
+  
+  // Cleanup
+  await deleteUser(userId);
+});
+
+test('update user', async () => {
+  // Create fresh user for this test
+  const userId = await createUser();
+  
+  await updateUser(userId);
+  expect(await getUser(userId)).toHaveProperty('updated', true);
+  
+  // Cleanup
+  await deleteUser(userId);
+});
+```
+
+### ❌ Anti-Pattern: Unclear Assertions
+```typescript
+// BAD
+expect(result).toBeTruthy();
+expect(data.length).toBeGreaterThan(0);
+
+// GOOD
+expect(result.success).toBe(true, 'API call should succeed');
+expect(data.accounts).toHaveLength(3, 'User should have exactly 3 accounts');
+expect(data.balance).toBeCloseTo(1000.50, 2, 'Balance should match expected value');
+```
+
+---
+
+## 13. Fintech-Specific Testing Considerations
+
+### Financial Calculations
+```typescript
+// ALWAYS use precise decimal arithmetic for financial calculations
+import Decimal from 'decimal.js';
+
+test('validate 401k withdrawal calculation', async ({ page }) => {
+  const principal = new Decimal('100000.00');
+  const withdrawalRate = new Decimal('0.04'); // 4%
+  
+  const expectedWithdrawal = principal.times(withdrawalRate);
+  
+  await page.fill('[data-testid="principal"]', principal.toString());
+  await page.fill('[data-testid="rate"]', withdrawalRate.times(100).toString());
+  await page.click('[data-testid="calculate"]');
+  
+  const displayedAmount = await page.locator('[data-testid="withdrawal-amount"]').textContent();
+  const actualAmount = new Decimal(displayedAmount.replace(/[$,]/g, ''));
+  
+  // Use Decimal comparison for financial assertions
+  expect(actualAmount.equals(expectedWithdrawal)).toBe(true, 
+    `Expected ${expectedWithdrawal.toString()} but got ${actualAmount.toString()}`
+  );
+});
+```
+
+### Regulatory Compliance Testing
+```typescript
+/**
+ * Test hardship withdrawal eligibility per IRS regulations
+ * Reference: IRS Publication 575
+ */
+test('@Compliance validate hardship withdrawal eligibility', async ({ page }) => {
+  const logger = new Logger('HardshipWithdrawalTest');
+  
+  // Test must verify IRS hardship withdrawal criteria
+  const eligibilityCriteria = {
+    medicalExpenses: true,
+    primaryResidencePurchase: true,
+    tuitionPayment: true,
+    preventEviction: true,
+    funeralExpenses: true,
+    repairDamage: true
+  };
+  
+  for (const [reason, shouldBeEligible] of Object.entries(eligibilityCriteria)) {
+    logger.info(`Testing hardship reason: ${reason}`);
+    
+    await page.selectOption('[data-testid="hardship-reason"]', reason);
+    await page.click('[data-testid="check-eligibility"]');
+    
+    const isEligible = await page.locator('[data-testid="eligibility-result"]')
+      .textContent() === 'Eligible';
+    
+    expect(isEligible).toBe(shouldBeEligible, 
+      `Hardship reason '${reason}' eligibility check failed`
+    );
+    
+    // Audit log for compliance
+    AuditLogger.logTestAction('hardship_eligibility_check', {
+      reason,
+      result: isEligible,
+      regulation: 'IRS Publication 575'
+    });
+  }
+});
+```
+
+### Transaction Testing
+```typescript
+/**
+ * Test transaction processing with proper audit trail
+ */
+test('@E2E @Financial process loan distribution', async ({ page }) => {
+  const transactionId = `TXN-${Date.now()}`;
+  const logger = new Logger('LoanDistribution');
+  
+  // Start transaction audit
+  AuditLogger.logTestAction('transaction_start', {
+    transactionId,
+    type: 'loan_distribution'
+  });
+  
+  try {
+    // Step 1: Verify account balance
+    const initialBalance = await getAccountBalance(page);
+    logger.info('Initial balance verified', { balance: initialBalance });
+    
+    // Step 2: Process loan
+    const loanAmount = new Decimal('10000.00');
+    await page.fill('[data-testid="loan-amount"]', loanAmount.toString());
+    await page.click('[data-testid="submit-loan"]');
+    
+    // Step 3: Wait for processing
+    await page.waitForSelector('[data-testid="transaction-complete"]');
+    
+    // Step 4: Verify final balance
+    const finalBalance = await getAccountBalance(page);
+    const expectedBalance = new Decimal(initialBalance).plus(loanAmount);
+    
+    expect(new Decimal(finalBalance).equals(expectedBalance)).toBe(true,
+      'Balance should reflect loan distribution'
+    );
+    
+    // Audit success
+    AuditLogger.logTestAction('transaction_complete', {
+      transactionId,
+      initialBalance,
+      finalBalance,
+      loanAmount: loanAmount.toString(),
+      status: 'success'
+    });
+    
+  } catch (error) {
+    // Audit failure
+    AuditLogger.logTestAction('transaction_failed', {
+      transactionId,
+      error: error.message,
+      status: 'failed'
+    });
+    throw error;
+  }
+});
+```
+
+---
+
+## 14. Continuous Improvement
+
+### Test Metrics to Track
+- **Pass Rate**: Target >95%
+- **Execution Time**: Smoke <10min, Regression <2hrs
+- **Flakiness Rate**: Target <2%
+- **Code Coverage**: Target >80%
+- **Mean Time to Detect (MTTD)**: Track defect detection speed
+- **Mean Time to Repair (MTTR)**: Track fix implementation speed
+
+### Regular Review Cycles
+- **Weekly**: Review failed tests, update flaky tests
+- **Monthly**: Review test coverage, retire obsolete tests
+- **Quarterly**: Review framework versions, update dependencies
+- **Annually**: Comprehensive framework assessment
+
+---
+
+## Conclusion
+
+This enhanced prompt file provides comprehensive guidance for AI coding assistants to generate high-quality, maintainable, and compliant test automation code for Fidelity's quality engineering initiatives. By following these standards, we ensure consistency, security, and excellence across all automation efforts.
+
+**Remember**: Quality is not just about finding bugs—it's about building confidence in our systems and protecting our customers' financial futures.
+
+---
+
+## Quick Links
+- Vault Documentation: [Internal Link]
+- Report Portal Dashboard: [Internal Link]
+- Grafana QE Dashboard: [Internal Link]
+- Jira QE Board: [Internal Link]
+- Testing Standards Wiki: [Internal Link]
+
+---
+
+**Version**: 1.0  
+**Last Updated**: November 2025  
+**Owner**: Quality Engineering Chapter  
+**Contact**: [Your Team Email]
